@@ -39,7 +39,7 @@ func ExampleRuntimeFile() {
 	}
 
 	// the runtime file can be opened at the returned path
-	fmt.Println(runtimeFilePath)
+	fmt.Println("Runtime file location: ", runtimeFilePath)
 }
 
 func ExampleSearchDataFile() {
@@ -50,7 +50,7 @@ func ExampleSearchDataFile() {
 	}
 
 	// the data file was found at the returned path
-	fmt.Println(dataFilePath)
+	fmt.Println("The data file was found at: ", dataFilePath)
 }
 
 func ExampleSearchConfigFile() {
@@ -61,7 +61,7 @@ func ExampleSearchConfigFile() {
 	}
 
 	// the config file was found at the returned path
-	fmt.Println(configFilePath)
+	fmt.Println("The config file was found at: ", configFilePath)
 }
 
 func ExampleSearchCacheFile() {
@@ -72,7 +72,7 @@ func ExampleSearchCacheFile() {
 	}
 
 	// the cache file was found at the returned path
-	fmt.Println(cacheFilePath)
+	fmt.Println("The cache file was found at: ", cacheFilePath)
 }
 
 func ExampleSearchRuntimeFile() {
@@ -83,5 +83,5 @@ func ExampleSearchRuntimeFile() {
 	}
 
 	// the runtime file was found at the returned path
-	fmt.Println(runtimeFilePath)
+	fmt.Println("The runtime file was found at: ", runtimeFilePath)
 }
