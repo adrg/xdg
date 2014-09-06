@@ -1,6 +1,5 @@
 xdg
 ===
-
 Provides an implementation of the XDG Base Directory Specification. The
 specification defines a set of standard paths for storing application files
 including data and configuration files. For portability and flexibility
@@ -10,7 +9,6 @@ hardcoding paths.
 Full documentation can be found at: http://godoc.org/github.com/adrg/xdg
 
 ##Installation
-
     go get github.com/adrg/xdg
 
 ##Usage
@@ -72,10 +70,10 @@ func main() {
 ```
 
 ## References
-
 For more information see the
 [XDG Base Directory Specification](http://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html)
 
 ## License
+Copyright (c) 2014 Adrian-George Bostan.
 
-Copyright (c) 2014 Adrian-George Bostan. See LICENSE for copying permission.
+This project is licensed under the [MIT license](http://opensource.org/licenses/MIT). See LICENSE for more details.
