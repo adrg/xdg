@@ -1,5 +1,8 @@
 xdg
 ===
+[![GoDoc](http://img.shields.io/badge/godoc-reference-blue.svg?style=flat-square)](https://godoc.org/github.com/adrg/xdg)
+[![License: MIT](http://img.shields.io/badge/license-MIT-red.svg?style=flat-square)](http://opensource.org/licenses/MIT)
+
 Provides an implementation of the XDG Base Directory Specification. The
 specification defines a set of standard paths for storing application files
 including data and configuration files. For portability and flexibility
