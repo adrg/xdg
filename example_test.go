@@ -1,9 +1,13 @@
-package xdg
+package xdg_test
 
-import "fmt"
+import (
+	"fmt"
+
+	"github.com/adrg/xdg"
+)
 
 func ExampleDataFile() {
-	dataFilePath, err := DataFile("appname/appdata.data")
+	dataFilePath, err := xdg.DataFile("appname/appdata.data")
 	if err != nil {
 		// treat error
 	}
@@ -13,7 +17,7 @@ func ExampleDataFile() {
 }
 
 func ExampleConfigFile() {
-	configFilePath, err := DataFile("appname/config.yaml")
+	configFilePath, err := xdg.ConfigFile("appname/config.yaml")
 	if err != nil {
 		// treat error
 	}
@@ -23,7 +27,7 @@ func ExampleConfigFile() {
 }
 
 func ExampleCacheFile() {
-	cacheFilePath, err := DataFile("appname/app.cache")
+	cacheFilePath, err := xdg.CacheFile("appname/app.cache")
 	if err != nil {
 		// treat error
 	}
@@ -33,7 +37,7 @@ func ExampleCacheFile() {
 }
 
 func ExampleRuntimeFile() {
-	runtimeFilePath, err := DataFile("appname/app.pid")
+	runtimeFilePath, err := xdg.RuntimeFile("appname/app.pid")
 	if err != nil {
 		// treat error
 	}
@@ -43,7 +47,7 @@ func ExampleRuntimeFile() {
 }
 
 func ExampleSearchDataFile() {
-	dataFilePath, err := SearchDataFile("appname/appdata.data")
+	dataFilePath, err := xdg.SearchDataFile("appname/appdata.data")
 	if err != nil {
 		// the data file could not be found
 		// treat error
@@ -54,7 +58,7 @@ func ExampleSearchDataFile() {
 }
 
 func ExampleSearchConfigFile() {
-	configFilePath, err := SearchConfigFile("appname/config.yaml")
+	configFilePath, err := xdg.SearchConfigFile("appname/config.yaml")
 	if err != nil {
 		// the config file could not be found
 		// treat error
@@ -65,7 +69,7 @@ func ExampleSearchConfigFile() {
 }
 
 func ExampleSearchCacheFile() {
-	cacheFilePath, err := SearchCacheFile("appname/app.cache")
+	cacheFilePath, err := xdg.SearchCacheFile("appname/app.cache")
 	if err != nil {
 		// the cache file could not be found
 		// treat error
@@ -76,7 +80,7 @@ func ExampleSearchCacheFile() {
 }
 
 func ExampleSearchRuntimeFile() {
-	runtimeFilePath, err := SearchRuntimeFile("appname/app.pid")
+	runtimeFilePath, err := xdg.SearchRuntimeFile("appname/app.pid")
 	if err != nil {
 		// the runtime file could not be found
 		// treat error
