@@ -11,10 +11,10 @@ hardcoding paths.
 
 Full documentation can be found at: http://godoc.org/github.com/adrg/xdg
 
-##Installation
+## Installation
     go get github.com/adrg/xdg
 
-##Usage
+## Usage
 
 ```go
 package main
