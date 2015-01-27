@@ -11,7 +11,6 @@ of hardcoding paths.
 package xdg
 
 import (
-	"errors"
 	"fmt"
 	"os"
 	"path"
@@ -223,7 +222,7 @@ func searchFile(name string, paths []string) (string, error) {
 	}
 
 	msg := "Could not locate `%s` in the following paths: %s"
-	return "", errors.New(fmt.Sprintf(msg, name, strings.Join(paths, ", ")))
+	return "", fmt.Errorf(msg, name, strings.Join(paths, ", "))
 }
 
 func createPath(name string, paths []string) (string, error) {
@@ -245,7 +244,7 @@ func createPath(name string, paths []string) (string, error) {
 	}
 
 	msg := "Could not create any of the following paths: %s"
-	return "", errors.New(fmt.Sprintf(msg, strings.Join(triedPaths, ", ")))
+	return "", fmt.Errorf(msg, strings.Join(triedPaths, ", "))
 }
 
 func exists(filePath string) bool {
