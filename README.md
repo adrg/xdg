@@ -1,7 +1,8 @@
 xdg
 ===
-[![GoDoc](http://img.shields.io/badge/godoc-reference-blue.svg?style=flat-square)](https://godoc.org/github.com/adrg/xdg)
-[![License: MIT](http://img.shields.io/badge/license-MIT-red.svg?style=flat-square)](http://opensource.org/licenses/MIT)
+[![GoDoc](https://img.shields.io/badge/godoc-reference-blue.svg?style=flat-square)](https://godoc.org/github.com/adrg/xdg)
+[![License: MIT](https://img.shields.io/badge/license-MIT-red.svg?style=flat-square)](https://opensource.org/licenses/MIT)
+[![Go Report Card](https://goreportcard.com/badge/github.com/adrg/xdg)](https://goreportcard.com/report/github.com/adrg/xdg)
 
 Provides an implementation of the XDG Base Directory Specification. The
 specification defines a set of standard paths for storing application files
@@ -9,7 +10,7 @@ including data and configuration files. For portability and flexibility
 reasons, applications should use the XDG defined locations instead of
 hardcoding paths.
 
-Full documentation can be found at: http://godoc.org/github.com/adrg/xdg
+Full documentation can be found at: https://godoc.org/github.com/adrg/xdg
 
 ## Installation
     go get github.com/adrg/xdg
@@ -74,9 +75,16 @@ func main() {
 
 ## References
 For more information see the
-[XDG Base Directory Specification](http://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html)
+[XDG Base Directory Specification](https://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html)
+
+## Contributing
+
+Contributions in the form of pull requests, issues or just general feedback,
+are always welcome.
+See [CONTRIBUTING.MD](https://github.com/adrg/xdg/blob/master/CONTRIBUTING.md).
 
 ## License
 Copyright (c) 2014 Adrian-George Bostan.
 
-This project is licensed under the [MIT license](http://opensource.org/licenses/MIT). See LICENSE for more details.
+This project is licensed under the [MIT license](https://opensource.org/licenses/MIT).
+See [LICENSE](https://github.com/adrg/xdg/blob/master/LICENSE) for more details.
