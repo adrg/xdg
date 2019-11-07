@@ -96,24 +96,6 @@ func ExampleUserDirectories_DownloadedFile() {
 	fmt.Println("Save downloaded file at:", downloadedFilePath)
 }
 
-func ExampleUserDirectories_TemplateFile() {
-	templateFilePath, err := xdg.UserDirs.TemplateFile("dir/file.tpl")
-	if err != nil {
-		// Treat error.
-	}
-
-	fmt.Println("Save template file at:", templateFilePath)
-}
-
-func ExampleUserDirectories_PublicFile() {
-	publicFilePath, err := xdg.UserDirs.PublicFile("dir/file.ext")
-	if err != nil {
-		// Treat error.
-	}
-
-	fmt.Println("Save public file at:", publicFilePath)
-}
-
 func ExampleUserDirectories_DocumentFile() {
 	documentFilePath, err := xdg.UserDirs.DocumentFile("dir/file.txt")
 	if err != nil {
@@ -150,6 +132,24 @@ func ExampleUserDirectories_VideoFile() {
 	fmt.Println("Save video file at:", videoFilePath)
 }
 
+func ExampleUserDirectories_TemplateFile() {
+	templateFilePath, err := xdg.UserDirs.TemplateFile("dir/file.tpl")
+	if err != nil {
+		// Treat error.
+	}
+
+	fmt.Println("Save template file at:", templateFilePath)
+}
+
+func ExampleUserDirectories_PublicFile() {
+	publicFilePath, err := xdg.UserDirs.PublicFile("dir/file.ext")
+	if err != nil {
+		// Treat error.
+	}
+
+	fmt.Println("Save public file at:", publicFilePath)
+}
+
 func ExampleUserDirectories_SearchDesktopFile() {
 	desktopFilePath, err := xdg.UserDirs.SearchDesktopFile("dir/file.ext")
 	if err != nil {
@@ -166,24 +166,6 @@ func ExampleUserDirectories_SearchDownloadedFile() {
 	}
 
 	fmt.Println("The downloaded file was found at:", downloadedFilePath)
-}
-
-func ExampleUserDirectories_SearchTemplateFile() {
-	templateFilePath, err := xdg.UserDirs.SearchTemplateFile("dir/file.tpl")
-	if err != nil {
-		// The template file could not be found.
-	}
-
-	fmt.Println("The template file was found at:", templateFilePath)
-}
-
-func ExampleUserDirectories_SearchPublicFile() {
-	publicFilePath, err := xdg.UserDirs.SearchPublicFile("dir/file.ext")
-	if err != nil {
-		// The public file could not be found.
-	}
-
-	fmt.Println("The public file was found at:", publicFilePath)
 }
 
 func ExampleUserDirectories_SearchDocumentFile() {
@@ -220,4 +202,22 @@ func ExampleUserDirectories_SearchVideoFile() {
 	}
 
 	fmt.Println("The video file was found at:", videoFilePath)
+}
+
+func ExampleUserDirectories_SearchTemplateFile() {
+	templateFilePath, err := xdg.UserDirs.SearchTemplateFile("dir/file.tpl")
+	if err != nil {
+		// The template file could not be found.
+	}
+
+	fmt.Println("The template file was found at:", templateFilePath)
+}
+
+func ExampleUserDirectories_SearchPublicFile() {
+	publicFilePath, err := xdg.UserDirs.SearchPublicFile("dir/file.ext")
+	if err != nil {
+		// The public file could not be found.
+	}
+
+	fmt.Println("The public file was found at:", publicFilePath)
 }

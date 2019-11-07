@@ -20,12 +20,6 @@ type UserDirectories struct {
 	// Download defines a suitable location for user downloaded files.
 	Download string
 
-	// Templates defines a suitable location for user template files.
-	Templates string
-
-	// PublicShare defines a suitable location for user shared files.
-	PublicShare string
-
 	// Documents defines a suitable location for user document files.
 	Documents string
 
@@ -37,6 +31,12 @@ type UserDirectories struct {
 
 	// VideosDir defines a suitable location for user video files.
 	Videos string
+
+	// Templates defines a suitable location for user template files.
+	Templates string
+
+	// PublicShare defines a suitable location for user shared files.
+	PublicShare string
 }
 
 // DesktopFile returns a suitable location for the specified file on the
@@ -57,26 +57,6 @@ func (ud UserDirectories) DesktopFile(relPath string) (string, error) {
 // attempted paths is returned.
 func (ud UserDirectories) DownloadedFile(relPath string) (string, error) {
 	return createPath(relPath, []string{ud.Download})
-}
-
-// TemplateFile returns a suitable location for the specified file in the
-// user's templates directory. The relPath parameter must contain the name of
-// the file, and optionally, a set of parent directories (e.g. dir/file.tpl).
-// If the specified directories do not exist, they will be created relative
-// to the user's templates directory. On failure, an error containing the
-// attempted paths is returned.
-func (ud UserDirectories) TemplateFile(relPath string) (string, error) {
-	return createPath(relPath, []string{ud.Templates})
-}
-
-// PublicFile returns a suitable location for the specified file in the
-// user's public directory. The relPath parameter must contain the name of
-// the file, and optionally, a set of parent directories (e.g. dir/file.ext).
-// If the specified directories do not exist, they will be created relative
-// to the user's public directory. On failure, an error containing the
-// attempted paths is returned.
-func (ud UserDirectories) PublicFile(relPath string) (string, error) {
-	return createPath(relPath, []string{ud.PublicShare})
 }
 
 // DocumentFile returns a suitable location for the specified file in the
@@ -119,6 +99,26 @@ func (ud UserDirectories) VideoFile(relPath string) (string, error) {
 	return createPath(relPath, []string{ud.Videos})
 }
 
+// TemplateFile returns a suitable location for the specified file in the
+// user's templates directory. The relPath parameter must contain the name of
+// the file, and optionally, a set of parent directories (e.g. dir/file.tpl).
+// If the specified directories do not exist, they will be created relative
+// to the user's templates directory. On failure, an error containing the
+// attempted paths is returned.
+func (ud UserDirectories) TemplateFile(relPath string) (string, error) {
+	return createPath(relPath, []string{ud.Templates})
+}
+
+// PublicFile returns a suitable location for the specified file in the
+// user's public directory. The relPath parameter must contain the name of
+// the file, and optionally, a set of parent directories (e.g. dir/file.ext).
+// If the specified directories do not exist, they will be created relative
+// to the user's public directory. On failure, an error containing the
+// attempted paths is returned.
+func (ud UserDirectories) PublicFile(relPath string) (string, error) {
+	return createPath(relPath, []string{ud.PublicShare})
+}
+
 // SearchDesktopFile searches for the specified file on the user's desktop
 // directory. The relPath parameter must contain the name of the file, and
 // optionally, a set of parent directories (e.g. dir/file.ext). If the
@@ -133,22 +133,6 @@ func (ud UserDirectories) SearchDesktopFile(relPath string) (string, error) {
 // file cannot be found, an error specifying the searched path is returned.
 func (ud UserDirectories) SearchDownloadedFile(relPath string) (string, error) {
 	return searchFile(relPath, []string{ud.Download})
-}
-
-// SearchTemplateFile searches for the specified file in the user's templates
-// directory. The relPath parameter must contain the name of the template file,
-// and optionally, a set of parent directories (e.g. dir/file.tpl). If the
-// file cannot be found, an error specifying the searched path is returned.
-func (ud UserDirectories) SearchTemplateFile(relPath string) (string, error) {
-	return searchFile(relPath, []string{ud.Templates})
-}
-
-// SearchPublicFile searches for the specified file in the user's public
-// directory. The relPath parameter must contain the name of the file, and
-// optionally, a set of parent directories (e.g. dir/file.ext). If the
-// file cannot be found, an error specifying the searched path is returned.
-func (ud UserDirectories) SearchPublicFile(relPath string) (string, error) {
-	return searchFile(relPath, []string{ud.PublicShare})
 }
 
 // SearchDocumentFile searches for the specified file in the user's documents
@@ -181,4 +165,20 @@ func (ud UserDirectories) SearchImageFile(relPath string) (string, error) {
 // file cannot be found, an error specifying the searched path is returned.
 func (ud UserDirectories) SearchVideoFile(relPath string) (string, error) {
 	return searchFile(relPath, []string{ud.Videos})
+}
+
+// SearchTemplateFile searches for the specified file in the user's templates
+// directory. The relPath parameter must contain the name of the template file,
+// and optionally, a set of parent directories (e.g. dir/file.tpl). If the
+// file cannot be found, an error specifying the searched path is returned.
+func (ud UserDirectories) SearchTemplateFile(relPath string) (string, error) {
+	return searchFile(relPath, []string{ud.Templates})
+}
+
+// SearchPublicFile searches for the specified file in the user's public
+// directory. The relPath parameter must contain the name of the file, and
+// optionally, a set of parent directories (e.g. dir/file.ext). If the
+// file cannot be found, an error specifying the searched path is returned.
+func (ud UserDirectories) SearchPublicFile(relPath string) (string, error) {
+	return searchFile(relPath, []string{ud.PublicShare})
 }
