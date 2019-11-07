@@ -73,7 +73,7 @@ var (
 )
 
 func init() {
-	Home := os.Getenv("HOME")
+	Home = os.Getenv("HOME")
 
 	DataHome = xdgPath("DATA_HOME", path.Join(Home, ".local/share"))
 	ConfigHome = xdgPath("CONFIG_HOME", path.Join(Home, ".config"))
