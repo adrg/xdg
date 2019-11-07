@@ -42,10 +42,10 @@ func initUserDirs(home string) {
 
 	UserDirs.Desktop = xdgPath(envDesktopDir, filepath.Join(home, "Desktop"))
 	UserDirs.Download = xdgPath(envDownloadDir, filepath.Join(home, "Downloads"))
-	UserDirs.Documents = xdgPath(envDownloadDir, filepath.Join(home, "Documents"))
-	UserDirs.Music = xdgPath(envDownloadDir, filepath.Join(home, "Music"))
-	UserDirs.Pictures = xdgPath(envDownloadDir, filepath.Join(home, "Pictures"))
-	UserDirs.Videos = xdgPath(envDownloadDir, filepath.Join(home, "Videos"))
-	UserDirs.Templates = xdgPath(envDownloadDir, filepath.Join(home, "Templates"))
-	UserDirs.PublicShare = xdgPath(envDownloadDir, publicDir)
+	UserDirs.Documents = xdgPath(envDocumentsDir, filepath.Join(home, "Documents"))
+	UserDirs.Music = xdgPath(envMusicDir, filepath.Join(home, "Music"))
+	UserDirs.Pictures = xdgPath(envPicturesDir, filepath.Join(home, "Pictures"))
+	UserDirs.Videos = xdgPath(envVideosDir, filepath.Join(home, "Videos"))
+	UserDirs.Templates = xdgPath(envTemplatesDir, filepath.Join(home, "Templates"))
+	UserDirs.PublicShare = xdgPath(envPublicShareDir, publicDir)
 }
