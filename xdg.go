@@ -74,7 +74,10 @@ var (
 	baseDirs baseDirectories
 )
 
-func init() {
+// Reload refreshes base and user directories by reading the environment.
+// Defaults are applied for XDG variables which are empty or not present
+// in the environment.
+func Reload() {
 	// Initialize home directory.
 	Home = homeDir()
 
@@ -161,4 +164,8 @@ func SearchCacheFile(relPath string) (string, error) {
 // file cannot be found, an error specifying the searched path is returned.
 func SearchRuntimeFile(relPath string) (string, error) {
 	return baseDirs.searchRuntimeFile(relPath)
+}
+
+func init() {
+	Reload()
 }
