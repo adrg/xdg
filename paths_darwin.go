@@ -10,7 +10,7 @@ func initBaseDirs(home string) {
 	baseDirs.ConfigHome = xdgPath(envConfigHome, filepath.Join(home, "Library", "Preferences"))
 	baseDirs.Config = xdgPaths(envConfigDirs)
 	baseDirs.CacheHome = xdgPath(envCacheHome, filepath.Join(home, "Library", "Caches"))
-	baseDirs.Runtime = xdgPath(envDataHome, filepath.Join(home, "Library", "Application Support"))
+	baseDirs.Runtime = xdgPath(envRuntimeDir, filepath.Join(home, "Library", "Application Support"))
 }
 
 func initUserDirs(home string) {
