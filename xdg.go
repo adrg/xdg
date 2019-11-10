@@ -4,7 +4,8 @@ Specification. The specification defines a set of standard paths for storing
 application files including data and configuration files. For portability and
 flexibility reasons, applications should use the XDG defined locations instead
 of hardcoding paths. The package also includes the locations of well known user
-directories. The current implementation supports Linux, Windows and Mac OS.
+directories. The current implementation supports Windows, Mac OS and most
+flavors of Unix.
 
 	For more information regarding the XDG Base Directory Specification see:
 	https://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html

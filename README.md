@@ -10,7 +10,7 @@ The specification defines a set of standard paths for storing application files,
 including data and configuration files. For portability and flexibility reasons,
 applications should use the XDG defined locations instead of hardcoding paths.
 The package also includes the locations of well known user directories.
-The current implementation supports Linux, Windows and Mac OS.
+The current implementation supports Windows, Mac OS and most flavors of Unix.
 
 Full documentation can be found at: https://godoc.org/github.com/adrg/xdg
 
