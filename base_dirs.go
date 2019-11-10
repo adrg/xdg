@@ -5,11 +5,11 @@ import "os"
 // XDG Base Directory environment variables.
 var (
 	envDataHome   = "XDG_DATA_HOME"
+	envDataDirs   = "XDG_DATA_DIRS"
 	envConfigHome = "XDG_CONFIG_HOME"
+	envConfigDirs = "XDG_CONFIG_DIRS"
 	envCacheHome  = "XDG_CACHE_HOME"
 	envRuntimeDir = "XDG_RUNTIME_DIR"
-	envDataDirs   = "XDG_DATA_DIRS"
-	envConfigDirs = "XDG_CONFIG_DIRS"
 )
 
 type baseDirectories struct {
