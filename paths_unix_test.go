@@ -42,7 +42,7 @@ func TestDefaultBaseDirs(t *testing.T) {
 		},
 		&envSample{
 			name:     "XDG_RUNTIME_DIR",
-			expected: filepath.Join(os.TempDir(), strconv.Itoa(os.Getuid())),
+			expected: filepath.Join("/run/user", strconv.Itoa(os.Getuid())),
 			actual:   &xdg.RuntimeDir,
 		},
 	)

@@ -14,7 +14,7 @@ func initBaseDirs(home string) {
 	baseDirs.ConfigHome = xdgPath(envConfigHome, filepath.Join(home, ".config"))
 	baseDirs.Config = xdgPaths(envConfigDirs, "/etc/xdg")
 	baseDirs.CacheHome = xdgPath(envCacheHome, filepath.Join(home, ".cache"))
-	baseDirs.Runtime = xdgPath(envRuntimeDir, filepath.Join(os.TempDir(), strconv.Itoa(os.Getuid())))
+	baseDirs.Runtime = xdgPath(envRuntimeDir, filepath.Join("/run/user", strconv.Itoa(os.Getuid())))
 }
 
 func initUserDirs(home string) {
