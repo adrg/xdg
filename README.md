@@ -1,5 +1,6 @@
 xdg
 ===
+[![Build Status](https://travis-ci.org/adrg/xdg.svg?branch=master)](https://travis-ci.org/adrg/xdg)
 [![GoDoc](https://img.shields.io/badge/godoc-reference-blue.svg?style=flat-square)](https://godoc.org/github.com/adrg/xdg)
 [![License: MIT](https://img.shields.io/badge/license-MIT-red.svg?style=flat-square)](https://opensource.org/licenses/MIT)
 [![Go Report Card](https://goreportcard.com/badge/github.com/adrg/xdg)](https://goreportcard.com/report/github.com/adrg/xdg)
@@ -8,14 +9,42 @@ Provides an implementation of the [XDG Base Directory Specification](https://sta
 The specification defines a set of standard paths for storing application files,
 including data and configuration files. For portability and flexibility reasons,
 applications should use the XDG defined locations instead of hardcoding paths.
-The package also includes the locations of well known user directories, based
-on [XDG user directories](https://wiki.archlinux.org/index.php/XDG_user_directories).
+The package also includes the locations of well known user directories.
 The current implementation supports Linux, Windows and Mac OS.
 
 Full documentation can be found at: https://godoc.org/github.com/adrg/xdg
 
 ## Installation
     go get github.com/adrg/xdg
+
+## Default locations
+
+The package defines sensible defaults for XDG variables which are empty or not
+present in the environment.
+
+#### XDG Base Directory
+
+|                 | Unix                                | Mac                             | Windows                                 |
+| :---            | :---                                | :---                            | :---                                    |
+| XDG_DATA_HOME   | `~/.local/share`                    | `~/Library/Application Support` | `%LOCALAPPDATA%`                        |
+| XDG_DATA_DIRS   | `/usr/local/share`<br/>`/usr/share` | `/Library/Application Support`  | `%APPDATA%\Roaming`<br/>`%PROGRAMDATA%` |
+| XDG_CONFIG_HOME | `~/.config`                         | `~/Library/Preferences`         | `%LOCALAPPDATA%`                        |
+| XDG_CONFIG_DIRS | `/etc/xdg`                          | `/Library/Preferences`          | `%PROGRAMDATA%`                         |
+| XDG_CACHE_HOME  | `~/.cache`                          | `~/Library/Caches`              | `%LOCALAPPDATA%\cache`                  |
+| XDG_RUNTIME_DIR | `/run/user/UID`                     | `~/Library/Application Support` | `%LOCALAPPDATA%`                        |
+
+#### XDG user directories
+
+|                     | Unix          | Mac           | Windows                   |
+| :---                | :---          | :---          | :---                      |
+| XDG_DESKTOP_DIR     | `~/Desktop`   | `~/Desktop`   | `%USERPROFILE%/Desktop`   |
+| XDG_DOWNLOAD_DIR    | `~/Downloads` | `~/Downloads` | `%USERPROFILE%/Downloads` |
+| XDG_DOCUMENTS_DIR   | `~/Documents` | `~/Documents` | `%USERPROFILE%/Documents` |
+| XDG_MUSIC_DIR       | `~/Music`     | `~/Music`     | `%USERPROFILE%/Music`     |
+| XDG_PICTURES_DIR    | `~/Pictures`  | `~/Pictures`  | `%USERPROFILE%/Pictures`  |
+| XDG_VIDEOS_DIR      | `~/Videos`    | `~/Movies`    | `%USERPROFILE%/Videos`    |
+| XDG_TEMPLATES_DIR   | `~/Templates` | `~/Templates` | `%USERPROFILE%/Templates` |
+| XDG_PUBLICSHARE_DIR | `~/Public`    | `~/Public`    | `%PUBLIC%`                |
 
 ## Usage
 
@@ -71,7 +100,7 @@ func main() {
 }
 ```
 
-#### XDG User Directories
+#### XDG user directories
 
 ```go
 package main
