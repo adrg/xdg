@@ -8,7 +8,7 @@ func initBaseDirs(home string) {
 	baseDirs.DataHome = xdgPath(envDataHome, filepath.Join(home, "Library", "Application Support"))
 	baseDirs.Data = xdgPaths(envDataDirs, "/Library/Application Support")
 	baseDirs.ConfigHome = xdgPath(envConfigHome, filepath.Join(home, "Library", "Preferences"))
-	baseDirs.Config = xdgPaths(envConfigDirs)
+	baseDirs.Config = xdgPaths(envConfigDirs, "/Library/Preferences")
 	baseDirs.CacheHome = xdgPath(envCacheHome, filepath.Join(home, "Library", "Caches"))
 	baseDirs.Runtime = xdgPath(envRuntimeDir, filepath.Join(home, "Library", "Application Support"))
 }

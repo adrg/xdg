@@ -1,11 +1,9 @@
-// +build aix dragonfly freebsd linux nacl netbsd openbsd solaris
+// +build darwin
 
 package xdg_test
 
 import (
-	"os"
 	"path/filepath"
-	"strconv"
 	"testing"
 
 	"github.com/adrg/xdg"
@@ -17,32 +15,32 @@ func TestDefaultBaseDirs(t *testing.T) {
 	testDirs(t,
 		&envSample{
 			name:     "XDG_DATA_HOME",
-			expected: filepath.Join(home, ".local/share"),
+			expected: filepath.Join(home, "Library", "Application Support"),
 			actual:   &xdg.DataHome,
 		},
 		&envSample{
 			name:     "XDG_DATA_DIRS",
-			expected: []string{"/usr/local/share", "/usr/share"},
+			expected: []string{"/Library/Application Support"},
 			actual:   &xdg.DataDirs,
 		},
 		&envSample{
 			name:     "XDG_CONFIG_HOME",
-			expected: filepath.Join(home, ".config"),
+			expected: filepath.Join(home, "Library", "Preferences"),
 			actual:   &xdg.ConfigHome,
 		},
 		&envSample{
 			name:     "XDG_CONFIG_DIRS",
-			expected: []string{"/etc/xdg"},
+			expected: []string{"/Library/Preferences"},
 			actual:   &xdg.ConfigDirs,
 		},
 		&envSample{
 			name:     "XDG_CACHE_HOME",
-			expected: filepath.Join(home, ".cache"),
+			expected: filepath.Join(home, "Library", "Caches"),
 			actual:   &xdg.CacheHome,
 		},
 		&envSample{
 			name:     "XDG_RUNTIME_DIR",
-			expected: filepath.Join(os.TempDir(), strconv.Itoa(os.Getuid())),
+			expected: filepath.Join(home, "Library", "Application Support"),
 			actual:   &xdg.RuntimeDir,
 		},
 	)
@@ -54,38 +52,38 @@ func TestCustomBaseDirs(t *testing.T) {
 	testDirs(t,
 		&envSample{
 			name:     "XDG_DATA_HOME",
-			value:    "~/.local/data",
-			expected: filepath.Join(home, ".local/data"),
+			value:    "~/Library/data",
+			expected: filepath.Join(home, "Library/data"),
 			actual:   &xdg.DataHome,
 		},
 		&envSample{
 			name:     "XDG_DATA_DIRS",
-			value:    "~/.local/data:/usr/share",
-			expected: []string{filepath.Join(home, ".local/data"), "/usr/share"},
+			value:    "~/Library/data:/Library/Application Support",
+			expected: []string{filepath.Join(home, "Library/data"), "/Library/Application Support"},
 			actual:   &xdg.DataDirs,
 		},
 		&envSample{
 			name:     "XDG_CONFIG_HOME",
-			value:    "~/.local/config",
-			expected: filepath.Join(home, ".local/config"),
+			value:    "~/Library/config",
+			expected: filepath.Join(home, "Library/config"),
 			actual:   &xdg.ConfigHome,
 		},
 		&envSample{
 			name:     "XDG_CONFIG_DIRS",
-			value:    "~/.local/config:/etc/xdg",
-			expected: []string{filepath.Join(home, ".local/config"), "/etc/xdg"},
+			value:    "~/Library/config:/Library/Preferences",
+			expected: []string{filepath.Join(home, "Library/config"), "/Library/Preferences"},
 			actual:   &xdg.ConfigDirs,
 		},
 		&envSample{
 			name:     "XDG_CACHE_HOME",
-			value:    "~/.local/cache",
-			expected: filepath.Join(home, ".local/cache"),
+			value:    "~/Library/cache",
+			expected: filepath.Join(home, "Library/cache"),
 			actual:   &xdg.CacheHome,
 		},
 		&envSample{
 			name:     "XDG_RUNTIME_DIR",
-			value:    "~/.local/runtime",
-			expected: filepath.Join(home, ".local/runtime"),
+			value:    "~/Library/runtime",
+			expected: filepath.Join(home, "Library/runtime"),
 			actual:   &xdg.RuntimeDir,
 		},
 	)
@@ -122,7 +120,7 @@ func TestDefaultUserDirs(t *testing.T) {
 		},
 		&envSample{
 			name:     "XDG_VIDEOS_DIR",
-			expected: filepath.Join(home, "Videos"),
+			expected: filepath.Join(home, "Movies"),
 			actual:   &xdg.UserDirs.Videos,
 		},
 		&envSample{
@@ -144,50 +142,50 @@ func TestCustomUserDirs(t *testing.T) {
 	testDirs(t,
 		&envSample{
 			name:     "XDG_DESKTOP_DIR",
-			value:    "$HOME/.local/Desktop",
-			expected: filepath.Join(home, ".local/Desktop"),
+			value:    "$HOME/Library/Desktop",
+			expected: filepath.Join(home, "Library/Desktop"),
 			actual:   &xdg.UserDirs.Desktop,
 		},
 		&envSample{
 			name:     "XDG_DOWNLOAD_DIR",
-			value:    "$HOME/.local/Downloads",
-			expected: filepath.Join(home, ".local/Downloads"),
+			value:    "$HOME/Library/Downloads",
+			expected: filepath.Join(home, "Library/Downloads"),
 			actual:   &xdg.UserDirs.Download,
 		},
 		&envSample{
 			name:     "XDG_DOCUMENTS_DIR",
-			value:    "$HOME/.local/Documents",
-			expected: filepath.Join(home, ".local/Documents"),
+			value:    "$HOME/Library/Documents",
+			expected: filepath.Join(home, "Library/Documents"),
 			actual:   &xdg.UserDirs.Documents,
 		},
 		&envSample{
 			name:     "XDG_MUSIC_DIR",
-			value:    "$HOME/.local/Music",
-			expected: filepath.Join(home, ".local/Music"),
+			value:    "$HOME/Library/Music",
+			expected: filepath.Join(home, "Library/Music"),
 			actual:   &xdg.UserDirs.Music,
 		},
 		&envSample{
 			name:     "XDG_PICTURES_DIR",
-			value:    "$HOME/.local/Pictures",
-			expected: filepath.Join(home, ".local/Pictures"),
+			value:    "$HOME/Library/Pictures",
+			expected: filepath.Join(home, "Library/Pictures"),
 			actual:   &xdg.UserDirs.Pictures,
 		},
 		&envSample{
 			name:     "XDG_VIDEOS_DIR",
-			value:    "$HOME/.local/Videos",
-			expected: filepath.Join(home, ".local/Videos"),
+			value:    "$HOME/Library/Movies",
+			expected: filepath.Join(home, "Library/Movies"),
 			actual:   &xdg.UserDirs.Videos,
 		},
 		&envSample{
 			name:     "XDG_TEMPLATES_DIR",
-			value:    "$HOME/.local/Templates",
-			expected: filepath.Join(home, ".local/Templates"),
+			value:    "$HOME/Library/Templates",
+			expected: filepath.Join(home, "Library/Templates"),
 			actual:   &xdg.UserDirs.Templates,
 		},
 		&envSample{
 			name:     "XDG_PUBLICSHARE_DIR",
-			value:    "$HOME/.local/Public",
-			expected: filepath.Join(home, ".local/Public"),
+			value:    "$HOME/Library/Public",
+			expected: filepath.Join(home, "Library/Public"),
 			actual:   &xdg.UserDirs.PublicShare,
 		},
 	)
