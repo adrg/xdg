@@ -121,45 +121,6 @@ func main() {
 	log.Println("Videos directory:", xdg.UserDirs.Videos)
 	log.Println("Templates directory:", xdg.UserDirs.Templates)
 	log.Println("Public directory:", xdg.UserDirs.PublicShare)
-
-	// Obtain a suitable location for user document files.
-	// DocumentFile takes one parameter which must contain the name of the file,
-	// but it can also contain a set of parent directories. If the directories
-	// don't exists, they will be created relative to the user's documents
-	// directory.
-	documentFilePath, err := xdg.UserDirs.DocumentFile("dir/file.txt")
-	if err != nil {
-		log.Fatal(err)
-	}
-	log.Println("Save document file at:", documentFilePath)
-
-	// For other types of user files use:
-	// xdg.DesktopFile()
-	// xdg.DownloadedFile()
-	// xdg.AudioFile()
-	// xdg.ImageFile()
-	// xdg.VideoFile()
-	// xdg.TemplateFile()
-	// xdg.PublicFile()
-
-	// Finding user document files.
-	// SearchDocumentFile takes one parameter which must contain the name of
-	// the file, but it can also contain a set of parent directories relative
-	// to the user's document directory (xdg.UserDirs.Documents).
-	documentFilePath, err = xdg.UserDirs.SearchDocumentFile("dir/file.txt")
-	if err != nil {
-		log.Fatal(err)
-	}
-	log.Println("Document file was found at:", documentFilePath)
-
-	// For other types of user files use:
-	// xdg.SearchDesktopFile()
-	// xdg.SearchDownloadedFile()
-	// xdg.SearchAudioFile()
-	// xdg.SearchImageFile()
-	// xdg.SearchVideoFile()
-	// xdg.SearchTemplateFile()
-	// xdg.SearchPublicFile()
 }
 ```
 
