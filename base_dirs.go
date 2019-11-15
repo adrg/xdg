@@ -13,62 +13,66 @@ var (
 )
 
 type baseDirectories struct {
-	DataHome   string
-	Data       []string
-	ConfigHome string
-	Config     []string
-	CacheHome  string
-	Runtime    string
+	dataHome   string
+	data       []string
+	configHome string
+	config     []string
+	cacheHome  string
+	runtime    string
+
+	// Non-standard directories.
+	fonts        []string
+	applications []string
 }
 
 func (bd baseDirectories) dataFile(relPath string) (string, error) {
-	return createPath(relPath, append([]string{bd.DataHome}, bd.Data...))
+	return createPath(relPath, append([]string{bd.dataHome}, bd.data...))
 }
 
 func (bd baseDirectories) configFile(relPath string) (string, error) {
-	return createPath(relPath, append([]string{bd.ConfigHome}, bd.Config...))
+	return createPath(relPath, append([]string{bd.configHome}, bd.config...))
 }
 
 func (bd baseDirectories) cacheFile(relPath string) (string, error) {
-	return createPath(relPath, []string{bd.CacheHome})
+	return createPath(relPath, []string{bd.cacheHome})
 }
 
 func (bd baseDirectories) runtimeFile(relPath string) (string, error) {
-	fi, err := os.Lstat(bd.Runtime)
+	fi, err := os.Lstat(bd.runtime)
 	if err != nil {
 		if os.IsNotExist(err) {
-			return createPath(relPath, []string{bd.Runtime})
+			return createPath(relPath, []string{bd.runtime})
 		}
 		return "", err
 	}
 
 	if fi.IsDir() {
-		// The Runtime directory must be owned by the user.
-		if err = os.Chown(bd.Runtime, os.Getuid(), os.Getgid()); err != nil {
+		// The runtime directory must be owned by the user.
+		if err = os.Chown(bd.runtime, os.Getuid(), os.Getgid()); err != nil {
 			return "", err
 		}
 	} else {
-		// For security reasons, the Runtime directory cannot be a symlink.
-		if err = os.Remove(bd.Runtime); err != nil {
+		// For security reasons, the runtime directory cannot be a symlink.
+		if err = os.Remove(bd.runtime); err != nil {
 			return "", err
 		}
 	}
 
-	return createPath(relPath, []string{bd.Runtime})
+	return createPath(relPath, []string{bd.runtime})
 }
 
 func (bd baseDirectories) searchDataFile(relPath string) (string, error) {
-	return searchFile(relPath, append([]string{bd.ConfigHome}, bd.Data...))
+	return searchFile(relPath, append([]string{bd.configHome}, bd.data...))
 }
 
 func (bd baseDirectories) searchConfigFile(relPath string) (string, error) {
-	return searchFile(relPath, append([]string{bd.ConfigHome}, bd.Config...))
+	return searchFile(relPath, append([]string{bd.configHome}, bd.config...))
 }
 
 func (bd baseDirectories) searchCacheFile(relPath string) (string, error) {
-	return searchFile(relPath, []string{bd.CacheHome})
+	return searchFile(relPath, []string{bd.cacheHome})
 }
 
 func (bd baseDirectories) searchRuntimeFile(relPath string) (string, error) {
-	return searchFile(relPath, []string{bd.Runtime})
+	return searchFile(relPath, []string{bd.runtime})
 }

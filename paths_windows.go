@@ -26,12 +26,30 @@ func initBaseDirs(home string) {
 		}
 	}
 
-	baseDirs.DataHome = xdgPath(envDataHome, localAppDataDir)
-	baseDirs.Data = xdgPaths(envDataDirs, roamingAppDataDir, programDataDir)
-	baseDirs.ConfigHome = xdgPath(envConfigHome, localAppDataDir)
-	baseDirs.Config = xdgPaths(envConfigDirs, programDataDir)
-	baseDirs.CacheHome = xdgPath(envCacheHome, filepath.Join(localAppDataDir, "cache"))
-	baseDirs.Runtime = xdgPath(envRuntimeDir, localAppDataDir)
+	winDir := os.Getenv("windir")
+	if winDir == "" {
+		winDir = os.Getenv("SystemRoot")
+		if winDir == "" {
+			winDir = home
+		}
+	}
+
+	// Initialize base directories.
+	baseDirs.dataHome = xdgPath(envDataHome, localAppDataDir)
+	baseDirs.data = xdgPaths(envDataDirs, roamingAppDataDir, programDataDir)
+	baseDirs.configHome = xdgPath(envConfigHome, localAppDataDir)
+	baseDirs.config = xdgPaths(envConfigDirs, programDataDir)
+	baseDirs.cacheHome = xdgPath(envCacheHome, filepath.Join(localAppDataDir, "cache"))
+	baseDirs.runtime = xdgPath(envRuntimeDir, localAppDataDir)
+
+	// Initialize non-standard directories.
+	baseDirs.applications = []string{
+		filepath.Join(roamingAppDataDir, "Microsoft", "Windows", "Start Menu", "Programs"),
+	}
+	baseDirs.fonts = []string{
+		filepath.Join(winDir, "Fonts"),
+		filepath.Join(localAppDataDir, "Microsoft", "Windows", "Fonts"),
+	}
 }
 
 func initUserDirs(home string) {

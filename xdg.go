@@ -71,6 +71,12 @@ var (
 	// UserDirs defines the locations of well known user directories.
 	UserDirs UserDirectories
 
+	// FontDirs defines the common locations where font files are stored.
+	FontDirs []string
+
+	// ApplicationDirs defines the common locations of applications.
+	ApplicationDirs []string
+
 	// baseDirs defines the locations of base directories.
 	baseDirs baseDirectories
 )
@@ -84,12 +90,14 @@ func Reload() {
 
 	// Initialize base directories.
 	initBaseDirs(Home)
-	DataHome = baseDirs.DataHome
-	DataDirs = baseDirs.Data
-	ConfigHome = baseDirs.ConfigHome
-	ConfigDirs = baseDirs.Config
-	CacheHome = baseDirs.CacheHome
-	RuntimeDir = baseDirs.Runtime
+	DataHome = baseDirs.dataHome
+	DataDirs = baseDirs.data
+	ConfigHome = baseDirs.configHome
+	ConfigDirs = baseDirs.config
+	CacheHome = baseDirs.cacheHome
+	RuntimeDir = baseDirs.runtime
+	FontDirs = baseDirs.fonts
+	ApplicationDirs = baseDirs.applications
 
 	// Initialize user directories.
 	initUserDirs(Home)
