@@ -97,19 +97,30 @@ func xdgPath(name, defaultPath string) string {
 }
 
 func xdgPaths(name string, defaultPaths ...string) []string {
-	dirs := []string{}
+	dirs := uniquePaths(filepath.SplitList(os.Getenv(name)))
+	if len(dirs) != 0 {
+		return dirs
+	}
 
-	paths := filepath.SplitList(os.Getenv(name))
+	return uniquePaths(defaultPaths)
+}
+
+func uniquePaths(paths []string) []string {
+	var uniq []string
+	registry := map[string]struct{}{}
+
 	for _, p := range paths {
 		dir := expandPath(p, Home)
-		if dir != "" && filepath.IsAbs(dir) {
-			dirs = append(dirs, dir)
+		if dir == "" || !filepath.IsAbs(dir) {
+			continue
 		}
+		if _, ok := registry[dir]; ok {
+			continue
+		}
+
+		registry[dir] = struct{}{}
+		uniq = append(uniq, dir)
 	}
 
-	if len(dirs) == 0 {
-		return defaultPaths
-	}
-
-	return dirs
+	return uniq
 }
