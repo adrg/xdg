@@ -45,6 +45,25 @@ func TestDefaultBaseDirs(t *testing.T) {
 			expected: filepath.Join("/run/user", strconv.Itoa(os.Getuid())),
 			actual:   &xdg.RuntimeDir,
 		},
+		&envSample{
+			name: "XDG_APPLICATION_DIRS",
+			expected: []string{
+				filepath.Join(home, ".local/share/applications"),
+				"/usr/local/share/applications",
+				"/usr/share/applications",
+			},
+			actual: &xdg.ApplicationDirs,
+		},
+		&envSample{
+			name: "XDG_FONT_DIRS",
+			expected: []string{
+				filepath.Join(home, ".local/share/fonts"),
+				filepath.Join(home, ".fonts"),
+				"/usr/local/share/fonts",
+				"/usr/share/fonts",
+			},
+			actual: &xdg.FontDirs,
+		},
 	)
 }
 

@@ -43,6 +43,23 @@ func TestDefaultBaseDirs(t *testing.T) {
 			expected: filepath.Join(home, "Library", "Application Support"),
 			actual:   &xdg.RuntimeDir,
 		},
+		&envSample{
+			name: "XDG_APPLICATION_DIRS",
+			expected: []string{
+				"/Applications",
+			},
+			actual: &xdg.ApplicationDirs,
+		},
+		&envSample{
+			name: "XDG_FONT_DIRS",
+			expected: []string{
+				filepath.Join(home, "Library/Fonts"),
+				"/Library/Fonts",
+				"/System/Library/Fonts",
+				"/Network/Library/Fonts",
+			},
+			actual: &xdg.FontDirs,
+		},
 	)
 }
 

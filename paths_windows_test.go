@@ -17,10 +17,13 @@ func TestDefaultBaseDirs(t *testing.T) {
 	appData := filepath.Join(home, "Appdata")
 	localAppData := filepath.Join(appData, "Local")
 	programData := filepath.Join(home, "ProgramData")
+	roamingAppData := filepath.Join(appData, "Roaming")
+	winDir := `C:\Windows`
 
 	assert.NoError(t, os.Setenv("APPDATA", appData))
 	assert.NoError(t, os.Setenv("LOCALAPPDATA", localAppData))
 	assert.NoError(t, os.Setenv("PROGRAMDATA", programData))
+	assert.NoError(t, os.Setenv("windir", winDir))
 
 	testDirs(t,
 		&envSample{
@@ -30,7 +33,7 @@ func TestDefaultBaseDirs(t *testing.T) {
 		},
 		&envSample{
 			name:     "XDG_DATA_DIRS",
-			expected: []string{filepath.Join(appData, "Roaming"), programData},
+			expected: []string{roamingAppData, programData},
 			actual:   &xdg.DataDirs,
 		},
 		&envSample{
@@ -52,6 +55,21 @@ func TestDefaultBaseDirs(t *testing.T) {
 			name:     "XDG_RUNTIME_DIR",
 			expected: localAppData,
 			actual:   &xdg.RuntimeDir,
+		},
+		&envSample{
+			name: "XDG_APPLICATION_DIRS",
+			expected: []string{
+				filepath.Join(roamingAppData, "Microsoft", "Windows", "Start Menu", "Programs"),
+			},
+			actual: &xdg.ApplicationDirs,
+		},
+		&envSample{
+			name: "XDG_FONT_DIRS",
+			expected: []string{
+				filepath.Join(winDir, "Fonts"),
+				filepath.Join(localAppData, "Microsoft", "Windows", "Fonts"),
+			},
+			actual: &xdg.FontDirs,
 		},
 	)
 }
