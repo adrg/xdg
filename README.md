@@ -24,8 +24,8 @@ present in the environment.
 
 #### XDG Base Directory
 
-|                 | Unix                                | Mac                             | Windows                                 |
-| :---            | :---                                | :---                            | :---                                    |
+|                 | Unix                                | Mac OS                          | Windows                                 |
+| :---            | :---                                | :-----                          | :---                                    |
 | XDG_DATA_HOME   | `~/.local/share`                    | `~/Library/Application Support` | `%LOCALAPPDATA%`                        |
 | XDG_DATA_DIRS   | `/usr/local/share`<br/>`/usr/share` | `/Library/Application Support`  | `%APPDATA%\Roaming`<br/>`%PROGRAMDATA%` |
 | XDG_CONFIG_HOME | `~/.config`                         | `~/Library/Preferences`         | `%LOCALAPPDATA%`                        |
@@ -35,8 +35,8 @@ present in the environment.
 
 #### XDG user directories
 
-|                     | Unix          | Mac           | Windows                   |
-| :---                | :---          | :---          | :---                      |
+|                     | Unix          | Mac OS        | Windows                   |
+| :---                | :---          | :-----        | :---                      |
 | XDG_DESKTOP_DIR     | `~/Desktop`   | `~/Desktop`   | `%USERPROFILE%/Desktop`   |
 | XDG_DOWNLOAD_DIR    | `~/Downloads` | `~/Downloads` | `%USERPROFILE%/Downloads` |
 | XDG_DOCUMENTS_DIR   | `~/Documents` | `~/Documents` | `%USERPROFILE%/Documents` |
@@ -45,6 +45,47 @@ present in the environment.
 | XDG_VIDEOS_DIR      | `~/Videos`    | `~/Movies`    | `%USERPROFILE%/Videos`    |
 | XDG_TEMPLATES_DIR   | `~/Templates` | `~/Templates` | `%USERPROFILE%/Templates` |
 | XDG_PUBLICSHARE_DIR | `~/Public`    | `~/Public`    | `%PUBLIC%`                |
+
+#### Non-standard directories
+
+Application directories
+
+```
+Unix:
+- $XDG_DATA_HOME/applications
+- ~/.local/share/applications
+- /usr/local/share/applications
+- /usr/share/applications
+- $XDG_DATA_DIRS/applications
+
+Mac OS:
+- /Applications
+
+Windows:
+- %APPDATA%\Roaming\Microsoft\Windows\Start Menu\Programs
+```
+
+Font Directories
+
+```
+Unix:
+- $XDG_DATA_HOME/fonts
+- ~/.fonts
+- ~/.local/share/fonts
+- /usr/local/share/fonts
+- /usr/share/fonts
+- $XDG_DATA_DIRS/fonts
+
+Mac OS:
+- ~/Library/Fonts
+- /Library/Fonts
+- /System/Library/Fonts
+- /Network/Library/Fonts
+
+Windows:
+- %windir%\Fonts
+- %LOCALAPPDATA%\Microsoft\Windows\Fonts
+```
 
 ## Usage
 
@@ -67,6 +108,10 @@ func main() {
 	log.Println("Config directories:", xdg.ConfigDirs)
 	log.Println("Cache directory:", xdg.CacheHome)
 	log.Println("Runtime directory:", xdg.RuntimeDir)
+
+	// Non-standard directories.
+	log.Println("Application directories:", xdg.ApplicationDirs)
+	log.Println("Font directories:", xdg.FontDirs)
 
 	// Obtain a suitable location for application config files.
 	// ConfigFile takes one parameter which must contain the name of the file,
