@@ -62,7 +62,7 @@ func (bd baseDirectories) runtimeFile(relPath string) (string, error) {
 }
 
 func (bd baseDirectories) searchDataFile(relPath string) (string, error) {
-	return searchFile(relPath, append([]string{bd.configHome}, bd.data...))
+	return searchFile(relPath, append([]string{bd.dataHome}, bd.data...))
 }
 
 func (bd baseDirectories) searchConfigFile(relPath string) (string, error) {
