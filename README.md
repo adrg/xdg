@@ -169,10 +169,9 @@ func main() {
 }
 ```
 
-## References
-For more information see the
-[XDG Base Directory Specification](https://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html) and
-[XDG user directories](https://wiki.archlinux.org/index.php/XDG_user_directories).
+## Stargazers over time
+
+[![Stargazers over time](https://starchart.cc/adrg/xdg.svg)](https://starchart.cc/adrg/xdg)
 
 ## Contributing
 
@@ -180,7 +179,14 @@ Contributions in the form of pull requests, issues or just general feedback,
 are always welcome.
 See [CONTRIBUTING.MD](https://github.com/adrg/xdg/blob/master/CONTRIBUTING.md).
 
+## References
+
+For more information see the
+[XDG Base Directory Specification](https://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html) and
+[XDG user directories](https://wiki.archlinux.org/index.php/XDG_user_directories).
+
 ## License
+
 Copyright (c) 2014 Adrian-George Bostan.
 
 This project is licensed under the [MIT license](https://opensource.org/licenses/MIT).
