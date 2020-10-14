@@ -18,6 +18,9 @@ jobs:
       with:
         go-version: ${{ matrix.go }}
 
+    - name: Prepare checkout
+      run: git config --global core.autocrlf false
+
     - name: Checkout
       uses: actions/checkout@v2
 
