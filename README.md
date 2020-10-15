@@ -6,14 +6,14 @@ xdg
 [![MIT license](https://img.shields.io/badge/license-MIT-red.svg?style=flat-square)](https://opensource.org/licenses/MIT)
 [![Go report card](https://goreportcard.com/badge/github.com/adrg/xdg)](https://goreportcard.com/report/github.com/adrg/xdg)
 
-Provides an implementation of the [XDG Base Directory Specification](https://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html).
+Provides an implementation of the [XDG Base Directory Specification](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html).
 The specification defines a set of standard paths for storing application files,
 including data and configuration files. For portability and flexibility reasons,
 applications should use the XDG defined locations instead of hardcoding paths.
-The package also includes the locations of well known user directories.
+The package also includes the locations of well known [user directories](https://wiki.archlinux.org/index.php/XDG_user_directories).
 The current implementation supports Windows, Mac OS and most flavors of Unix.
 
-Full documentation can be found at: https://godoc.org/github.com/adrg/xdg
+Full documentation can be found at: https://pkg.go.dev/github.com/adrg/xdg.
 
 ## Installation
     go get github.com/adrg/xdg
@@ -180,11 +180,22 @@ Contributions in the form of pull requests, issues or just general feedback,
 are always welcome.
 See [CONTRIBUTING.MD](https://github.com/adrg/xdg/blob/master/CONTRIBUTING.md).
 
+**Contributors**:
+[adrg](https://github.com/adrg),
+[wichert](https://github.com/wichert).
+
 ## References
 
-For more information see the
-[XDG Base Directory Specification](https://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html) and
-[XDG user directories](https://wiki.archlinux.org/index.php/XDG_user_directories).
+For more information see:
+* [XDG Base Directory Specification](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html)
+* [XDG user directories](https://wiki.archlinux.org/index.php/XDG_user_directories)
+
+## Buy me a coffee
+
+If you found this project useful and want to support it, consider buying me a coffee.  
+<a href="https://www.buymeacoffee.com/adrg">
+    <img src="https://cdn.buymeacoffee.com/buttons/v2/arial-orange.png" alt="Buy Me A Coffee" height="42px">
+</a>
 
 ## License
 
