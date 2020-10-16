@@ -5,6 +5,9 @@ xdg
 [![pkg.go.dev documentation](https://pkg.go.dev/badge/github.com/adrg/xdg)](https://pkg.go.dev/github.com/adrg/xdg)
 [![MIT license](https://img.shields.io/badge/license-MIT-red.svg?style=flat-square)](https://opensource.org/licenses/MIT)
 [![Go report card](https://goreportcard.com/badge/github.com/adrg/xdg)](https://goreportcard.com/report/github.com/adrg/xdg)
+[![GitHub issues](https://img.shields.io/github/issues/adrg/xdg)](https://github.com/adrg/xdg/issues)
+[![Buy me a coffee](https://img.shields.io/static/v1.svg?label=%20&message=Buy%20me%20a%20coffee&color=FF813F&logo=buy%20me%20a%20coffee&logoColor=white)](https://www.buymeacoffee.com/adrg)
+[![GitHub stars](https://img.shields.io/github/stars/adrg/xdg?style=social)](https://github.com/adrg/xdg/stargazers)
 
 Provides an implementation of the [XDG Base Directory Specification](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html).
 The specification defines a set of standard paths for storing application files,
