@@ -106,7 +106,7 @@ import (
 
 func main() {
 	// XDG Base Directory paths.
-	log.Println("Home config directory:", xdg.DataHome)
+	log.Println("Home data directory:", xdg.DataHome)
 	log.Println("Data directories:", xdg.DataDirs)
 	log.Println("Home config directory:", xdg.ConfigHome)
 	log.Println("Config directories:", xdg.ConfigDirs)
