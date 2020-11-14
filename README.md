@@ -185,7 +185,8 @@ See [CONTRIBUTING.MD](https://github.com/adrg/xdg/blob/master/CONTRIBUTING.md).
 
 **Contributors**:
 [adrg](https://github.com/adrg),
-[wichert](https://github.com/wichert).
+[wichert](https://github.com/wichert),
+[bouncepaw](https://github.com/bouncepaw).
 
 ## References
 
