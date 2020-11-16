@@ -1,7 +1,7 @@
 package xdg
 
 // XDG user directories environment variables.
-var (
+const (
 	envDesktopDir     = "XDG_DESKTOP_DIR"
 	envDownloadDir    = "XDG_DOWNLOAD_DIR"
 	envDocumentsDir   = "XDG_DOCUMENTS_DIR"
