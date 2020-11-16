@@ -48,7 +48,7 @@ func (bd baseDirectories) runtimeFile(relPath string) (string, error) {
 
 	if fi.IsDir() {
 		// The runtime directory must be owned by the user.
-		if err = os.Chown(bd.runtime, os.Getuid(), os.Getgid()); err != nil {
+		if err = chown(bd.runtime, os.Getuid(), os.Getgid()); err != nil {
 			return "", err
 		}
 	} else {

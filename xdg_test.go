@@ -42,3 +42,59 @@ func testDirs(t *testing.T, samples ...*envSample) {
 		t.Logf("%s: %v", sample.name, actual)
 	}
 }
+
+func TestBaseDirFuncs(t *testing.T) {
+	type inputData struct {
+		relPaths   []string
+		pathFunc   func(string) (string, error)
+		searchFunc func(string) (string, error)
+	}
+
+	inputs := []*inputData{
+		{
+			relPaths:   []string{"app.data", "appname/app.data"},
+			pathFunc:   xdg.DataFile,
+			searchFunc: xdg.SearchDataFile,
+		},
+		{
+			relPaths:   []string{"app.yaml", "appname/app.yaml"},
+			pathFunc:   xdg.ConfigFile,
+			searchFunc: xdg.SearchConfigFile,
+		},
+		{
+			relPaths:   []string{"app.cache", "appname/app.cache"},
+			pathFunc:   xdg.CacheFile,
+			searchFunc: xdg.SearchCacheFile,
+		},
+		{
+			relPaths:   []string{"app.pid", "appname/app.pid"},
+			pathFunc:   xdg.RuntimeFile,
+			searchFunc: xdg.SearchRuntimeFile,
+		},
+	}
+
+	for _, input := range inputs {
+		for _, relPath := range input.relPaths {
+			// Get suitable path for input file.
+			expFullPath, err := input.pathFunc(relPath)
+			assert.NoError(t, err)
+
+			// Create input file.
+			f, err := os.Create(expFullPath)
+			assert.NoError(t, err)
+			assert.NoError(t, f.Close())
+
+			// Search input file after creation.
+			actFullPath, err := input.searchFunc(relPath)
+			assert.NoError(t, err)
+			assert.Equal(t, expFullPath, actFullPath)
+
+			// Remove created file.
+			assert.NoError(t, os.Remove(expFullPath))
+
+			// Search input file after removal.
+			_, err = input.searchFunc(relPath)
+			assert.Error(t, err)
+		}
+	}
+}
