@@ -3,7 +3,7 @@ package xdg
 import "os"
 
 // XDG Base Directory environment variables.
-var (
+const (
 	envDataHome   = "XDG_DATA_HOME"
 	envDataDirs   = "XDG_DATA_DIRS"
 	envConfigHome = "XDG_CONFIG_HOME"
