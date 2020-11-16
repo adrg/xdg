@@ -33,6 +33,14 @@ func homeDir() string {
 	return ""
 }
 
+func chown(name string, uid, gid int) error {
+	if goOS := runtime.GOOS; goOS == "windows" || goOS == "plan9" {
+		return nil
+	}
+
+	return os.Chown(name, uid, gid)
+}
+
 func exists(path string) bool {
 	_, err := os.Stat(path)
 	return err == nil || os.IsExist(err)
