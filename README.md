@@ -120,7 +120,7 @@ func main() {
 	// Obtain a suitable location for application config files.
 	// ConfigFile takes one parameter which must contain the name of the file,
 	// but it can also contain a set of parent directories. If the directories
-	// don't exists, they will be created relative to the base config directory.
+	// don't exist, they will be created relative to the base config directory.
 	configFilePath, err := xdg.ConfigFile("appname/config.yaml")
 	if err != nil {
 		log.Fatal(err)
@@ -186,7 +186,8 @@ See [CONTRIBUTING.MD](https://github.com/adrg/xdg/blob/master/CONTRIBUTING.md).
 **Contributors**:
 [adrg](https://github.com/adrg),
 [wichert](https://github.com/wichert),
-[bouncepaw](https://github.com/bouncepaw).
+[bouncepaw](https://github.com/bouncepaw),
+[gabriel-vasile](https://github.com/gabriel-vasile).
 
 ## References
 
