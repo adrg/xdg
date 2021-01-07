@@ -21,6 +21,11 @@ func TestDefaultBaseDirs(t *testing.T) {
 			actual:   &xdg.DataHome,
 		},
 		&envSample{
+			name:     "XDG_STATE_HOME",
+			expected: filepath.Join(home, ".local", "state"),
+			actual:   &xdg.StateHome,
+		},
+		&envSample{
 			name:     "XDG_DATA_DIRS",
 			expected: []string{"/usr/local/share", "/usr/share"},
 			actual:   &xdg.DataDirs,
@@ -76,6 +81,12 @@ func TestCustomBaseDirs(t *testing.T) {
 			value:    "~/.local/data",
 			expected: filepath.Join(home, ".local/data"),
 			actual:   &xdg.DataHome,
+		},
+		&envSample{
+			name:     "XDG_STATE_HOME",
+			value:    "~/.local/var",
+			expected: filepath.Join(home, ".local/var"),
+			actual:   &xdg.StateHome,
 		},
 		&envSample{
 			name:     "XDG_DATA_DIRS",

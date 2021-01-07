@@ -51,6 +51,12 @@ var (
 	// relative to the ConfigHome directory, if possible.
 	ConfigDirs []string
 
+	// StateHome defines the base directory relative to which user-specific
+	// data (volatile) files should be stored. This directory is defined by the
+	// environment variable $XDG_STATE_HOME. If this variable is not set,
+	// a default equal to ~/.local/state should be used.
+	StateHome string
+
 	// CacheHome defines the base directory relative to which user-specific
 	// non-essential (cached) data should be written. This directory is
 	// defined by the environment variable $XDG_CACHE_HOME. If this variable
@@ -98,6 +104,7 @@ func Reload() {
 	RuntimeDir = baseDirs.runtime
 	FontDirs = baseDirs.fonts
 	ApplicationDirs = baseDirs.applications
+	StateHome = baseDirs.stateHome
 
 	// Initialize user directories.
 	initUserDirs(Home)
@@ -111,6 +118,16 @@ func Reload() {
 // attempted paths is returned.
 func DataFile(relPath string) (string, error) {
 	return baseDirs.dataFile(relPath)
+}
+
+// StateFile returns a suitable location for the specified data (volatile) file.
+// The relPath parameter must contain the name of the data file, and
+// optionally, a set of parent directories (e.g. appname/app.data).
+// If the specified directories do not exist, they will be created relative
+// to the base data directory. On failure, an error containing the
+// attempted paths is returned.
+func StateFile(relPath string) (string, error) {
+	return baseDirs.stateFile(relPath)
 }
 
 // ConfigFile returns a suitable location for the specified config file.
@@ -165,6 +182,14 @@ func SearchConfigFile(relPath string) (string, error) {
 // file cannot be found, an error specifying the searched path is returned.
 func SearchCacheFile(relPath string) (string, error) {
 	return baseDirs.searchCacheFile(relPath)
+}
+
+// SearchStateFile searches for the specified file in the state search path.
+// The relPath parameter must contain the name of the state file, and
+// optionally, a set of parent directories (e.g. appname/app.state). If the
+// file cannot be found, an error specifying the searched path is returned.
+func SearchStateFile(relPath string) (string, error) {
+	return baseDirs.searchStateFile(relPath)
 }
 
 // SearchRuntimeFile searches for the specified file in the runtime search path.

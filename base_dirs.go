@@ -10,6 +10,7 @@ const (
 	envConfigDirs = "XDG_CONFIG_DIRS"
 	envCacheHome  = "XDG_CACHE_HOME"
 	envRuntimeDir = "XDG_RUNTIME_DIR"
+	envStateHome  = "XDG_STATE_HOME"
 )
 
 type baseDirectories struct {
@@ -19,6 +20,7 @@ type baseDirectories struct {
 	config     []string
 	cacheHome  string
 	runtime    string
+	stateHome  string
 
 	// Non-standard directories.
 	fonts        []string
@@ -35,6 +37,10 @@ func (bd baseDirectories) configFile(relPath string) (string, error) {
 
 func (bd baseDirectories) cacheFile(relPath string) (string, error) {
 	return createPath(relPath, []string{bd.cacheHome})
+}
+
+func (bd baseDirectories) stateFile(relPath string) (string, error) {
+	return createPath(relPath, []string{bd.stateHome})
 }
 
 func (bd baseDirectories) runtimeFile(relPath string) (string, error) {
@@ -75,4 +81,8 @@ func (bd baseDirectories) searchCacheFile(relPath string) (string, error) {
 
 func (bd baseDirectories) searchRuntimeFile(relPath string) (string, error) {
 	return searchFile(relPath, []string{bd.runtime})
+}
+
+func (bd baseDirectories) searchStateFile(relPath string) (string, error) {
+	return searchFile(relPath, []string{bd.stateHome})
 }

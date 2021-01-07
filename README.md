@@ -34,6 +34,7 @@ present in the environment.
 | XDG_DATA_DIRS   | `/usr/local/share`<br/>`/usr/share` | `/Library/Application Support`  | `%APPDATA%\Roaming`<br/>`%PROGRAMDATA%` |
 | XDG_CONFIG_HOME | `~/.config`                         | `~/Library/Preferences`         | `%LOCALAPPDATA%`                        |
 | XDG_CONFIG_DIRS | `/etc/xdg`                          | `/Library/Preferences`          | `%PROGRAMDATA%`                         |
+| XDG_STATE_HOME  | `~/.local/state`                            | `~/Library/Application Support` | `%LOCALAPPDATA%`                        |
 | XDG_CACHE_HOME  | `~/.cache`                          | `~/Library/Caches`              | `%LOCALAPPDATA%\cache`                  |
 | XDG_RUNTIME_DIR | `/run/user/UID`                     | `~/Library/Application Support` | `%LOCALAPPDATA%`                        |
 
@@ -110,6 +111,7 @@ func main() {
 	log.Println("Data directories:", xdg.DataDirs)
 	log.Println("Home config directory:", xdg.ConfigHome)
 	log.Println("Config directories:", xdg.ConfigDirs)
+	log.Println("Home state directory:", xdg.StateHome)
 	log.Println("Cache directory:", xdg.CacheHome)
 	log.Println("Runtime directory:", xdg.RuntimeDir)
 

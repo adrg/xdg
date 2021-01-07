@@ -32,6 +32,11 @@ func TestDefaultBaseDirs(t *testing.T) {
 			actual:   &xdg.DataHome,
 		},
 		&envSample{
+			name:     "XDG_STATE_HOME",
+			expected: localAppData,
+			actual:   &xdg.StateHome,
+		},
+		&envSample{
 			name:     "XDG_DATA_DIRS",
 			expected: []string{roamingAppData, programData},
 			actual:   &xdg.DataDirs,
@@ -114,6 +119,12 @@ func TestCustomBaseDirs(t *testing.T) {
 			value:    filepath.Join(programData, "Cache"),
 			expected: filepath.Join(programData, "Cache"),
 			actual:   &xdg.CacheHome,
+		},
+		&envSample{
+			name:     "XDG_STATE_HOME",
+			value:    filepath.Join(programData, "Var"),
+			expected: filepath.Join(programData, "Var"),
+			actual:   &xdg.StateHome,
 		},
 		&envSample{
 			name:     "XDG_RUNTIME_DIR",
