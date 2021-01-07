@@ -39,10 +39,6 @@ func (bd baseDirectories) cacheFile(relPath string) (string, error) {
 	return createPath(relPath, []string{bd.cacheHome})
 }
 
-func (bd baseDirectories) stateFile(relPath string) (string, error) {
-	return createPath(relPath, []string{bd.stateHome})
-}
-
 func (bd baseDirectories) runtimeFile(relPath string) (string, error) {
 	fi, err := os.Lstat(bd.runtime)
 	if err != nil {
@@ -65,6 +61,10 @@ func (bd baseDirectories) runtimeFile(relPath string) (string, error) {
 	}
 
 	return createPath(relPath, []string{bd.runtime})
+}
+
+func (bd baseDirectories) stateFile(relPath string) (string, error) {
+	return createPath(relPath, []string{bd.stateHome})
 }
 
 func (bd baseDirectories) searchDataFile(relPath string) (string, error) {
