@@ -122,8 +122,8 @@ func TestCustomBaseDirs(t *testing.T) {
 		},
 		&envSample{
 			name:     "XDG_STATE_HOME",
-			value:    filepath.Join(programData, "Var"),
-			expected: filepath.Join(programData, "Var"),
+			value:    filepath.Join(programData, "State"),
+			expected: filepath.Join(programData, "State"),
 			actual:   &xdg.StateHome,
 		},
 		&envSample{

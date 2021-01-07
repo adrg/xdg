@@ -72,7 +72,7 @@ func TestBaseDirFuncs(t *testing.T) {
 			searchFunc: xdg.SearchRuntimeFile,
 		},
 		{
-			relPaths:   []string{"app.db", "appname/app.db"},
+			relPaths:   []string{"app.state", "appname/app.state"},
 			pathFunc:   xdg.StateFile,
 			searchFunc: xdg.SearchStateFile,
 		},
