@@ -71,6 +71,11 @@ func TestBaseDirFuncs(t *testing.T) {
 			pathFunc:   xdg.RuntimeFile,
 			searchFunc: xdg.SearchRuntimeFile,
 		},
+		{
+			relPaths:   []string{"app.db", "appname/app.db"},
+			pathFunc:   xdg.StateFile,
+			searchFunc: xdg.SearchStateFile,
+		},
 	}
 
 	for _, input := range inputs {
