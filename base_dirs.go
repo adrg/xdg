@@ -1,7 +1,5 @@
 package xdg
 
-import "os"
-
 // XDG Base Directory environment variables.
 const (
 	envDataHome   = "XDG_DATA_HOME"
@@ -40,26 +38,6 @@ func (bd baseDirectories) cacheFile(relPath string) (string, error) {
 }
 
 func (bd baseDirectories) runtimeFile(relPath string) (string, error) {
-	fi, err := os.Lstat(bd.runtime)
-	if err != nil {
-		if os.IsNotExist(err) {
-			return createPath(relPath, []string{bd.runtime})
-		}
-		return "", err
-	}
-
-	if fi.IsDir() {
-		// The runtime directory must be owned by the user.
-		if err = chown(bd.runtime, os.Getuid(), os.Getgid()); err != nil {
-			return "", err
-		}
-	} else {
-		// For security reasons, the runtime directory cannot be a symlink.
-		if err = os.Remove(bd.runtime); err != nil {
-			return "", err
-		}
-	}
-
 	return createPath(relPath, []string{bd.runtime})
 }
 
