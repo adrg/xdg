@@ -16,7 +16,7 @@ applications should use the XDG defined locations instead of hardcoding paths.
 
 The package also includes the locations of well known [user directories](https://wiki.archlinux.org/index.php/XDG_user_directories)
 and an implementation of the [state directory proposal](https://wiki.debian.org/XDGBaseDirectorySpecification#Proposal:_STATE_directory).
-Windows, Mac OS and most flavors of Unix are supported.
+Windows, macOS and most flavors of Unix are supported.
 
 Full documentation can be found at: https://pkg.go.dev/github.com/adrg/xdg.
 
@@ -30,20 +30,19 @@ present in the environment.
 
 #### XDG Base Directory
 
-|                 | Unix                                | Mac OS                          | Windows                                 |
-| :---            | :---                                | :-----                          | :---                                    |
+|                 | Unix                                | macOS                           | Windows                                 |
+| :-------------- | :---------------------------------- | :------------------------------ | :-------------------------------------- |
 | XDG_DATA_HOME   | `~/.local/share`                    | `~/Library/Application Support` | `%LOCALAPPDATA%`                        |
 | XDG_DATA_DIRS   | `/usr/local/share`<br/>`/usr/share` | `/Library/Application Support`  | `%APPDATA%\Roaming`<br/>`%PROGRAMDATA%` |
 | XDG_CONFIG_HOME | `~/.config`                         | `~/Library/Preferences`         | `%LOCALAPPDATA%`                        |
 | XDG_CONFIG_DIRS | `/etc/xdg`                          | `/Library/Preferences`          | `%PROGRAMDATA%`                         |
 | XDG_CACHE_HOME  | `~/.cache`                          | `~/Library/Caches`              | `%LOCALAPPDATA%\cache`                  |
 | XDG_RUNTIME_DIR | `/run/user/UID`                     | `~/Library/Application Support` | `%LOCALAPPDATA%`                        |
-| XDG_STATE_HOME  | `~/.local/state`                    | `~/Library/Application Support` | `%LOCALAPPDATA%`                        |
 
 #### XDG user directories
 
-|                     | Unix          | Mac OS        | Windows                   |
-| :---                | :---          | :-----        | :---                      |
+|                     | Unix          | macOS         | Windows                   |
+| :------------------ | :------------ | :------------ | :------------------------ |
 | XDG_DESKTOP_DIR     | `~/Desktop`   | `~/Desktop`   | `%USERPROFILE%/Desktop`   |
 | XDG_DOWNLOAD_DIR    | `~/Downloads` | `~/Downloads` | `%USERPROFILE%/Downloads` |
 | XDG_DOCUMENTS_DIR   | `~/Documents` | `~/Documents` | `%USERPROFILE%/Documents` |
@@ -65,14 +64,14 @@ Unix:
 - /usr/share/applications
 - $XDG_DATA_DIRS/applications
 
-Mac OS:
+macOS:
 - /Applications
 
 Windows:
 - %APPDATA%\Roaming\Microsoft\Windows\Start Menu\Programs
 ```
 
-Font Directories
+Font directories
 
 ```
 Unix:
@@ -83,7 +82,7 @@ Unix:
 - /usr/share/fonts
 - $XDG_DATA_DIRS/fonts
 
-Mac OS:
+macOS:
 - ~/Library/Fonts
 - /Library/Fonts
 - /System/Library/Fonts
@@ -92,6 +91,13 @@ Mac OS:
 Windows:
 - %windir%\Fonts
 - %LOCALAPPDATA%\Microsoft\Windows\Fonts
+```
+
+State directory
+```
+Unix:    ~/.local/state
+macOS:   ~/Library/Application Support
+Windows: %LOCALAPPDATA%
 ```
 
 ## Usage
