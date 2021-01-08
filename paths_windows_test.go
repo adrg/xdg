@@ -138,9 +138,8 @@ func TestCustomBaseDirs(t *testing.T) {
 func TestDefaultUserDirs(t *testing.T) {
 	home := xdg.Home
 	public := filepath.Join(home, "Public")
-	assert.NoError(t, os.Setenv("PUBLIC", public))
 
-	testDirs(t,
+	samples := []*envSample{
 		&envSample{
 			name:     "XDG_DESKTOP_DIR",
 			expected: filepath.Join(home, "Desktop"),
@@ -181,7 +180,15 @@ func TestDefaultUserDirs(t *testing.T) {
 			expected: public,
 			actual:   &xdg.UserDirs.PublicShare,
 		},
-	)
+	}
+
+	// Test %PUBLIC% not set.
+	assert.NoError(t, os.Unsetenv("PUBLIC"))
+	testDirs(t, samples...)
+
+	// Test %PUBLIC% set.
+	assert.NoError(t, os.Setenv("PUBLIC", public))
+	testDirs(t, samples...)
 }
 
 func TestCustomUserDirs(t *testing.T) {
