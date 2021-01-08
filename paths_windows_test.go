@@ -73,7 +73,7 @@ func TestDefaultBaseDirs(t *testing.T) {
 		},
 	}
 
-	// Test environment variables not set.
+	// Test environment variable fallbacks.
 	assert.NoError(t, os.Unsetenv("APPDATA"))
 	assert.NoError(t, os.Unsetenv("LOCALAPPDATA"))
 	assert.NoError(t, os.Unsetenv("PROGRAMDATA"))
@@ -88,6 +88,23 @@ func TestDefaultBaseDirs(t *testing.T) {
 	assert.NoError(t, os.Setenv("LOCALAPPDATA", localAppData))
 	assert.NoError(t, os.Setenv("PROGRAMDATA", programData))
 	assert.NoError(t, os.Setenv("windir", winDir))
+
+	testDirs(t, envSamples...)
+
+	// Test no environment variables set.
+	assert.NoError(t, os.Unsetenv("APPDATA"))
+	assert.NoError(t, os.Unsetenv("LOCALAPPDATA"))
+	assert.NoError(t, os.Unsetenv("PROGRAMDATA"))
+	assert.NoError(t, os.Unsetenv("windir"))
+	assert.NoError(t, os.Unsetenv("SystemDrive"))
+	assert.NoError(t, os.Unsetenv("SystemRoot"))
+
+	envSamples[2].expected = []string{roamingAppData, home}
+	envSamples[4].expected = []string{home}
+	envSamples[8].expected = []string{
+		filepath.Join(home, "Fonts"),
+		filepath.Join(localAppData, "Microsoft", "Windows", "Fonts"),
+	}
 
 	testDirs(t, envSamples...)
 }
