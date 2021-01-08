@@ -15,7 +15,7 @@ including data and configuration files. For portability and flexibility reasons,
 applications should use the XDG defined locations instead of hardcoding paths.
 
 The package also includes the locations of well known [user directories](https://wiki.archlinux.org/index.php/XDG_user_directories)
-and an implementation of the [state directory proposal](https://wiki.debian.org/XDGBaseDirectorySpecification#Proposal:_STATE_directory).
+and an implementation of the [state directory](https://wiki.debian.org/XDGBaseDirectorySpecification#Proposal:_STATE_directory) proposal.
 Windows, macOS and most flavors of Unix are supported.
 
 Full documentation can be found at: https://pkg.go.dev/github.com/adrg/xdg.
@@ -54,6 +54,14 @@ present in the environment.
 
 #### Non-standard directories
 
+State directory
+
+```
+Unix:    ~/.local/state
+macOS:   ~/Library/Application Support
+Windows: %LOCALAPPDATA%
+```
+
 Application directories
 
 ```
@@ -91,13 +99,6 @@ macOS:
 Windows:
 - %windir%\Fonts
 - %LOCALAPPDATA%\Microsoft\Windows\Fonts
-```
-
-State directory
-```
-Unix:    ~/.local/state
-macOS:   ~/Library/Application Support
-Windows: %LOCALAPPDATA%
 ```
 
 ## Usage
