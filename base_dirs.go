@@ -18,9 +18,9 @@ type baseDirectories struct {
 	config     []string
 	cacheHome  string
 	runtime    string
-	stateHome  string
 
 	// Non-standard directories.
+	stateHome    string
 	fonts        []string
 	applications []string
 }

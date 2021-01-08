@@ -14,27 +14,17 @@ import (
 
 func TestDefaultBaseDirs(t *testing.T) {
 	home := xdg.Home
-	appData := filepath.Join(home, "Appdata")
+	appData := filepath.Join(home, "AppData")
 	localAppData := filepath.Join(appData, "Local")
 	programData := filepath.Join(home, "ProgramData")
 	roamingAppData := filepath.Join(appData, "Roaming")
 	winDir := `C:\Windows`
 
-	assert.NoError(t, os.Setenv("APPDATA", appData))
-	assert.NoError(t, os.Setenv("LOCALAPPDATA", localAppData))
-	assert.NoError(t, os.Setenv("PROGRAMDATA", programData))
-	assert.NoError(t, os.Setenv("windir", winDir))
-
-	testDirs(t,
+	envSamples := []*envSample{
 		&envSample{
 			name:     "XDG_DATA_HOME",
 			expected: localAppData,
 			actual:   &xdg.DataHome,
-		},
-		&envSample{
-			name:     "XDG_STATE_HOME",
-			expected: localAppData,
-			actual:   &xdg.StateHome,
 		},
 		&envSample{
 			name:     "XDG_DATA_DIRS",
@@ -62,6 +52,11 @@ func TestDefaultBaseDirs(t *testing.T) {
 			actual:   &xdg.RuntimeDir,
 		},
 		&envSample{
+			name:     "XDG_STATE_HOME",
+			expected: localAppData,
+			actual:   &xdg.StateHome,
+		},
+		&envSample{
 			name: "XDG_APPLICATION_DIRS",
 			expected: []string{
 				filepath.Join(roamingAppData, "Microsoft", "Windows", "Start Menu", "Programs"),
@@ -76,7 +71,42 @@ func TestDefaultBaseDirs(t *testing.T) {
 			},
 			actual: &xdg.FontDirs,
 		},
-	)
+	}
+
+	// Test environment variable fallbacks.
+	assert.NoError(t, os.Unsetenv("APPDATA"))
+	assert.NoError(t, os.Unsetenv("LOCALAPPDATA"))
+	assert.NoError(t, os.Unsetenv("PROGRAMDATA"))
+	assert.NoError(t, os.Unsetenv("windir"))
+	assert.NoError(t, os.Setenv("SystemDrive", home))
+	assert.NoError(t, os.Setenv("SystemRoot", winDir))
+
+	testDirs(t, envSamples...)
+
+	// Test environment variables set.
+	assert.NoError(t, os.Setenv("APPDATA", appData))
+	assert.NoError(t, os.Setenv("LOCALAPPDATA", localAppData))
+	assert.NoError(t, os.Setenv("PROGRAMDATA", programData))
+	assert.NoError(t, os.Setenv("windir", winDir))
+
+	testDirs(t, envSamples...)
+
+	// Test no environment variables set.
+	assert.NoError(t, os.Unsetenv("APPDATA"))
+	assert.NoError(t, os.Unsetenv("LOCALAPPDATA"))
+	assert.NoError(t, os.Unsetenv("PROGRAMDATA"))
+	assert.NoError(t, os.Unsetenv("windir"))
+	assert.NoError(t, os.Unsetenv("SystemDrive"))
+	assert.NoError(t, os.Unsetenv("SystemRoot"))
+
+	envSamples[1].expected = []string{roamingAppData, home}
+	envSamples[3].expected = []string{home}
+	envSamples[8].expected = []string{
+		filepath.Join(home, "Fonts"),
+		filepath.Join(localAppData, "Microsoft", "Windows", "Fonts"),
+	}
+
+	testDirs(t, envSamples...)
 }
 
 func TestCustomBaseDirs(t *testing.T) {
@@ -121,16 +151,16 @@ func TestCustomBaseDirs(t *testing.T) {
 			actual:   &xdg.CacheHome,
 		},
 		&envSample{
-			name:     "XDG_STATE_HOME",
-			value:    filepath.Join(programData, "State"),
-			expected: filepath.Join(programData, "State"),
-			actual:   &xdg.StateHome,
-		},
-		&envSample{
 			name:     "XDG_RUNTIME_DIR",
 			value:    filepath.Join(programData, "Runtime"),
 			expected: filepath.Join(programData, "Runtime"),
 			actual:   &xdg.RuntimeDir,
+		},
+		&envSample{
+			name:     "XDG_STATE_HOME",
+			value:    filepath.Join(programData, "State"),
+			expected: filepath.Join(programData, "State"),
+			actual:   &xdg.StateHome,
 		},
 	)
 }
@@ -138,9 +168,8 @@ func TestCustomBaseDirs(t *testing.T) {
 func TestDefaultUserDirs(t *testing.T) {
 	home := xdg.Home
 	public := filepath.Join(home, "Public")
-	assert.NoError(t, os.Setenv("PUBLIC", public))
 
-	testDirs(t,
+	samples := []*envSample{
 		&envSample{
 			name:     "XDG_DESKTOP_DIR",
 			expected: filepath.Join(home, "Desktop"),
@@ -181,7 +210,15 @@ func TestDefaultUserDirs(t *testing.T) {
 			expected: public,
 			actual:   &xdg.UserDirs.PublicShare,
 		},
-	)
+	}
+
+	// Test %PUBLIC% not set.
+	assert.NoError(t, os.Unsetenv("PUBLIC"))
+	testDirs(t, samples...)
+
+	// Test %PUBLIC% set.
+	assert.NoError(t, os.Setenv("PUBLIC", public))
+	testDirs(t, samples...)
 }
 
 func TestCustomUserDirs(t *testing.T) {
