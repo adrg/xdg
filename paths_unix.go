@@ -16,9 +16,9 @@ func initBaseDirs(home string) {
 	baseDirs.config = xdgPaths(envConfigDirs, "/etc/xdg")
 	baseDirs.cacheHome = xdgPath(envCacheHome, filepath.Join(home, ".cache"))
 	baseDirs.runtime = xdgPath(envRuntimeDir, filepath.Join("/run/user", strconv.Itoa(os.Getuid())))
-	baseDirs.stateHome = xdgPath(envStateHome, filepath.Join(home, ".local", "state"))
 
 	// Initialize non-standard directories.
+	baseDirs.stateHome = xdgPath(envStateHome, filepath.Join(home, ".local", "state"))
 	appDirs := []string{
 		filepath.Join(baseDirs.dataHome, "applications"),
 		filepath.Join(home, ".local/share/applications"),
