@@ -100,6 +100,11 @@ func TestBaseDirFuncs(t *testing.T) {
 			// Search input file after removal.
 			_, err = input.searchFunc(relPath)
 			assert.Error(t, err)
+
+			// Check that the same path is returned.
+			actFullPath, err = input.pathFunc(relPath)
+			assert.NoError(t, err)
+			assert.Equal(t, expFullPath, actFullPath)
 		}
 	}
 }
