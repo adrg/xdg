@@ -19,11 +19,6 @@ func TestDefaultBaseDirs(t *testing.T) {
 			actual:   &xdg.DataHome,
 		},
 		&envSample{
-			name:     "XDG_STATE_HOME",
-			expected: filepath.Join(home, "Library", "Application Support"),
-			actual:   &xdg.StateHome,
-		},
-		&envSample{
 			name:     "XDG_DATA_DIRS",
 			expected: []string{"/Library/Application Support"},
 			actual:   &xdg.DataDirs,
@@ -47,6 +42,11 @@ func TestDefaultBaseDirs(t *testing.T) {
 			name:     "XDG_RUNTIME_DIR",
 			expected: filepath.Join(home, "Library", "Application Support"),
 			actual:   &xdg.RuntimeDir,
+		},
+		&envSample{
+			name:     "XDG_STATE_HOME",
+			expected: filepath.Join(home, "Library", "Application Support"),
+			actual:   &xdg.StateHome,
 		},
 		&envSample{
 			name: "XDG_APPLICATION_DIRS",
@@ -79,12 +79,6 @@ func TestCustomBaseDirs(t *testing.T) {
 			actual:   &xdg.DataHome,
 		},
 		&envSample{
-			name:     "XDG_STATE_HOME",
-			value:    "~/Library/state",
-			expected: filepath.Join(home, "Library/state"),
-			actual:   &xdg.StateHome,
-		},
-		&envSample{
 			name:     "XDG_DATA_DIRS",
 			value:    "~/Library/data:/Library/Application Support",
 			expected: []string{filepath.Join(home, "Library/data"), "/Library/Application Support"},
@@ -113,6 +107,12 @@ func TestCustomBaseDirs(t *testing.T) {
 			value:    "~/Library/runtime",
 			expected: filepath.Join(home, "Library/runtime"),
 			actual:   &xdg.RuntimeDir,
+		},
+		&envSample{
+			name:     "XDG_STATE_HOME",
+			value:    "~/Library/state",
+			expected: filepath.Join(home, "Library/state"),
+			actual:   &xdg.StateHome,
 		},
 	)
 }

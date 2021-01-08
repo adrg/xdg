@@ -27,11 +27,6 @@ func TestDefaultBaseDirs(t *testing.T) {
 			actual:   &xdg.DataHome,
 		},
 		&envSample{
-			name:     "XDG_STATE_HOME",
-			expected: localAppData,
-			actual:   &xdg.StateHome,
-		},
-		&envSample{
 			name:     "XDG_DATA_DIRS",
 			expected: []string{roamingAppData, programData},
 			actual:   &xdg.DataDirs,
@@ -55,6 +50,11 @@ func TestDefaultBaseDirs(t *testing.T) {
 			name:     "XDG_RUNTIME_DIR",
 			expected: localAppData,
 			actual:   &xdg.RuntimeDir,
+		},
+		&envSample{
+			name:     "XDG_STATE_HOME",
+			expected: localAppData,
+			actual:   &xdg.StateHome,
 		},
 		&envSample{
 			name: "XDG_APPLICATION_DIRS",
@@ -99,8 +99,8 @@ func TestDefaultBaseDirs(t *testing.T) {
 	assert.NoError(t, os.Unsetenv("SystemDrive"))
 	assert.NoError(t, os.Unsetenv("SystemRoot"))
 
-	envSamples[2].expected = []string{roamingAppData, home}
-	envSamples[4].expected = []string{home}
+	envSamples[1].expected = []string{roamingAppData, home}
+	envSamples[3].expected = []string{home}
 	envSamples[8].expected = []string{
 		filepath.Join(home, "Fonts"),
 		filepath.Join(localAppData, "Microsoft", "Windows", "Fonts"),
@@ -151,16 +151,16 @@ func TestCustomBaseDirs(t *testing.T) {
 			actual:   &xdg.CacheHome,
 		},
 		&envSample{
-			name:     "XDG_STATE_HOME",
-			value:    filepath.Join(programData, "State"),
-			expected: filepath.Join(programData, "State"),
-			actual:   &xdg.StateHome,
-		},
-		&envSample{
 			name:     "XDG_RUNTIME_DIR",
 			value:    filepath.Join(programData, "Runtime"),
 			expected: filepath.Join(programData, "Runtime"),
 			actual:   &xdg.RuntimeDir,
+		},
+		&envSample{
+			name:     "XDG_STATE_HOME",
+			value:    filepath.Join(programData, "State"),
+			expected: filepath.Join(programData, "State"),
+			actual:   &xdg.StateHome,
 		},
 	)
 }
