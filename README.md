@@ -193,7 +193,8 @@ func main() {
 ## Contributing
 
 Contributions in the form of pull requests, issues or just general feedback,
-are always welcome. See [CONTRIBUTING.MD](CONTRIBUTING.md).
+are always welcome.  
+See [CONTRIBUTING.MD](CONTRIBUTING.md).
 
 **Contributors**:
 [adrg](https://github.com/adrg),

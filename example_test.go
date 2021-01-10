@@ -42,6 +42,15 @@ func ExampleRuntimeFile() {
 	fmt.Println("Save runtime file at:", runtimeFilePath)
 }
 
+func ExampleStateFile() {
+	stateFilePath, err := xdg.DataFile("appname/app.state")
+	if err != nil {
+		// Treat error.
+	}
+
+	fmt.Println("Save state file at:", stateFilePath)
+}
+
 func ExampleSearchDataFile() {
 	dataFilePath, err := xdg.SearchDataFile("appname/app.data")
 	if err != nil {
@@ -76,4 +85,13 @@ func ExampleSearchRuntimeFile() {
 	}
 
 	fmt.Println("The runtime file was found at:", runtimeFilePath)
+}
+
+func ExampleSearchStateFile() {
+	stateFilePath, err := xdg.SearchStateFile("appname/app.state")
+	if err != nil {
+		// The state file could not be found.
+	}
+
+	fmt.Println("The state file was found at:", stateFilePath)
 }
