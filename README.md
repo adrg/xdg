@@ -5,7 +5,7 @@ xdg
 [![Code coverage](https://codecov.io/gh/adrg/xdg/branch/master/graphs/badge.svg?branch=master)](https://app.codecov.io/gh/adrg/xdg)
 [![pkg.go.dev documentation](https://pkg.go.dev/badge/github.com/adrg/xdg)](https://pkg.go.dev/github.com/adrg/xdg)
 [![MIT license](https://img.shields.io/github/license/adrg/xdg)](https://opensource.org/licenses/MIT)
-[![Awesome Go](https://awesome.re/mentioned-badge.svg)](https://github.com/avelino/awesome-go#Configuration)
+[![Awesome Go](https://awesome.re/mentioned-badge.svg)](https://github.com/avelino/awesome-go#configuration)
 [![Go report card](https://goreportcard.com/badge/github.com/adrg/xdg)](https://goreportcard.com/report/github.com/adrg/xdg)
 [![GitHub issues](https://img.shields.io/github/issues/adrg/xdg)](https://github.com/adrg/xdg/issues)
 [![Buy me a coffee](https://img.shields.io/static/v1.svg?label=%20&message=Buy%20me%20a%20coffee&color=579fbf&logo=buy%20me%20a%20coffee&logoColor=white)](https://ko-fi.com/T6T72WATK)
@@ -58,48 +58,47 @@ present in the environment.
 State directory
 
 ```
-Unix:    ~/.local/state
-macOS:   ~/Library/Application Support
-Windows: %LOCALAPPDATA%
+Unix
+  • ~/.local/state
+macOS
+  • ~/Library/Application Support
+Windows
+  • %LOCALAPPDATA%
 ```
 
 Application directories
 
 ```
-Unix:
-- $XDG_DATA_HOME/applications
-- ~/.local/share/applications
-- /usr/local/share/applications
-- /usr/share/applications
-- $XDG_DATA_DIRS/applications
-
-macOS:
-- /Applications
-
-Windows:
-- %APPDATA%\Roaming\Microsoft\Windows\Start Menu\Programs
+Unix
+  • $XDG_DATA_HOME/applications
+  • ~/.local/share/applications
+  • /usr/local/share/applications
+  • /usr/share/applications
+  • $XDG_DATA_DIRS/applications
+macOS
+  • /Applications
+Windows
+  • %APPDATA%\Roaming\Microsoft\Windows\Start Menu\Programs
 ```
 
 Font directories
 
 ```
-Unix:
-- $XDG_DATA_HOME/fonts
-- ~/.fonts
-- ~/.local/share/fonts
-- /usr/local/share/fonts
-- /usr/share/fonts
-- $XDG_DATA_DIRS/fonts
-
-macOS:
-- ~/Library/Fonts
-- /Library/Fonts
-- /System/Library/Fonts
-- /Network/Library/Fonts
-
-Windows:
-- %windir%\Fonts
-- %LOCALAPPDATA%\Microsoft\Windows\Fonts
+Unix
+  • $XDG_DATA_HOME/fonts
+  • ~/.fonts
+  • ~/.local/share/fonts
+  • /usr/local/share/fonts
+  • /usr/share/fonts
+  • $XDG_DATA_DIRS/fonts
+macOS
+  • ~/Library/Fonts
+  • /Library/Fonts
+  • /System/Library/Fonts
+  • /Network/Library/Fonts
+Windows
+  • %windir%\Fonts
+  • %LOCALAPPDATA%\Microsoft\Windows\Fonts
 ```
 
 ## Usage
