@@ -58,14 +58,14 @@ present in the environment.
 
 #### XDG Base Directory
 
-|                 | Unix                                | macOS                           | Windows                                 |
-| :-------------- | :---------------------------------- | :------------------------------ | :-------------------------------------- |
-| XDG_DATA_HOME   | `~/.local/share`                    | `~/Library/Application Support` | `%LOCALAPPDATA%`                        |
-| XDG_DATA_DIRS   | `/usr/local/share`<br/>`/usr/share` | `/Library/Application Support`  | `%APPDATA%\Roaming`<br/>`%PROGRAMDATA%` |
-| XDG_CONFIG_HOME | `~/.config`                         | `~/Library/Preferences`         | `%LOCALAPPDATA%`                        |
-| XDG_CONFIG_DIRS | `/etc/xdg`                          | `/Library/Preferences`          | `%PROGRAMDATA%`                         |
-| XDG_CACHE_HOME  | `~/.cache`                          | `~/Library/Caches`              | `%LOCALAPPDATA%\cache`                  |
-| XDG_RUNTIME_DIR | `/run/user/UID`                     | `~/Library/Application Support` | `%LOCALAPPDATA%`                        |
+|                 | Unix                                | macOS                                                                                 | Windows                                 |
+| :-------------- | :---------------------------------- | :------------------------------------------------------------------------------------ | :-------------------------------------- |
+| XDG_DATA_HOME   | `~/.local/share`                    | `~/Library/Application Support`                                                       | `%LOCALAPPDATA%`                        |
+| XDG_DATA_DIRS   | `/usr/local/share`<br/>`/usr/share` | `/Library/Application Support`                                                        | `%APPDATA%\Roaming`<br/>`%PROGRAMDATA%` |
+| XDG_CONFIG_HOME | `~/.config`                         | `~/Library/Application Support`                                                       | `%LOCALAPPDATA%`                        |
+| XDG_CONFIG_DIRS | `/etc/xdg`                          | `~/Library/Preferences`<br/>`/Library/Application Support`<br/>`/Library/Preferences` | `%PROGRAMDATA%`                         |
+| XDG_CACHE_HOME  | `~/.cache`                          | `~/Library/Caches`                                                                    | `%LOCALAPPDATA%\cache`                  |
+| XDG_RUNTIME_DIR | `/run/user/UID`                     | `~/Library/Application Support`                                                       | `%LOCALAPPDATA%`                        |
 
 #### XDG user directories
 
