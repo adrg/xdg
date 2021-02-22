@@ -5,16 +5,23 @@ import (
 )
 
 func initBaseDirs(home string) {
+	homeAppSupport := filepath.Join(home, "Library", "Application Support")
+	rootAppSupport := "/Library/Application Support"
+
 	// Initialize base directories.
-	baseDirs.dataHome = xdgPath(envDataHome, filepath.Join(home, "Library", "Application Support"))
-	baseDirs.data = xdgPaths(envDataDirs, "/Library/Application Support")
-	baseDirs.configHome = xdgPath(envConfigHome, filepath.Join(home, "Library", "Preferences"))
-	baseDirs.config = xdgPaths(envConfigDirs, "/Library/Preferences")
+	baseDirs.dataHome = xdgPath(envDataHome, homeAppSupport)
+	baseDirs.data = xdgPaths(envDataDirs, rootAppSupport)
+	baseDirs.configHome = xdgPath(envConfigHome, homeAppSupport)
+	baseDirs.config = xdgPaths(envConfigDirs,
+		filepath.Join(home, "Library", "Preferences"),
+		rootAppSupport,
+		"/Library/Preferences",
+	)
 	baseDirs.cacheHome = xdgPath(envCacheHome, filepath.Join(home, "Library", "Caches"))
-	baseDirs.runtime = xdgPath(envRuntimeDir, filepath.Join(home, "Library", "Application Support"))
+	baseDirs.runtime = xdgPath(envRuntimeDir, homeAppSupport)
 
 	// Initialize non-standard directories.
-	baseDirs.stateHome = xdgPath(envStateHome, filepath.Join(home, "Library", "Application Support"))
+	baseDirs.stateHome = xdgPath(envStateHome, homeAppSupport)
 	baseDirs.applications = []string{
 		"/Applications",
 	}
