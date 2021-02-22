@@ -1,17 +1,37 @@
 <h1 align="center">
   <div>
-    <img src="https://raw.githubusercontent.com/adrg/adrg.github.io/master/assets/projects/xdg/logo.png" height="90px" alt="libvlc-go logo"/>
+    <img src="https://raw.githubusercontent.com/adrg/adrg.github.io/master/assets/projects/xdg/logo.png" height="80px" alt="xdg logo"/>
   </div>
 </h1>
 
-[![Build Status](https://github.com/adrg/xdg/workflows/CI/badge.svg)](https://github.com/adrg/xdg/actions?query=workflow%3ACI)
-[![Code coverage](https://codecov.io/gh/adrg/xdg/branch/master/graphs/badge.svg?branch=master)](https://app.codecov.io/gh/adrg/xdg)
-[![pkg.go.dev documentation](https://pkg.go.dev/badge/github.com/adrg/xdg)](https://pkg.go.dev/github.com/adrg/xdg)
-[![MIT license](https://img.shields.io/github/license/adrg/xdg)](https://opensource.org/licenses/MIT)
-[![Awesome Go](https://awesome.re/mentioned-badge.svg)](https://github.com/avelino/awesome-go#configuration)
-[![Go report card](https://goreportcard.com/badge/github.com/adrg/xdg)](https://goreportcard.com/report/github.com/adrg/xdg)
-[![GitHub issues](https://img.shields.io/github/issues/adrg/xdg)](https://github.com/adrg/xdg/issues)
-[![Buy me a coffee](https://img.shields.io/static/v1.svg?label=%20&message=Buy%20me%20a%20coffee&color=579fbf&logo=buy%20me%20a%20coffee&logoColor=white)](https://ko-fi.com/T6T72WATK)
+<h3 align="center">Go implementation of the XDG Base Directory Specification and XDG user directories.</h3>
+
+<p align="center">
+    <a href="https://github.com/adrg/xdg/actions?query=workflow%3ACI">
+        <img alt="Build status" src="https://github.com/adrg/xdg/workflows/CI/badge.svg">
+    </a>
+    <a href="https://app.codecov.io/gh/adrg/xdg">
+        <img alt="Code coverage" src="https://codecov.io/gh/adrg/xdg/branch/master/graphs/badge.svg?branch=master">
+    </a>
+    <a href="https://pkg.go.dev/github.com/adrg/xdg">
+        <img alt="pkg.go.dev documentation" src="https://img.shields.io/badge/go.dev-reference-007d9c?logo=go&logoColor=white">
+    </a>
+    <a href="https://opensource.org/licenses/MIT" rel="nofollow">
+        <img alt="MIT license" src="https://img.shields.io/github/license/adrg/xdg">
+    </a>
+    <a href="https://github.com/avelino/awesome-go#configuration">
+        <img alt="Awesome Go" src="https://awesome.re/mentioned-badge.svg">
+    </a>
+    <a href="https://goreportcard.com/report/github.com/adrg/xdg">
+        <img alt="Go report card" src="https://goreportcard.com/badge/github.com/adrg/xdg">
+    </a>
+    <a href="https://github.com/adrg/xdg/issues">
+        <img alt="GitHub open issues" src="https://img.shields.io/github/issues-raw/adrg/xdg">
+    </a>
+    <a href="https://ko-fi.com/T6T72WATK">
+        <img alt="Buy me a coffee" src="https://img.shields.io/static/v1.svg?label=%20&message=Buy%20me%20a%20coffee&color=579fbf&logo=buy%20me%20a%20coffee&logoColor=white">
+    </a>
+</p>
 
 Provides an implementation of the [XDG Base Directory Specification](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html).
 The specification defines a set of standard paths for storing application files,
