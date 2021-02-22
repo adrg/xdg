@@ -4,7 +4,11 @@
   </div>
 </h1>
 
-<h3 align="center">Go implementation of the XDG Base Directory Specification and XDG user directories.</h3>
+<h3 align="center">
+    <span>Go implementation of the XDG Base Directory</span>
+    <br/>
+    <span>Specification and XDG user directories.</span>
+</h3>
 
 <p align="center">
     <a href="https://github.com/adrg/xdg/actions?query=workflow%3ACI">
