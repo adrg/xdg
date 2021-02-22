@@ -1,5 +1,8 @@
-xdg
-===
+<h1 align="center">
+  <div>
+    <img src="https://raw.githubusercontent.com/adrg/adrg.github.io/master/assets/projects/xdg/logo.png" height="90px" alt="libvlc-go logo"/>
+  </div>
+</h1>
 
 [![Build Status](https://github.com/adrg/xdg/workflows/CI/badge.svg)](https://github.com/adrg/xdg/actions?query=workflow%3ACI)
 [![Code coverage](https://codecov.io/gh/adrg/xdg/branch/master/graphs/badge.svg?branch=master)](https://app.codecov.io/gh/adrg/xdg)
