@@ -19,11 +19,15 @@
     <a href="https://opensource.org/licenses/MIT" rel="nofollow">
         <img alt="MIT license" src="https://img.shields.io/github/license/adrg/xdg">
     </a>
+    <br />
+    <a href="https://goreportcard.com/report/github.com/adrg/xdg">
+        <img alt="Go report card" src="https://goreportcard.com/badge/github.com/adrg/xdg">
+    </a>
     <a href="https://github.com/avelino/awesome-go#configuration">
         <img alt="Awesome Go" src="https://awesome.re/mentioned-badge.svg">
     </a>
-    <a href="https://goreportcard.com/report/github.com/adrg/xdg">
-        <img alt="Go report card" src="https://goreportcard.com/badge/github.com/adrg/xdg">
+    <a href="https://github.com/adrg/xdg/graphs/contributors">
+        <img alt="GitHub contributors" src="https://img.shields.io/github/contributors/adrg/xdg" />
     </a>
     <a href="https://github.com/adrg/xdg/issues">
         <img alt="GitHub open issues" src="https://img.shields.io/github/issues-raw/adrg/xdg">
