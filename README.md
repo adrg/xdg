@@ -1,6 +1,6 @@
 <h1 align="center">
   <div>
-    <img src="https://raw.githubusercontent.com/adrg/adrg.github.io/master/assets/projects/xdg/logo.png" height="80px" alt="xdg logo"/>
+    <img src="https://raw.githubusercontent.com/adrg/adrg.github.io/master/assets/projects/xdg/logo.svg" alt="xdg logo"/>
   </div>
 </h1>
 
