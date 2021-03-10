@@ -44,7 +44,7 @@ applications should use the XDG defined locations instead of hardcoding paths.
 
 The package also includes the locations of well known [user directories](https://wiki.archlinux.org/index.php/XDG_user_directories)
 and an implementation of the [state directory](https://wiki.debian.org/XDGBaseDirectorySpecification#Proposal:_STATE_directory) proposal.
-Windows, macOS and most flavors of Unix are supported.
+Most flavors of Unix, Windows, macOS and Plan 9 are supported.
 
 Full documentation can be found at: https://pkg.go.dev/github.com/adrg/xdg.
 
@@ -58,75 +58,56 @@ present in the environment.
 
 #### XDG Base Directory
 
-|                 | Unix                                | macOS                                                                                 | Windows                                 |
-| :-------------- | :---------------------------------- | :------------------------------------------------------------------------------------ | :-------------------------------------- |
-| XDG_DATA_HOME   | `~/.local/share`                    | `~/Library/Application Support`                                                       | `%LOCALAPPDATA%`                        |
-| XDG_DATA_DIRS   | `/usr/local/share`<br/>`/usr/share` | `/Library/Application Support`                                                        | `%APPDATA%\Roaming`<br/>`%PROGRAMDATA%` |
-| XDG_CONFIG_HOME | `~/.config`                         | `~/Library/Application Support`                                                       | `%LOCALAPPDATA%`                        |
-| XDG_CONFIG_DIRS | `/etc/xdg`                          | `~/Library/Preferences`<br/>`/Library/Application Support`<br/>`/Library/Preferences` | `%PROGRAMDATA%`                         |
-| XDG_CACHE_HOME  | `~/.cache`                          | `~/Library/Caches`                                                                    | `%LOCALAPPDATA%\cache`                  |
-| XDG_RUNTIME_DIR | `/run/user/UID`                     | `~/Library/Application Support`                                                       | `%LOCALAPPDATA%`                        |
+|                                                | Unix                                                  | macOS                                                                                                            | Windows                                                   | Plan 9                     |
+| :--------------------------------------------- | :---------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------- | :-------------------------------------------------------- | :------------------------- |
+| <kbd><b><samp>XDG_DATA_HOME</samp></b></kbd>   | <kbd>~/.local/share</kbd>                             | <kbd>~/Library/Application Support</kbd>                                                                         | <kbd>%LOCALAPPDATA%</kbd>                                 | <kbd>$home/lib</kbd>       |
+| <kbd><b><samp>XDG_DATA_DIRS</samp></b></kbd>   | <kbd>/usr/local/share</kbd><br/><kbd>/usr/share</kbd> | <kbd>/Library/Application Support</kbd>                                                                          | <kbd>%APPDATA%\Roaming</kbd><br/><kbd>%PROGRAMDATA%</kbd> | <kbd>/lib</kbd>            |
+| <kbd><b><samp>XDG_CONFIG_HOME</samp></b></kbd> | <kbd>~/.config</kbd>                                  | <kbd>~/Library/Application Support</kbd>                                                                         | <kbd>%LOCALAPPDATA%</kbd>                                 | <kbd>$home/lib</kbd>       |
+| <kbd><b><samp>XDG_CONFIG_DIRS</samp></b></kbd> | <kbd>/etc/xdg</kbd>                                   | <kbd>~/Library/Preferences</kbd><br/><kbd>/Library/Application Support</kbd><br/><kbd>/Library/Preferences</kbd> | <kbd>%PROGRAMDATA%</kbd>                                  | <kbd>/lib</kbd>            |
+| <kbd><b><samp>XDG_CACHE_HOME</samp></b></kbd>  | <kbd>~/.cache</kbd>                                   | <kbd>~/Library/Caches</kbd>                                                                                      | <kbd>%LOCALAPPDATA%\cache</kbd>                           | <kbd>$home/lib/cache</kbd> |
+| <kbd><b><samp>XDG_RUNTIME_DIR</samp></b></kbd> | <kbd>/run/user/UID</kbd>                              | <kbd>~/Library/Application Support</kbd>                                                                         | <kbd>%LOCALAPPDATA%</kbd>                                 | <kbd>/tmp</kbd>            |
 
 #### XDG user directories
 
-|                     | Unix          | macOS         | Windows                   |
-| :------------------ | :------------ | :------------ | :------------------------ |
-| XDG_DESKTOP_DIR     | `~/Desktop`   | `~/Desktop`   | `%USERPROFILE%/Desktop`   |
-| XDG_DOWNLOAD_DIR    | `~/Downloads` | `~/Downloads` | `%USERPROFILE%/Downloads` |
-| XDG_DOCUMENTS_DIR   | `~/Documents` | `~/Documents` | `%USERPROFILE%/Documents` |
-| XDG_MUSIC_DIR       | `~/Music`     | `~/Music`     | `%USERPROFILE%/Music`     |
-| XDG_PICTURES_DIR    | `~/Pictures`  | `~/Pictures`  | `%USERPROFILE%/Pictures`  |
-| XDG_VIDEOS_DIR      | `~/Videos`    | `~/Movies`    | `%USERPROFILE%/Videos`    |
-| XDG_TEMPLATES_DIR   | `~/Templates` | `~/Templates` | `%USERPROFILE%/Templates` |
-| XDG_PUBLICSHARE_DIR | `~/Public`    | `~/Public`    | `%PUBLIC%`                |
+|                                                    | Unix                   | macOS                  | Windows                            | Plan 9                     |
+| :------------------------------------------------- | :--------------------- | :--------------------- | :--------------------------------- | :------------------------- |
+| <kbd><b><samp>XDG_DESKTOP_DIR</samp></b></kbd>     | <kbd>~/Desktop</kbd>   | <kbd>~/Desktop</kbd>   | <kbd>%USERPROFILE%\Desktop</kbd>   | <kbd>$home/desktop</kbd>   |
+| <kbd><b><samp>XDG_DOWNLOAD_DIR</samp></b></kbd>    | <kbd>~/Downloads</kbd> | <kbd>~/Downloads</kbd> | <kbd>%USERPROFILE%\Downloads</kbd> | <kbd>$home/downloads</kbd> |
+| <kbd><b><samp>XDG_DOCUMENTS_DIR</samp></b></kbd>   | <kbd>~/Documents</kbd> | <kbd>~/Documents</kbd> | <kbd>%USERPROFILE%\Documents</kbd> | <kbd>$home/documents</kbd> |
+| <kbd><b><samp>XDG_MUSIC_DIR</samp></b></kbd>       | <kbd>~/Music</kbd>     | <kbd>~/Music</kbd>     | <kbd>%USERPROFILE%\Music</kbd>     | <kbd>$home/music</kbd>     |
+| <kbd><b><samp>XDG_PICTURES_DIR</samp></b></kbd>    | <kbd>~/Pictures</kbd>  | <kbd>~/Pictures</kbd>  | <kbd>%USERPROFILE%\Pictures</kbd>  | <kbd>$home/pictures</kbd>  |
+| <kbd><b><samp>XDG_VIDEOS_DIR</samp></b></kbd>      | <kbd>~/Videos</kbd>    | <kbd>~/Movies</kbd>    | <kbd>%USERPROFILE%\Videos</kbd>    | <kbd>$home/videos</kbd>    |
+| <kbd><b><samp>XDG_TEMPLATES_DIR</samp></b></kbd>   | <kbd>~/Templates</kbd> | <kbd>~/Templates</kbd> | <kbd>%USERPROFILE%\Templates</kbd> | <kbd>$home/templates</kbd> |
+| <kbd><b><samp>XDG_PUBLICSHARE_DIR</samp></b></kbd> | <kbd>~/Public</kbd>    | <kbd>~/Public</kbd>    | <kbd>%PUBLIC%</kbd>                | <kbd>$home/public</kbd>    |
 
 #### Non-standard directories
 
 State directory
 
-```
-Unix
-  • ~/.local/state
-macOS
-  • ~/Library/Application Support
-Windows
-  • %LOCALAPPDATA%
-```
+|                                               | Unix                      | macOS                                    | Windows                   | Plan 9                     |
+| :-------------------------------------------- | :------------------------ | :--------------------------------------- | :------------------------ | :------------------------- |
+| <kbd><b><samp>XDG_STATE_HOME</samp></b></kbd> | <kbd>~/.local/state</kbd> | <kbd>~/Library/Application Support</kbd> | <kbd>%LOCALAPPDATA%</kbd> | <kbd>$home/lib/state</kbd> |
 
 Application directories
 
-```
-Unix
-  • $XDG_DATA_HOME/applications
-  • ~/.local/share/applications
-  • /usr/local/share/applications
-  • /usr/share/applications
-  • $XDG_DATA_DIRS/applications
-macOS
-  • /Applications
-Windows
-  • %APPDATA%\Roaming\Microsoft\Windows\Start Menu\Programs
-```
+| Unix                                     | macOS                    | Windows                                                            | Plan 9                |
+| :--------------------------------------- | :----------------------- | :----------------------------------------------------------------- | :-------------------- |
+| <kbd>$XDG_DATA_HOME/applications</kbd>   | <kbd>/Applications</kbd> | <kbd>%APPDATA%\Roaming\Microsoft\Windows\Start Menu\Programs</kbd> | <kbd>$home/bin</kbd>  |
+| <kbd>~/.local/share/applications</kbd>   |                          |                                                                    | <kbd>/bin</kbd>       |
+| <kbd>/usr/local/share/applications</kbd> |                          |                                                                    |                       |
+| <kbd>/usr/share/applications</kbd>       |                          |                                                                    |                       |
+| <kbd>$XDG_DATA_DIRS/applications</kbd>   |                          |                                                                    |                       |
 
 Font directories
 
-```
-Unix
-  • $XDG_DATA_HOME/fonts
-  • ~/.fonts
-  • ~/.local/share/fonts
-  • /usr/local/share/fonts
-  • /usr/share/fonts
-  • $XDG_DATA_DIRS/fonts
-macOS
-  • ~/Library/Fonts
-  • /Library/Fonts
-  • /System/Library/Fonts
-  • /Network/Library/Fonts
-Windows
-  • %windir%\Fonts
-  • %LOCALAPPDATA%\Microsoft\Windows\Fonts
-```
+| Unix                              | macOS                             | Windows                                           | Plan 9                    |
+| :-------------------------------- | :-------------------------------- | :------------------------------------------------ | :------------------------ |
+| <kbd>$XDG_DATA_HOME/fonts</kbd>   | <kbd>~/Library/Fonts</kbd>        | <kbd>%windir%\Fonts</kbd>                         | <kbd>$home/lib/font</kbd> |
+| <kbd>~/.fonts</kbd>               | <kbd>/Library/Fonts</kbd>         | <kbd>%LOCALAPPDATA%\Microsoft\Windows\Fonts</kbd> | <kbd>/lib/font</kbd>      |
+| <kbd>~/.local/share/fonts</kbd>   | <kbd>/System/Library/Fonts</kbd>  |                                                   |                           |
+| <kbd>/usr/local/share/fonts</kbd> | <kbd>/Network/Library/Fonts</kbd> |                                                   |                           |
+| <kbd>/usr/share/fonts</kbd>       |                                   |                                                   |                           |
+| <kbd>$XDG_DATA_DIRS/fonts</kbd>   |                                   |                                                   |                           |
 
 ## Usage
 
