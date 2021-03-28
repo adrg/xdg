@@ -2,6 +2,7 @@ package xdg_test
 
 import (
 	"os"
+	"syscall"
 	"testing"
 
 	"github.com/adrg/xdg"
@@ -105,6 +106,55 @@ func TestBaseDirFuncs(t *testing.T) {
 			actFullPath, err = input.pathFunc(relPath)
 			assert.NoError(t, err)
 			assert.Equal(t, expFullPath, actFullPath)
+		}
+	}
+}
+
+func TestSocketFiles(t *testing.T) {
+	type inputData struct {
+		relPaths   []string
+		pathFunc   func(string) (string, error)
+		searchFunc func(string) (string, error)
+	}
+
+	inputs := []*inputData{
+		{
+			relPaths:   []string{"app.socket", "appname/app.socket"},
+			pathFunc:   xdg.RuntimeFile,
+			searchFunc: xdg.SearchRuntimeFile,
+		},
+	}
+
+	assert := assert.New(t)
+	for _, input := range inputs {
+		for _, relPath := range input.relPaths {
+			// Get suitable path for input file.
+			expFullPath, err := input.pathFunc(relPath)
+			assert.NoError(err)
+
+			// Create Unix socket.
+			sock, err := syscall.Socket(syscall.AF_UNIX, syscall.SOCK_STREAM, 0)
+			assert.NoError(err)
+			assert.NoError(syscall.Bind(sock, &syscall.SockaddrUnix{Name: expFullPath}))
+			assert.NoError(syscall.Listen(sock, 1))
+
+			// Search input file after creation.
+			actFullPath, err := input.searchFunc(relPath)
+			assert.NoError(err)
+			assert.Equal(expFullPath, actFullPath)
+
+			// Close and Remove socket.
+			assert.NoError(syscall.Close(sock))
+			assert.NoError(os.Remove(expFullPath))
+
+			// Search input file after removal.
+			_, err = input.searchFunc(relPath)
+			assert.Error(err)
+
+			// Check that the same path is returned.
+			actFullPath, err = input.pathFunc(relPath)
+			assert.NoError(err)
+			assert.Equal(expFullPath, actFullPath)
 		}
 	}
 }
