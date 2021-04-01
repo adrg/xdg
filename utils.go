@@ -33,11 +33,6 @@ func homeDir() string {
 	return ""
 }
 
-func exists(path string) bool {
-	_, err := os.Stat(path)
-	return err == nil || os.IsExist(err)
-}
-
 func expandPath(path, homeDir string) string {
 	if path == "" || homeDir == "" {
 		return path
