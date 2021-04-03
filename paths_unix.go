@@ -1,4 +1,4 @@
-// +build aix dragonfly freebsd linux nacl netbsd openbsd solaris
+// +build aix dragonfly freebsd js,wasm nacl linux netbsd openbsd solaris
 
 package xdg
 
