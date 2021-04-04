@@ -2,6 +2,7 @@ package xdg_test
 
 import (
 	"os"
+	"path/filepath"
 	"testing"
 
 	"github.com/adrg/xdg"
@@ -43,14 +44,14 @@ func testDirs(t *testing.T, samples ...*envSample) {
 	}
 }
 
-func TestBaseDirFuncs(t *testing.T) {
-	type inputData struct {
-		relPaths   []string
-		pathFunc   func(string) (string, error)
-		searchFunc func(string) (string, error)
-	}
+type testInputData struct {
+	relPaths   []string
+	pathFunc   func(string) (string, error)
+	searchFunc func(string) (string, error)
+}
 
-	inputs := []*inputData{
+func TestBaseDirFuncs(t *testing.T) {
+	inputs := []*testInputData{
 		{
 			relPaths:   []string{"app.data", "appname/app.data"},
 			pathFunc:   xdg.DataFile,
@@ -78,6 +79,14 @@ func TestBaseDirFuncs(t *testing.T) {
 		},
 	}
 
+	// Test base directories for regular files.
+	testBaseDirsRegular(t, inputs)
+
+	// Test base directories for symbolic links.
+	testBaseDirsSymlinks(t, inputs)
+}
+
+func testBaseDirsRegular(t *testing.T, inputs []*testInputData) {
 	for _, input := range inputs {
 		for _, relPath := range input.relPaths {
 			// Get suitable path for input file.
@@ -96,6 +105,46 @@ func TestBaseDirFuncs(t *testing.T) {
 
 			// Remove created file.
 			assert.NoError(t, os.Remove(expFullPath))
+
+			// Search input file after removal.
+			_, err = input.searchFunc(relPath)
+			assert.Error(t, err)
+
+			// Check that the same path is returned.
+			actFullPath, err = input.pathFunc(relPath)
+			assert.NoError(t, err)
+			assert.Equal(t, expFullPath, actFullPath)
+		}
+	}
+}
+
+func testBaseDirsSymlinks(t *testing.T, inputs []*testInputData) {
+	for _, input := range inputs {
+		for _, relPath := range input.relPaths {
+			// Get suitable path for input file.
+			expFullPath, err := input.pathFunc(relPath)
+			assert.NoError(t, err)
+
+			// Create input file.
+			inputPath := filepath.Join(filepath.Dir(expFullPath), "input.file")
+
+			f, err := os.Create(inputPath)
+			assert.NoError(t, err)
+			assert.NoError(t, f.Close())
+
+			// Create symbolic link.
+			assert.NoError(t, os.Symlink(inputPath, expFullPath))
+
+			// Search input file after creation.
+			actFullPath, err := input.searchFunc(relPath)
+			assert.NoError(t, err)
+			assert.Equal(t, expFullPath, actFullPath)
+
+			// Remove created symbolic link.
+			assert.NoError(t, os.Remove(expFullPath))
+
+			// Remove created file.
+			assert.NoError(t, os.Remove(inputPath))
 
 			// Search input file after removal.
 			_, err = input.searchFunc(relPath)
