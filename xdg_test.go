@@ -83,6 +83,10 @@ func TestBaseDirFuncs(t *testing.T) {
 	testBaseDirsRegular(t, inputs)
 
 	// Test base directories for symbolic links.
+	for _, input := range inputs {
+		input.relPaths = []string{input.relPaths[1]}
+	}
+
 	testBaseDirsSymlinks(t, inputs)
 }
 
@@ -125,8 +129,16 @@ func testBaseDirsSymlinks(t *testing.T, inputs []*testInputData) {
 			expFullPath, err := input.pathFunc(relPath)
 			assert.NoError(t, err)
 
+			// Replace input directory with symlink.
+			symlinkDir := filepath.Dir(expFullPath)
+			inputDir := filepath.Join(filepath.Dir(symlinkDir), "inputdir")
+
+			assert.NoError(t, os.Remove(symlinkDir))
+			assert.NoError(t, os.Mkdir(inputDir, os.ModeDir|0700))
+			assert.NoError(t, os.Symlink(inputDir, symlinkDir))
+
 			// Create input file.
-			inputPath := filepath.Join(filepath.Dir(expFullPath), "input.file")
+			inputPath := filepath.Join(symlinkDir, "input.file")
 
 			f, err := os.Create(inputPath)
 			assert.NoError(t, err)
@@ -140,11 +152,11 @@ func testBaseDirsSymlinks(t *testing.T, inputs []*testInputData) {
 			assert.NoError(t, err)
 			assert.Equal(t, expFullPath, actFullPath)
 
-			// Remove created symbolic link.
+			// Remove created symbolic links, files and directories.
 			assert.NoError(t, os.Remove(expFullPath))
-
-			// Remove created file.
 			assert.NoError(t, os.Remove(inputPath))
+			assert.NoError(t, os.Remove(symlinkDir))
+			assert.NoError(t, os.Remove(inputDir))
 
 			// Search input file after removal.
 			_, err = input.searchFunc(relPath)
