@@ -210,6 +210,7 @@ See [CONTRIBUTING.MD](CONTRIBUTING.md).
 [bouncepaw](https://github.com/bouncepaw),
 [gabriel-vasile](https://github.com/gabriel-vasile),
 [KalleDK](https://github.com/KalleDK),
+[nvkv](https://github.com/nvkv),
 [djdv](https://github.com/djdv).
 
 ## References
