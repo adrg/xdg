@@ -209,7 +209,8 @@ See [CONTRIBUTING.MD](CONTRIBUTING.md).
 [wichert](https://github.com/wichert),
 [bouncepaw](https://github.com/bouncepaw),
 [gabriel-vasile](https://github.com/gabriel-vasile),
-[KalleDK](https://github.com/KalleDK).
+[KalleDK](https://github.com/KalleDK),
+[djdv](https://github.com/djdv).
 
 ## References
 
