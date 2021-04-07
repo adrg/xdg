@@ -9,7 +9,7 @@ import (
 	"testing"
 
 	"github.com/adrg/xdg"
-	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 func TestDefaultBaseDirs(t *testing.T) {
@@ -74,30 +74,30 @@ func TestDefaultBaseDirs(t *testing.T) {
 	}
 
 	// Test environment variable fallbacks.
-	assert.NoError(t, os.Unsetenv("APPDATA"))
-	assert.NoError(t, os.Unsetenv("LOCALAPPDATA"))
-	assert.NoError(t, os.Unsetenv("PROGRAMDATA"))
-	assert.NoError(t, os.Unsetenv("windir"))
-	assert.NoError(t, os.Setenv("SystemDrive", home))
-	assert.NoError(t, os.Setenv("SystemRoot", winDir))
+	require.NoError(t, os.Unsetenv("APPDATA"))
+	require.NoError(t, os.Unsetenv("LOCALAPPDATA"))
+	require.NoError(t, os.Unsetenv("PROGRAMDATA"))
+	require.NoError(t, os.Unsetenv("windir"))
+	require.NoError(t, os.Setenv("SystemDrive", home))
+	require.NoError(t, os.Setenv("SystemRoot", winDir))
 
 	testDirs(t, envSamples...)
 
 	// Test environment variables set.
-	assert.NoError(t, os.Setenv("APPDATA", appData))
-	assert.NoError(t, os.Setenv("LOCALAPPDATA", localAppData))
-	assert.NoError(t, os.Setenv("PROGRAMDATA", programData))
-	assert.NoError(t, os.Setenv("windir", winDir))
+	require.NoError(t, os.Setenv("APPDATA", appData))
+	require.NoError(t, os.Setenv("LOCALAPPDATA", localAppData))
+	require.NoError(t, os.Setenv("PROGRAMDATA", programData))
+	require.NoError(t, os.Setenv("windir", winDir))
 
 	testDirs(t, envSamples...)
 
 	// Test no environment variables set.
-	assert.NoError(t, os.Unsetenv("APPDATA"))
-	assert.NoError(t, os.Unsetenv("LOCALAPPDATA"))
-	assert.NoError(t, os.Unsetenv("PROGRAMDATA"))
-	assert.NoError(t, os.Unsetenv("windir"))
-	assert.NoError(t, os.Unsetenv("SystemDrive"))
-	assert.NoError(t, os.Unsetenv("SystemRoot"))
+	require.NoError(t, os.Unsetenv("APPDATA"))
+	require.NoError(t, os.Unsetenv("LOCALAPPDATA"))
+	require.NoError(t, os.Unsetenv("PROGRAMDATA"))
+	require.NoError(t, os.Unsetenv("windir"))
+	require.NoError(t, os.Unsetenv("SystemDrive"))
+	require.NoError(t, os.Unsetenv("SystemRoot"))
 
 	envSamples[1].expected = []string{roamingAppData, home}
 	envSamples[3].expected = []string{home}
@@ -115,9 +115,9 @@ func TestCustomBaseDirs(t *testing.T) {
 	localAppData := filepath.Join(appData, "Local")
 	programData := filepath.Join(home, "ProgramData")
 
-	assert.NoError(t, os.Setenv("APPDATA", appData))
-	assert.NoError(t, os.Setenv("LOCALAPPDATA", localAppData))
-	assert.NoError(t, os.Setenv("PROGRAMDATA", programData))
+	require.NoError(t, os.Setenv("APPDATA", appData))
+	require.NoError(t, os.Setenv("LOCALAPPDATA", localAppData))
+	require.NoError(t, os.Setenv("PROGRAMDATA", programData))
 
 	testDirs(t,
 		&envSample{
@@ -213,11 +213,11 @@ func TestDefaultUserDirs(t *testing.T) {
 	}
 
 	// Test %PUBLIC% not set.
-	assert.NoError(t, os.Unsetenv("PUBLIC"))
+	require.NoError(t, os.Unsetenv("PUBLIC"))
 	testDirs(t, samples...)
 
 	// Test %PUBLIC% set.
-	assert.NoError(t, os.Setenv("PUBLIC", public))
+	require.NoError(t, os.Setenv("PUBLIC", public))
 	testDirs(t, samples...)
 }
 

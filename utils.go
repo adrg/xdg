@@ -33,11 +33,6 @@ func homeDir() string {
 	return ""
 }
 
-func exists(path string) bool {
-	_, err := os.Stat(path)
-	return err == nil || os.IsExist(err)
-}
-
 func expandPath(path, homeDir string) string {
 	if path == "" || homeDir == "" {
 		return path
@@ -58,7 +53,7 @@ func createPath(name string, paths []string) (string, error) {
 		path := filepath.Join(p, name)
 		dir := filepath.Dir(path)
 
-		if exists(dir) {
+		if pathExists(dir) {
 			return path, nil
 		}
 		if err := os.MkdirAll(dir, os.ModeDir|0700); err == nil {
@@ -76,7 +71,7 @@ func searchFile(name string, paths []string) (string, error) {
 	var searchedPaths []string
 	for _, p := range paths {
 		path := filepath.Join(p, name)
-		if exists(path) {
+		if pathExists(path) {
 			return path, nil
 		}
 

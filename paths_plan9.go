@@ -1,5 +1,3 @@
-// +build plan9
-
 package xdg
 
 import (
