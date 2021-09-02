@@ -13,12 +13,11 @@ func initBaseDirs(home string) {
 	baseDirs.data = xdgPaths(envDataDirs, rootLibDir)
 	baseDirs.configHome = xdgPath(envConfigHome, homeLibDir)
 	baseDirs.config = xdgPaths(envConfigDirs, rootLibDir)
+	baseDirs.stateHome = xdgPath(envStateHome, filepath.Join(homeLibDir, "state"))
 	baseDirs.cacheHome = xdgPath(envCacheHome, filepath.Join(homeLibDir, "cache"))
 	baseDirs.runtime = xdgPath(envRuntimeDir, "/tmp")
 
 	// Initialize non-standard directories.
-	baseDirs.stateHome = xdgPath(envStateHome, filepath.Join(homeLibDir, "state"))
-
 	baseDirs.applications = []string{
 		filepath.Join(home, "bin"),
 		"/bin",

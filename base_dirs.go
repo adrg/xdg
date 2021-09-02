@@ -6,9 +6,9 @@ const (
 	envDataDirs   = "XDG_DATA_DIRS"
 	envConfigHome = "XDG_CONFIG_HOME"
 	envConfigDirs = "XDG_CONFIG_DIRS"
+	envStateHome  = "XDG_STATE_HOME"
 	envCacheHome  = "XDG_CACHE_HOME"
 	envRuntimeDir = "XDG_RUNTIME_DIR"
-	envStateHome  = "XDG_STATE_HOME"
 )
 
 type baseDirectories struct {
@@ -16,11 +16,11 @@ type baseDirectories struct {
 	data       []string
 	configHome string
 	config     []string
+	stateHome  string
 	cacheHome  string
 	runtime    string
 
 	// Non-standard directories.
-	stateHome    string
 	fonts        []string
 	applications []string
 }
@@ -33,16 +33,16 @@ func (bd baseDirectories) configFile(relPath string) (string, error) {
 	return createPath(relPath, append([]string{bd.configHome}, bd.config...))
 }
 
+func (bd baseDirectories) stateFile(relPath string) (string, error) {
+	return createPath(relPath, []string{bd.stateHome})
+}
+
 func (bd baseDirectories) cacheFile(relPath string) (string, error) {
 	return createPath(relPath, []string{bd.cacheHome})
 }
 
 func (bd baseDirectories) runtimeFile(relPath string) (string, error) {
 	return createPath(relPath, []string{bd.runtime})
-}
-
-func (bd baseDirectories) stateFile(relPath string) (string, error) {
-	return createPath(relPath, []string{bd.stateHome})
 }
 
 func (bd baseDirectories) searchDataFile(relPath string) (string, error) {
@@ -53,14 +53,14 @@ func (bd baseDirectories) searchConfigFile(relPath string) (string, error) {
 	return searchFile(relPath, append([]string{bd.configHome}, bd.config...))
 }
 
+func (bd baseDirectories) searchStateFile(relPath string) (string, error) {
+	return searchFile(relPath, []string{bd.stateHome})
+}
+
 func (bd baseDirectories) searchCacheFile(relPath string) (string, error) {
 	return searchFile(relPath, []string{bd.cacheHome})
 }
 
 func (bd baseDirectories) searchRuntimeFile(relPath string) (string, error) {
 	return searchFile(relPath, []string{bd.runtime})
-}
-
-func (bd baseDirectories) searchStateFile(relPath string) (string, error) {
-	return searchFile(relPath, []string{bd.stateHome})
 }
