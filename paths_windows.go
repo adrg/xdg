@@ -39,11 +39,11 @@ func initBaseDirs(home string) {
 	baseDirs.data = xdgPaths(envDataDirs, roamingAppDataDir, programDataDir)
 	baseDirs.configHome = xdgPath(envConfigHome, localAppDataDir)
 	baseDirs.config = xdgPaths(envConfigDirs, programDataDir)
+	baseDirs.stateHome = xdgPath(envStateHome, localAppDataDir)
 	baseDirs.cacheHome = xdgPath(envCacheHome, filepath.Join(localAppDataDir, "cache"))
 	baseDirs.runtime = xdgPath(envRuntimeDir, localAppDataDir)
 
 	// Initialize non-standard directories.
-	baseDirs.stateHome = xdgPath(envStateHome, localAppDataDir)
 	baseDirs.applications = []string{
 		filepath.Join(roamingAppDataDir, "Microsoft", "Windows", "Start Menu", "Programs"),
 	}

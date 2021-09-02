@@ -1,21 +1,17 @@
 /*
-Package xdg provides an implementation of the XDG Base Directory
-Specification. The specification defines a set of standard paths for storing
-application files including data and configuration files. For portability and
-flexibility reasons, applications should use the XDG defined locations instead
-of hardcoding paths. The package also includes the locations of well known user
-directories. The current implementation supports Windows, Mac OS and most
-flavors of Unix.
+Package xdg provides an implementation of the XDG Base Directory Specification.
+The specification defines a set of standard paths for storing application files
+including data and configuration files. For portability and flexibility reasons,
+applications should use the XDG defined locations instead of hardcoding paths.
+The package also includes the locations of well known user directories.
+
+The current implementation supports most flavors of Unix, Windows, Mac OS and Plan 9.
 
 	For more information regarding the XDG Base Directory Specification see:
 	https://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html
 
 	For more information regarding the XDG user directories see:
 	https://wiki.archlinux.org/index.php/XDG_user_directories
-
-	For more information regarding the XDG state directory proposal see:
-	https://wiki.debian.org/XDGBaseDirectorySpecification#Proposal:_STATE_directory
-	https://lists.freedesktop.org/archives/xdg/2016-December/013803.html
 */
 package xdg
 
@@ -55,6 +51,12 @@ var (
 	// ConfigHome directory, if possible.
 	ConfigDirs []string
 
+	// StateHome defines the base directory relative to which user-specific
+	// state files should be stored. This directory is defined by the
+	// $XDG_STATE_HOME environment variable. If the variable is not set,
+	// a default equal to ~/.local/state should be used.
+	StateHome string
+
 	// CacheHome defines the base directory relative to which user-specific
 	// non-essential (cached) data should be written. This directory is
 	// defined by the $XDG_CACHE_HOME environment variable. If the variable
@@ -71,12 +73,6 @@ var (
 	// since it might reside in runtime memory and cannot necessarily be
 	// swapped out to disk.
 	RuntimeDir string
-
-	// StateHome defines the base directory relative to which user-specific
-	// volatile data files should be stored. This directory is defined by
-	// the non-standard $XDG_STATE_HOME environment variable. If the variable
-	// is not set, a default equal to ~/.local/state should be used.
-	StateHome string
 
 	// UserDirs defines the locations of well known user directories.
 	UserDirs UserDirectories
@@ -104,9 +100,11 @@ func Reload() {
 	DataDirs = baseDirs.data
 	ConfigHome = baseDirs.configHome
 	ConfigDirs = baseDirs.config
+	StateHome = baseDirs.stateHome
 	CacheHome = baseDirs.cacheHome
 	RuntimeDir = baseDirs.runtime
-	StateHome = baseDirs.stateHome
+
+	// Initialize non-standard directories.
 	FontDirs = baseDirs.fonts
 	ApplicationDirs = baseDirs.applications
 
@@ -134,6 +132,18 @@ func ConfigFile(relPath string) (string, error) {
 	return baseDirs.configFile(relPath)
 }
 
+// StateFile returns a suitable location for the specified state file. State
+// files are usually volatile data files, not suitable to be stored relative
+// to the $XDG_DATA_HOME directory.
+// The relPath parameter must contain the name of the state file, and
+// optionally, a set of parent directories (e.g. appname/app.state).
+// If the specified directories do not exist, they will be created relative
+// to the base state directory. On failure, an error containing the
+// attempted paths is returned.
+func StateFile(relPath string) (string, error) {
+	return baseDirs.stateFile(relPath)
+}
+
 // CacheFile returns a suitable location for the specified cache file.
 // The relPath parameter must contain the name of the cache file, and
 // optionally, a set of parent directories (e.g. appname/app.cache).
@@ -154,18 +164,6 @@ func RuntimeFile(relPath string) (string, error) {
 	return baseDirs.runtimeFile(relPath)
 }
 
-// StateFile returns a suitable location for the specified state file. State
-// files are usually volatile data files, not suitable to be stored relative
-// to the $XDG_DATA_HOME directory.
-// The relPath parameter must contain the name of the state file, and
-// optionally, a set of parent directories (e.g. appname/app.state).
-// If the specified directories do not exist, they will be created relative
-// to the base state directory. On failure, an error containing the
-// attempted paths is returned.
-func StateFile(relPath string) (string, error) {
-	return baseDirs.stateFile(relPath)
-}
-
 // SearchDataFile searches for specified file in the data search paths.
 // The relPath parameter must contain the name of the data file, and
 // optionally, a set of parent directories (e.g. appname/app.data). If the
@@ -182,6 +180,14 @@ func SearchConfigFile(relPath string) (string, error) {
 	return baseDirs.searchConfigFile(relPath)
 }
 
+// SearchStateFile searches for the specified file in the state search path.
+// The relPath parameter must contain the name of the state file, and
+// optionally, a set of parent directories (e.g. appname/app.state). If the
+// file cannot be found, an error specifying the searched path is returned.
+func SearchStateFile(relPath string) (string, error) {
+	return baseDirs.searchStateFile(relPath)
+}
+
 // SearchCacheFile searches for the specified file in the cache search path.
 // The relPath parameter must contain the name of the cache file, and
 // optionally, a set of parent directories (e.g. appname/app.cache). If the
@@ -196,14 +202,6 @@ func SearchCacheFile(relPath string) (string, error) {
 // file cannot be found, an error specifying the searched path is returned.
 func SearchRuntimeFile(relPath string) (string, error) {
 	return baseDirs.searchRuntimeFile(relPath)
-}
-
-// SearchStateFile searches for the specified file in the state search path.
-// The relPath parameter must contain the name of the state file, and
-// optionally, a set of parent directories (e.g. appname/app.state). If the
-// file cannot be found, an error specifying the searched path is returned.
-func SearchStateFile(relPath string) (string, error) {
-	return baseDirs.searchStateFile(relPath)
 }
 
 func init() {

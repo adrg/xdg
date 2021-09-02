@@ -24,6 +24,15 @@ func ExampleConfigFile() {
 	fmt.Println("Save config file at:", configFilePath)
 }
 
+func ExampleStateFile() {
+	stateFilePath, err := xdg.DataFile("appname/app.state")
+	if err != nil {
+		// Treat error.
+	}
+
+	fmt.Println("Save state file at:", stateFilePath)
+}
+
 func ExampleCacheFile() {
 	cacheFilePath, err := xdg.CacheFile("appname/app.cache")
 	if err != nil {
@@ -40,15 +49,6 @@ func ExampleRuntimeFile() {
 	}
 
 	fmt.Println("Save runtime file at:", runtimeFilePath)
-}
-
-func ExampleStateFile() {
-	stateFilePath, err := xdg.DataFile("appname/app.state")
-	if err != nil {
-		// Treat error.
-	}
-
-	fmt.Println("Save state file at:", stateFilePath)
 }
 
 func ExampleSearchDataFile() {
@@ -69,6 +69,15 @@ func ExampleSearchConfigFile() {
 	fmt.Println("The config file was found at:", configFilePath)
 }
 
+func ExampleSearchStateFile() {
+	stateFilePath, err := xdg.SearchStateFile("appname/app.state")
+	if err != nil {
+		// The state file could not be found.
+	}
+
+	fmt.Println("The state file was found at:", stateFilePath)
+}
+
 func ExampleSearchCacheFile() {
 	cacheFilePath, err := xdg.SearchCacheFile("appname/app.cache")
 	if err != nil {
@@ -85,13 +94,4 @@ func ExampleSearchRuntimeFile() {
 	}
 
 	fmt.Println("The runtime file was found at:", runtimeFilePath)
-}
-
-func ExampleSearchStateFile() {
-	stateFilePath, err := xdg.SearchStateFile("appname/app.state")
-	if err != nil {
-		// The state file could not be found.
-	}
-
-	fmt.Println("The state file was found at:", stateFilePath)
 }

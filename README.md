@@ -41,11 +41,9 @@ Provides an implementation of the [XDG Base Directory Specification](https://spe
 The specification defines a set of standard paths for storing application files,
 including data and configuration files. For portability and flexibility reasons,
 applications should use the XDG defined locations instead of hardcoding paths.
+The package also includes the locations of well known [user directories](https://wiki.archlinux.org/index.php/XDG_user_directories).
 
-The package also includes the locations of well known [user directories](https://wiki.archlinux.org/index.php/XDG_user_directories)
-and an implementation of the [state directory](https://wiki.debian.org/XDGBaseDirectorySpecification#Proposal:_STATE_directory) proposal.
-Most flavors of Unix, Windows, macOS and Plan 9 are supported.
-
+The current implementation supports most flavors of Unix, Windows, Mac OS and Plan 9.  
 Full documentation can be found at: https://pkg.go.dev/github.com/adrg/xdg.
 
 ## Installation
@@ -64,6 +62,7 @@ present in the environment.
 | <kbd><b><samp>XDG_DATA_DIRS</samp></b></kbd>   | <kbd>/usr/local/share</kbd><br/><kbd>/usr/share</kbd> | <kbd>/Library/Application Support</kbd>                                                                          | <kbd>%APPDATA%\Roaming</kbd><br/><kbd>%PROGRAMDATA%</kbd> | <kbd>/lib</kbd>            |
 | <kbd><b><samp>XDG_CONFIG_HOME</samp></b></kbd> | <kbd>~/.config</kbd>                                  | <kbd>~/Library/Application Support</kbd>                                                                         | <kbd>%LOCALAPPDATA%</kbd>                                 | <kbd>$home/lib</kbd>       |
 | <kbd><b><samp>XDG_CONFIG_DIRS</samp></b></kbd> | <kbd>/etc/xdg</kbd>                                   | <kbd>~/Library/Preferences</kbd><br/><kbd>/Library/Application Support</kbd><br/><kbd>/Library/Preferences</kbd> | <kbd>%PROGRAMDATA%</kbd>                                  | <kbd>/lib</kbd>            |
+| <kbd><b><samp>XDG_STATE_HOME</samp></b></kbd>  | <kbd>~/.local/state</kbd>                             | <kbd>~/Library/Application Support</kbd>                                                                         | <kbd>%LOCALAPPDATA%</kbd>                                 | <kbd>$home/lib/state</kbd> |
 | <kbd><b><samp>XDG_CACHE_HOME</samp></b></kbd>  | <kbd>~/.cache</kbd>                                   | <kbd>~/Library/Caches</kbd>                                                                                      | <kbd>%LOCALAPPDATA%\cache</kbd>                           | <kbd>$home/lib/cache</kbd> |
 | <kbd><b><samp>XDG_RUNTIME_DIR</samp></b></kbd> | <kbd>/run/user/UID</kbd>                              | <kbd>~/Library/Application Support</kbd>                                                                         | <kbd>%LOCALAPPDATA%</kbd>                                 | <kbd>/tmp</kbd>            |
 
@@ -81,12 +80,6 @@ present in the environment.
 | <kbd><b><samp>XDG_PUBLICSHARE_DIR</samp></b></kbd> | <kbd>~/Public</kbd>    | <kbd>~/Public</kbd>    | <kbd>%PUBLIC%</kbd>                | <kbd>$home/public</kbd>    |
 
 #### Non-standard directories
-
-State directory
-
-|                                               | Unix                      | macOS                                    | Windows                   | Plan 9                     |
-| :-------------------------------------------- | :------------------------ | :--------------------------------------- | :------------------------ | :------------------------- |
-| <kbd><b><samp>XDG_STATE_HOME</samp></b></kbd> | <kbd>~/.local/state</kbd> | <kbd>~/Library/Application Support</kbd> | <kbd>%LOCALAPPDATA%</kbd> | <kbd>$home/lib/state</kbd> |
 
 Application directories
 
@@ -128,11 +121,11 @@ func main() {
 	log.Println("Data directories:", xdg.DataDirs)
 	log.Println("Home config directory:", xdg.ConfigHome)
 	log.Println("Config directories:", xdg.ConfigDirs)
+	log.Println("Home state directory:", xdg.StateHome)
 	log.Println("Cache directory:", xdg.CacheHome)
 	log.Println("Runtime directory:", xdg.RuntimeDir)
 
 	// Non-standard directories.
-	log.Println("Home state directory:", xdg.StateHome)
 	log.Println("Application directories:", xdg.ApplicationDirs)
 	log.Println("Font directories:", xdg.FontDirs)
 
@@ -148,9 +141,9 @@ func main() {
 
 	// For other types of application files use:
 	// xdg.DataFile()
+	// xdg.StateFile()
 	// xdg.CacheFile()
 	// xdg.RuntimeFile()
-	// xdg.StateFile()
 
 	// Finding application config files.
 	// SearchConfigFile takes one parameter which must contain the name of
@@ -164,9 +157,9 @@ func main() {
 
 	// For other types of application files use:
 	// xdg.SearchDataFile()
+	// xdg.SearchStateFile()
 	// xdg.SearchCacheFile()
 	// xdg.SearchRuntimeFile()
-	// xdg.SearchStateFile()
 }
 ```
 
@@ -218,8 +211,6 @@ See [CONTRIBUTING.MD](CONTRIBUTING.md).
 For more information see:
 * [XDG Base Directory Specification](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html)
 * [XDG user directories](https://wiki.archlinux.org/index.php/XDG_user_directories)
-* [XDG state directory proposal](https://wiki.debian.org/XDGBaseDirectorySpecification#Proposal:_STATE_directory)
-* [XDG_STATE_HOME proposal](https://lists.freedesktop.org/archives/xdg/2016-December/013803.html)
 
 ## License
 
