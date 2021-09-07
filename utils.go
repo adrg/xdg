@@ -17,20 +17,15 @@ func homeDir() string {
 		homeEnv = "home"
 	}
 
-	if home := os.Getenv(homeEnv); home != "" {
-		return home
-	}
-
-	switch runtime.GOOS {
-	case "nacl":
-		return "/"
-	case "darwin":
-		if runtime.GOARCH == "arm" || runtime.GOARCH == "arm64" {
-			return "/"
+	home := os.Getenv(homeEnv)
+	if home == "" {
+		if goos, goarch := runtime.GOOS, runtime.GOARCH; goos == "nacl" ||
+			(goos == "darwin" && (goarch == "arm" || goarch == "arm64")) {
+			home = "/"
 		}
 	}
 
-	return ""
+	return home
 }
 
 func expandPath(path, homeDir string) string {
