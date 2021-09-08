@@ -61,6 +61,11 @@ func TestBaseDirFuncs(t *testing.T) {
 			searchFunc: xdg.SearchConfigFile,
 		},
 		{
+			relPaths:   []string{"app.state", "appname/app.state"},
+			pathFunc:   xdg.StateFile,
+			searchFunc: xdg.SearchStateFile,
+		},
+		{
 			relPaths:   []string{"app.cache", "appname/app.cache"},
 			pathFunc:   xdg.CacheFile,
 			searchFunc: xdg.SearchCacheFile,
@@ -69,11 +74,6 @@ func TestBaseDirFuncs(t *testing.T) {
 			relPaths:   []string{"app.pid", "appname/app.pid"},
 			pathFunc:   xdg.RuntimeFile,
 			searchFunc: xdg.SearchRuntimeFile,
-		},
-		{
-			relPaths:   []string{"app.state", "appname/app.state"},
-			pathFunc:   xdg.StateFile,
-			searchFunc: xdg.SearchStateFile,
 		},
 	}
 
@@ -165,5 +165,20 @@ func testBaseDirsSymlinks(t *testing.T, inputs []*testInputData) {
 			require.NoError(t, err)
 			require.Equal(t, expFullPath, actFullPath)
 		}
+	}
+}
+
+func TestInvalidPaths(t *testing.T) {
+	inputs := map[string]func(string) (string, error){
+		"\000/app.data":          xdg.DataFile,
+		"appname\000/app.yaml":   xdg.ConfigFile,
+		"appname/\000/app.state": xdg.StateFile,
+		"\000appname/app.cache":  xdg.CacheFile,
+		"\000/appname/app.pid":   xdg.RuntimeFile,
+	}
+
+	for inputPath, xdgFunc := range inputs {
+		_, err := xdgFunc(inputPath)
+		require.Error(t, err)
 	}
 }
