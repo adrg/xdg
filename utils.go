@@ -101,20 +101,21 @@ func xdgPaths(name string, defaultPaths ...string) []string {
 }
 
 func uniquePaths(paths []string) []string {
-	var uniq []string
-	registry := map[string]struct{}{}
+	var (
+		uniq     []string
+		registry = map[string]struct{}{}
+	)
 
 	for _, p := range paths {
 		dir := expandPath(p, Home)
-		if dir == "" || !filepath.IsAbs(dir) {
-			continue
-		}
-		if _, ok := registry[dir]; ok {
-			continue
-		}
+		if dir != "" && filepath.IsAbs(dir) {
+			if _, ok := registry[dir]; ok {
+				continue
+			}
 
-		registry[dir] = struct{}{}
-		uniq = append(uniq, dir)
+			registry[dir] = struct{}{}
+			uniq = append(uniq, dir)
+		}
 	}
 
 	return uniq
