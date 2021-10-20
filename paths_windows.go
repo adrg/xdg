@@ -11,7 +11,7 @@ import (
 func initBaseDirs(home string) {
 	roamingAppDataDir := os.Getenv("APPDATA")
 	if roamingAppDataDir == "" {
-		roamingAppDataDir := filepath.Join(home, "Roaming")
+		roamingAppDataDir = filepath.Join(home, "Roaming")
 	}
 
 	localAppDataDir := os.Getenv("LOCALAPPDATA")
@@ -78,8 +78,8 @@ func initUserDirs(home string) {
 		kfPath(windows.FOLDERID_Public, publicDir))
 }
 
-func kfPath(folderID *KNOWNFOLDERID, defaultPath string) string {
-	knownPath, _ := windows.KnownFolderPath(folderID, KF_FLAG_DEFAULT)
+func kfPath(folderID *windows.KNOWNFOLDERID, defaultPath string) string {
+	knownPath, _ := windows.KnownFolderPath(folderID, windows.KF_FLAG_DEFAULT)
 	if knownPath = strings.TrimSpace(knownPath); knownPath == "" {
 		return defaultPath
 	}
