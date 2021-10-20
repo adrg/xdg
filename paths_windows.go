@@ -60,12 +60,29 @@ func initUserDirs(home string) {
 		publicDir = filepath.Join(home, "Public")
 	}
 
-	UserDirs.Desktop = xdgPath(envDesktopDir, filepath.Join(home, "Desktop"))
-	UserDirs.Download = xdgPath(envDownloadDir, filepath.Join(home, "Downloads"))
-	UserDirs.Documents = xdgPath(envDocumentsDir, filepath.Join(home, "Documents"))
-	UserDirs.Music = xdgPath(envMusicDir, filepath.Join(home, "Music"))
-	UserDirs.Pictures = xdgPath(envPicturesDir, filepath.Join(home, "Pictures"))
-	UserDirs.Videos = xdgPath(envVideosDir, filepath.Join(home, "Videos"))
-	UserDirs.Templates = xdgPath(envTemplatesDir, filepath.Join(home, "Templates"))
-	UserDirs.PublicShare = xdgPath(envPublicShareDir, publicDir)
+	UserDirs.Desktop = xdgPath(envDesktopDir,
+		kfPath(windows.FOLDERID_Desktop, filepath.Join(home, "Desktop")))
+	UserDirs.Download = xdgPath(envDownloadDir,
+		kfPath(windows.FOLDERID_Downloads, filepath.Join(home, "Downloads")))
+	UserDirs.Documents = xdgPath(envDocumentsDir,
+		kfPath(windows.FOLDERID_Documents, filepath.Join(home, "Documents")))
+	UserDirs.Music = xdgPath(envMusicDir,
+		kfPath(windows.FOLDERID_Music, filepath.Join(home, "Music")))
+	UserDirs.Pictures = xdgPath(envPicturesDir,
+		kfPath(windows.FOLDERID_Pictures, filepath.Join(home, "Pictures")))
+	UserDirs.Videos = xdgPath(envVideosDir,
+		kfPath(windows.FOLDERID_Videos, filepath.Join(home, "Videos")))
+	UserDirs.Templates = xdgPath(envTemplatesDir,
+		kfPath(windows.FOLDERID_Templates, filepath.Join(home, "Templates")))
+	UserDirs.PublicShare = xdgPath(envPublicShareDir,
+		kfPath(windows.FOLDERID_Public, publicDir))
+}
+
+func kfPath(folderID *KNOWNFOLDERID, defaultPath string) string {
+	knownPath, _ := windows.KnownFolderPath(folderID, KF_FLAG_DEFAULT)
+	if knownPath = strings.TrimSpace(knownPath); knownPath == "" {
+		return defaultPath
+	}
+
+	return knownPath
 }
