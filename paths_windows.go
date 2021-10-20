@@ -3,18 +3,20 @@ package xdg
 import (
 	"os"
 	"path/filepath"
+	"strings"
+
+	"golang.org/x/sys/windows"
 )
 
 func initBaseDirs(home string) {
-	appDataDir := os.Getenv("APPDATA")
-	if appDataDir == "" {
-		appDataDir = filepath.Join(home, "AppData")
+	roamingAppDataDir := os.Getenv("APPDATA")
+	if roamingAppDataDir == "" {
+		roamingAppDataDir := filepath.Join(home, "Roaming")
 	}
-	roamingAppDataDir := filepath.Join(appDataDir, "Roaming")
 
 	localAppDataDir := os.Getenv("LOCALAPPDATA")
 	if localAppDataDir == "" {
-		localAppDataDir = filepath.Join(appDataDir, "Local")
+		localAppDataDir = filepath.Join(home, "Local")
 	}
 
 	programDataDir := os.Getenv("PROGRAMDATA")
@@ -28,8 +30,7 @@ func initBaseDirs(home string) {
 
 	winDir := os.Getenv("windir")
 	if winDir == "" {
-		winDir = os.Getenv("SystemRoot")
-		if winDir == "" {
+		if winDir = os.Getenv("SystemRoot"); winDir == "" {
 			winDir = home
 		}
 	}
