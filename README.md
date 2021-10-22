@@ -68,28 +68,28 @@ present in the environment.
 
 #### XDG user directories
 
-|                                                    | Unix                   | macOS                  | Windows                            | Plan 9                     |
-| :------------------------------------------------- | :--------------------- | :--------------------- | :--------------------------------- | :------------------------- |
-| <kbd><b><samp>XDG_DESKTOP_DIR</samp></b></kbd>     | <kbd>~/Desktop</kbd>   | <kbd>~/Desktop</kbd>   | <kbd>%USERPROFILE%\Desktop</kbd>   | <kbd>$home/desktop</kbd>   |
-| <kbd><b><samp>XDG_DOWNLOAD_DIR</samp></b></kbd>    | <kbd>~/Downloads</kbd> | <kbd>~/Downloads</kbd> | <kbd>%USERPROFILE%\Downloads</kbd> | <kbd>$home/downloads</kbd> |
-| <kbd><b><samp>XDG_DOCUMENTS_DIR</samp></b></kbd>   | <kbd>~/Documents</kbd> | <kbd>~/Documents</kbd> | <kbd>%USERPROFILE%\Documents</kbd> | <kbd>$home/documents</kbd> |
-| <kbd><b><samp>XDG_MUSIC_DIR</samp></b></kbd>       | <kbd>~/Music</kbd>     | <kbd>~/Music</kbd>     | <kbd>%USERPROFILE%\Music</kbd>     | <kbd>$home/music</kbd>     |
-| <kbd><b><samp>XDG_PICTURES_DIR</samp></b></kbd>    | <kbd>~/Pictures</kbd>  | <kbd>~/Pictures</kbd>  | <kbd>%USERPROFILE%\Pictures</kbd>  | <kbd>$home/pictures</kbd>  |
-| <kbd><b><samp>XDG_VIDEOS_DIR</samp></b></kbd>      | <kbd>~/Videos</kbd>    | <kbd>~/Movies</kbd>    | <kbd>%USERPROFILE%\Videos</kbd>    | <kbd>$home/videos</kbd>    |
-| <kbd><b><samp>XDG_TEMPLATES_DIR</samp></b></kbd>   | <kbd>~/Templates</kbd> | <kbd>~/Templates</kbd> | <kbd>%USERPROFILE%\Templates</kbd> | <kbd>$home/templates</kbd> |
-| <kbd><b><samp>XDG_PUBLICSHARE_DIR</samp></b></kbd> | <kbd>~/Public</kbd>    | <kbd>~/Public</kbd>    | <kbd>%PUBLIC%</kbd>                | <kbd>$home/public</kbd>    |
+|                                                    | Unix                   | macOS                  | Windows                                          | Plan 9                     |
+| :------------------------------------------------- | :--------------------- | :--------------------- | :----------------------------------------------- | :------------------------- |
+| <kbd><b><samp>XDG_DESKTOP_DIR</samp></b></kbd>     | <kbd>~/Desktop</kbd>   | <kbd>~/Desktop</kbd>   | <kbd>%USERPROFILE%\Desktop</kbd>                 | <kbd>$home/desktop</kbd>   |
+| <kbd><b><samp>XDG_DOWNLOAD_DIR</samp></b></kbd>    | <kbd>~/Downloads</kbd> | <kbd>~/Downloads</kbd> | <kbd>%USERPROFILE%\Downloads</kbd>               | <kbd>$home/downloads</kbd> |
+| <kbd><b><samp>XDG_DOCUMENTS_DIR</samp></b></kbd>   | <kbd>~/Documents</kbd> | <kbd>~/Documents</kbd> | <kbd>%USERPROFILE%\Documents</kbd>               | <kbd>$home/documents</kbd> |
+| <kbd><b><samp>XDG_MUSIC_DIR</samp></b></kbd>       | <kbd>~/Music</kbd>     | <kbd>~/Music</kbd>     | <kbd>%USERPROFILE%\Music</kbd>                   | <kbd>$home/music</kbd>     |
+| <kbd><b><samp>XDG_PICTURES_DIR</samp></b></kbd>    | <kbd>~/Pictures</kbd>  | <kbd>~/Pictures</kbd>  | <kbd>%USERPROFILE%\Pictures</kbd>                | <kbd>$home/pictures</kbd>  |
+| <kbd><b><samp>XDG_VIDEOS_DIR</samp></b></kbd>      | <kbd>~/Videos</kbd>    | <kbd>~/Movies</kbd>    | <kbd>%USERPROFILE%\Videos</kbd>                  | <kbd>$home/videos</kbd>    |
+| <kbd><b><samp>XDG_TEMPLATES_DIR</samp></b></kbd>   | <kbd>~/Templates</kbd> | <kbd>~/Templates</kbd> | <kbd>%APPDATA%\Microsoft\Windows\Templates</kbd> | <kbd>$home/templates</kbd> |
+| <kbd><b><samp>XDG_PUBLICSHARE_DIR</samp></b></kbd> | <kbd>~/Public</kbd>    | <kbd>~/Public</kbd>    | <kbd>%PUBLIC%</kbd>                              | <kbd>$home/public</kbd>    |
 
 #### Non-standard directories
 
 Application directories
 
-| Unix                                     | macOS                    | Windows                                                            | Plan 9                |
-| :--------------------------------------- | :----------------------- | :----------------------------------------------------------------- | :-------------------- |
-| <kbd>$XDG_DATA_HOME/applications</kbd>   | <kbd>/Applications</kbd> | <kbd>%APPDATA%\Microsoft\Windows\Start Menu\Programs</kbd>         | <kbd>$home/bin</kbd>  |
-| <kbd>~/.local/share/applications</kbd>   |                          |                                                                    | <kbd>/bin</kbd>       |
-| <kbd>/usr/local/share/applications</kbd> |                          |                                                                    |                       |
-| <kbd>/usr/share/applications</kbd>       |                          |                                                                    |                       |
-| <kbd>$XDG_DATA_DIRS/applications</kbd>   |                          |                                                                    |                       |
+| Unix                                     | macOS                    | Windows                                                        | Plan 9                |
+| :--------------------------------------- | :----------------------- | :--------------------------------------------------------------| :-------------------- |
+| <kbd>$XDG_DATA_HOME/applications</kbd>   | <kbd>/Applications</kbd> | <kbd>%APPDATA%\Microsoft\Windows\Start Menu\Programs</kbd>     | <kbd>$home/bin</kbd>  |
+| <kbd>~/.local/share/applications</kbd>   |                          | <kbd>%PROGRAMDATA%\Microsoft\Windows\Start Menu\Programs</kbd> | <kbd>/bin</kbd>       |
+| <kbd>/usr/local/share/applications</kbd> |                          |                                                                |                       |
+| <kbd>/usr/share/applications</kbd>       |                          |                                                                |                       |
+| <kbd>$XDG_DATA_DIRS/applications</kbd>   |                          |                                                                |                       |
 
 Font directories
 
