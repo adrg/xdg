@@ -18,7 +18,7 @@ func TestDefaultBaseDirs(t *testing.T) {
 	systemDrive := `C:\`
 	roamingAppData := filepath.Join(home, "AppData", "Roaming")
 	localAppData := filepath.Join(home, "AppData", "Local")
-	winDir := filepath.Join(systemDrive, "WINDOWS")
+	systemRoot := filepath.Join(systemDrive, "Windows")
 	programData := filepath.Join(systemDrive, "ProgramData")
 
 	testDirs(t,
@@ -39,7 +39,7 @@ func TestDefaultBaseDirs(t *testing.T) {
 		},
 		&envSample{
 			name:     "XDG_CONFIG_DIRS",
-			expected: []string{programData},
+			expected: []string{programData, roamingAppData},
 			actual:   &xdg.ConfigDirs,
 		},
 		&envSample{
@@ -68,7 +68,7 @@ func TestDefaultBaseDirs(t *testing.T) {
 		&envSample{
 			name: "XDG_FONT_DIRS",
 			expected: []string{
-				filepath.Join(winDir, "Fonts"),
+				filepath.Join(systemRoot, "Fonts"),
 				filepath.Join(localAppData, "Microsoft", "Windows", "Fonts"),
 			},
 			actual: &xdg.FontDirs,
