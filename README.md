@@ -59,9 +59,9 @@ present in the environment.
 |                                                | Unix                                                  | macOS                                                                                                            | Windows                                                   | Plan 9                     |
 | :--------------------------------------------- | :---------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------- | :-------------------------------------------------------- | :------------------------- |
 | <kbd><b><samp>XDG_DATA_HOME</samp></b></kbd>   | <kbd>~/.local/share</kbd>                             | <kbd>~/Library/Application Support</kbd>                                                                         | <kbd>%LOCALAPPDATA%</kbd>                                 | <kbd>$home/lib</kbd>       |
-| <kbd><b><samp>XDG_DATA_DIRS</samp></b></kbd>   | <kbd>/usr/local/share</kbd><br/><kbd>/usr/share</kbd> | <kbd>/Library/Application Support</kbd>                                                                          | <kbd>%APPDATA%</kbd><br/><kbd>%PROGRAMDATA%</kbd>         | <kbd>/lib</kbd>            |
+| <kbd><b><samp>XDG_DATA_DIRS</samp></b></kbd>   | <kbd>/usr/local/share</kbd><br/><kbd>/usr/share</kbd> | <kbd>/Library/Application Support</kbd>                                                                          | <kbd>%APPDATA%</kbd><br/><kbd>%ProgramData%</kbd>         | <kbd>/lib</kbd>            |
 | <kbd><b><samp>XDG_CONFIG_HOME</samp></b></kbd> | <kbd>~/.config</kbd>                                  | <kbd>~/Library/Application Support</kbd>                                                                         | <kbd>%LOCALAPPDATA%</kbd>                                 | <kbd>$home/lib</kbd>       |
-| <kbd><b><samp>XDG_CONFIG_DIRS</samp></b></kbd> | <kbd>/etc/xdg</kbd>                                   | <kbd>~/Library/Preferences</kbd><br/><kbd>/Library/Application Support</kbd><br/><kbd>/Library/Preferences</kbd> | <kbd>%PROGRAMDATA%</kbd>                                  | <kbd>/lib</kbd>            |
+| <kbd><b><samp>XDG_CONFIG_DIRS</samp></b></kbd> | <kbd>/etc/xdg</kbd>                                   | <kbd>~/Library/Preferences</kbd><br/><kbd>/Library/Application Support</kbd><br/><kbd>/Library/Preferences</kbd> | <kbd>%ProgramData%</kbd>                                  | <kbd>/lib</kbd>            |
 | <kbd><b><samp>XDG_STATE_HOME</samp></b></kbd>  | <kbd>~/.local/state</kbd>                             | <kbd>~/Library/Application Support</kbd>                                                                         | <kbd>%LOCALAPPDATA%</kbd>                                 | <kbd>$home/lib/state</kbd> |
 | <kbd><b><samp>XDG_CACHE_HOME</samp></b></kbd>  | <kbd>~/.cache</kbd>                                   | <kbd>~/Library/Caches</kbd>                                                                                      | <kbd>%LOCALAPPDATA%\cache</kbd>                           | <kbd>$home/lib/cache</kbd> |
 | <kbd><b><samp>XDG_RUNTIME_DIR</samp></b></kbd> | <kbd>/run/user/UID</kbd>                              | <kbd>~/Library/Application Support</kbd>                                                                         | <kbd>%LOCALAPPDATA%</kbd>                                 | <kbd>/tmp</kbd>            |
@@ -86,7 +86,7 @@ Application directories
 | Unix                                     | macOS                    | Windows                                                        | Plan 9                |
 | :--------------------------------------- | :----------------------- | :--------------------------------------------------------------| :-------------------- |
 | <kbd>$XDG_DATA_HOME/applications</kbd>   | <kbd>/Applications</kbd> | <kbd>%APPDATA%\Microsoft\Windows\Start Menu\Programs</kbd>     | <kbd>$home/bin</kbd>  |
-| <kbd>~/.local/share/applications</kbd>   |                          | <kbd>%PROGRAMDATA%\Microsoft\Windows\Start Menu\Programs</kbd> | <kbd>/bin</kbd>       |
+| <kbd>~/.local/share/applications</kbd>   |                          | <kbd>%ProgramData%\Microsoft\Windows\Start Menu\Programs</kbd> | <kbd>/bin</kbd>       |
 | <kbd>/usr/local/share/applications</kbd> |                          |                                                                |                       |
 | <kbd>/usr/share/applications</kbd>       |                          |                                                                |                       |
 | <kbd>$XDG_DATA_DIRS/applications</kbd>   |                          |                                                                |                       |
@@ -95,7 +95,7 @@ Font directories
 
 | Unix                              | macOS                             | Windows                                           | Plan 9                    |
 | :-------------------------------- | :-------------------------------- | :------------------------------------------------ | :------------------------ |
-| <kbd>$XDG_DATA_HOME/fonts</kbd>   | <kbd>~/Library/Fonts</kbd>        | <kbd>%windir%\Fonts</kbd>                         | <kbd>$home/lib/font</kbd> |
+| <kbd>$XDG_DATA_HOME/fonts</kbd>   | <kbd>~/Library/Fonts</kbd>        | <kbd>%SystemRoot%\Fonts</kbd>                     | <kbd>$home/lib/font</kbd> |
 | <kbd>~/.fonts</kbd>               | <kbd>/Library/Fonts</kbd>         | <kbd>%LOCALAPPDATA%\Microsoft\Windows\Fonts</kbd> | <kbd>/lib/font</kbd>      |
 | <kbd>~/.local/share/fonts</kbd>   | <kbd>/System/Library/Fonts</kbd>  |                                                   |                           |
 | <kbd>/usr/local/share/fonts</kbd> | <kbd>/Network/Library/Fonts</kbd> |                                                   |                           |
