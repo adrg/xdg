@@ -43,7 +43,7 @@ func initKnownFolders(home string) *knownFolders {
 	)
 	kf.programData = knownFolder(
 		windows.FOLDERID_ProgramData,
-		[]string{"ALLUSERSPROFILE", "PROGRAMDATA"},
+		[]string{"ALLUSERSPROFILE", "ProgramData"},
 		[]string{filepath.Join(kf.systemDrive, "ProgramData")},
 	)
 	kf.roamingAppData = knownFolder(

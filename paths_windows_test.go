@@ -84,7 +84,7 @@ func TestCustomBaseDirs(t *testing.T) {
 
 	require.NoError(t, os.Setenv("APPDATA", appData))
 	require.NoError(t, os.Setenv("LOCALAPPDATA", localAppData))
-	require.NoError(t, os.Setenv("PROGRAMDATA", programData))
+	require.NoError(t, os.Setenv("ProgramData", programData))
 
 	testDirs(t,
 		&envSample{

@@ -44,7 +44,7 @@ applications should use the XDG defined locations instead of hardcoding paths.
 The package also includes the locations of well known [user directories](https://wiki.archlinux.org/index.php/XDG_user_directories).
 
 The current implementation supports most flavors of Unix, Windows, Mac OS and Plan 9.  
-Full documentation can be found at: https://pkg.go.dev/github.com/adrg/xdg.
+Full documentation can be found at https://pkg.go.dev/github.com/adrg/xdg.
 
 ## Installation
     go get github.com/adrg/xdg
