@@ -21,7 +21,7 @@ func TestDefaultBaseDirs(t *testing.T) {
 	systemRoot := filepath.Join(systemDrive, "Windows")
 	programData := filepath.Join(systemDrive, "ProgramData")
 
-	testDirs(t,
+	envSamples := []*envSample{
 		&envSample{
 			name:     "XDG_DATA_HOME",
 			expected: localAppData,
@@ -73,17 +73,29 @@ func TestDefaultBaseDirs(t *testing.T) {
 			},
 			actual: &xdg.FontDirs,
 		},
-	)
+	}
+
+	// Test default environment.
+	testDirs(t, envSamples...)
+
+	// Test system drive not set.
+	envSystemDrive := os.Getenv("SystemDrive")
+	require.NoError(t, os.Unsetenv("SystemDrive"))
+	testDirs(t, envSamples...)
+	require.NoError(t, os.Setenv("SystemDrive", envSystemDrive))
 }
 
 func TestCustomBaseDirs(t *testing.T) {
 	home := xdg.Home
-	appData := filepath.Join(home, "Appdata")
-	localAppData := filepath.Join(appData, "Local")
-	programData := filepath.Join(home, "ProgramData")
+	roamingAppData := filepath.Join(home, "Custom", "Appdata", "Roaming")
+	localAppData := filepath.Join(home, "Custom", "AppData", "Local")
+	programData := filepath.Join(home, "Custom", "ProgramData")
 
-	require.NoError(t, os.Setenv("APPDATA", appData))
+	envRoamingAppData := os.Getenv("APPDATA")
+	require.NoError(t, os.Setenv("APPDATA", roamingAppData))
+	envLocalAppData := os.Getenv("LOCALAPPDATA")
 	require.NoError(t, os.Setenv("LOCALAPPDATA", localAppData))
+	envProgramData := os.Getenv("ProgramData")
 	require.NoError(t, os.Setenv("ProgramData", programData))
 
 	testDirs(t,
@@ -95,8 +107,8 @@ func TestCustomBaseDirs(t *testing.T) {
 		},
 		&envSample{
 			name:     "XDG_DATA_DIRS",
-			value:    fmt.Sprintf("%s;%s", filepath.Join(localAppData, "Data"), filepath.Join(appData, "Data")),
-			expected: []string{filepath.Join(localAppData, "Data"), filepath.Join(appData, "Data")},
+			value:    fmt.Sprintf("%s;%s", filepath.Join(localAppData, "Data"), filepath.Join(roamingAppData, "Data")),
+			expected: []string{filepath.Join(localAppData, "Data"), filepath.Join(roamingAppData, "Data")},
 			actual:   &xdg.DataDirs,
 		},
 		&envSample{
@@ -107,8 +119,8 @@ func TestCustomBaseDirs(t *testing.T) {
 		},
 		&envSample{
 			name:     "XDG_CONFIG_DIRS",
-			value:    fmt.Sprintf("%s;%s", filepath.Join(localAppData, "Config"), filepath.Join(appData, "Config")),
-			expected: []string{filepath.Join(localAppData, "Config"), filepath.Join(appData, "Config")},
+			value:    fmt.Sprintf("%s;%s", filepath.Join(localAppData, "Config"), filepath.Join(roamingAppData, "Config")),
+			expected: []string{filepath.Join(localAppData, "Config"), filepath.Join(roamingAppData, "Config")},
 			actual:   &xdg.ConfigDirs,
 		},
 		&envSample{
@@ -130,13 +142,15 @@ func TestCustomBaseDirs(t *testing.T) {
 			actual:   &xdg.RuntimeDir,
 		},
 	)
+
+	require.NoError(t, os.Setenv("APPDATA", envRoamingAppData))
+	require.NoError(t, os.Setenv("LOCALAPPDATA", envLocalAppData))
+	require.NoError(t, os.Setenv("ProgramData", envProgramData))
 }
 
 func TestDefaultUserDirs(t *testing.T) {
 	home := xdg.Home
-	appData := filepath.Join(home, "AppData")
-	roamingAppData := filepath.Join(appData, "Roaming")
-	usersDir := `C:\Users`
+	roamingAppData := filepath.Join(home, "AppData", "Roaming")
 
 	testDirs(t,
 		&envSample{
@@ -176,7 +190,7 @@ func TestDefaultUserDirs(t *testing.T) {
 		},
 		&envSample{
 			name:     "XDG_PUBLICSHARE_DIR",
-			expected: filepath.Join(usersDir, "Public"),
+			expected: filepath.Join(`C:\`, "Users", "Public"),
 			actual:   &xdg.UserDirs.PublicShare,
 		},
 	)
