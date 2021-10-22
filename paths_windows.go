@@ -5,6 +5,11 @@ import (
 	"path/filepath"
 )
 
+func initDirs(home string) {
+	initBaseDirs(home)
+	initUserDirs(home)
+}
+
 func initBaseDirs(home string) {
 	appDataDir := os.Getenv("APPDATA")
 	if appDataDir == "" {

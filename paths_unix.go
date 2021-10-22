@@ -9,6 +9,11 @@ import (
 	"strconv"
 )
 
+func initDirs(home string) {
+	initBaseDirs(home)
+	initUserDirs(home)
+}
+
 func initBaseDirs(home string) {
 	// Initialize base directories.
 	baseDirs.dataHome = xdgPath(envDataHome, filepath.Join(home, ".local", "share"))

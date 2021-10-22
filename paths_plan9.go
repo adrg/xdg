@@ -4,6 +4,11 @@ import (
 	"path/filepath"
 )
 
+func initDirs(home string) {
+	initBaseDirs(home)
+	initUserDirs(home)
+}
+
 func initBaseDirs(home string) {
 	homeLibDir := filepath.Join(home, "lib")
 	rootLibDir := "/lib"

@@ -4,6 +4,11 @@ import (
 	"path/filepath"
 )
 
+func initDirs(home string) {
+	initBaseDirs(home)
+	initUserDirs(home)
+}
+
 func initBaseDirs(home string) {
 	homeAppSupport := filepath.Join(home, "Library", "Application Support")
 	rootAppSupport := "/Library/Application Support"
@@ -25,6 +30,7 @@ func initBaseDirs(home string) {
 	baseDirs.applications = []string{
 		"/Applications",
 	}
+
 	baseDirs.fonts = []string{
 		filepath.Join(home, "Library/Fonts"),
 		"/Library/Fonts",
