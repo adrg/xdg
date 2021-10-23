@@ -1,11 +1,12 @@
 //go:build !windows
 // +build !windows
 
-package xdg
+package util
 
 import "os"
 
-func pathExists(path string) bool {
+// PathExists returns true if the specified path exists.
+func PathExists(path string) bool {
 	_, err := os.Stat(path)
 	return err == nil || os.IsExist(err)
 }

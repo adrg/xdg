@@ -6,6 +6,8 @@ import (
 	"path/filepath"
 	"runtime"
 	"strings"
+
+	"github.com/adrg/xdg/internal/util"
 )
 
 func homeDir() string {
@@ -53,7 +55,7 @@ func createPath(name string, paths []string) (string, error) {
 		path := filepath.Join(p, name)
 		dir := filepath.Dir(path)
 
-		if pathExists(dir) {
+		if util.PathExists(dir) {
 			return path, nil
 		}
 		if err := os.MkdirAll(dir, os.ModeDir|0700); err == nil {
@@ -71,7 +73,7 @@ func searchFile(name string, paths []string) (string, error) {
 	var searchedPaths []string
 	for _, p := range paths {
 		path := filepath.Join(p, name)
-		if pathExists(path) {
+		if util.PathExists(path) {
 			return path, nil
 		}
 
