@@ -1,70 +1,43 @@
 package xdg
 
 import (
-	"os"
 	"path/filepath"
 )
 
-func initBaseDirs(home string) {
-	appDataDir := os.Getenv("APPDATA")
-	if appDataDir == "" {
-		appDataDir = filepath.Join(home, "AppData")
-	}
-	roamingAppDataDir := filepath.Join(appDataDir, "Roaming")
+func initDirs(home string) {
+	kf := initKnownFolders(home)
+	initBaseDirs(home, kf)
+	initUserDirs(home, kf)
+}
 
-	localAppDataDir := os.Getenv("LOCALAPPDATA")
-	if localAppDataDir == "" {
-		localAppDataDir = filepath.Join(appDataDir, "Local")
-	}
-
-	programDataDir := os.Getenv("PROGRAMDATA")
-	if programDataDir == "" {
-		if systemDrive := os.Getenv("SystemDrive"); systemDrive != "" {
-			programDataDir = filepath.Join(systemDrive, "ProgramData")
-		} else {
-			programDataDir = home
-		}
-	}
-
-	winDir := os.Getenv("windir")
-	if winDir == "" {
-		winDir = os.Getenv("SystemRoot")
-		if winDir == "" {
-			winDir = home
-		}
-	}
-
-	// Initialize base directories.
-	baseDirs.dataHome = xdgPath(envDataHome, localAppDataDir)
-	baseDirs.data = xdgPaths(envDataDirs, roamingAppDataDir, programDataDir)
-	baseDirs.configHome = xdgPath(envConfigHome, localAppDataDir)
-	baseDirs.config = xdgPaths(envConfigDirs, programDataDir)
-	baseDirs.stateHome = xdgPath(envStateHome, localAppDataDir)
-	baseDirs.cacheHome = xdgPath(envCacheHome, filepath.Join(localAppDataDir, "cache"))
-	baseDirs.runtime = xdgPath(envRuntimeDir, localAppDataDir)
+func initBaseDirs(home string, kf *knownFolders) {
+	// Initialize standard directories.
+	baseDirs.dataHome = xdgPath(envDataHome, kf.localAppData)
+	baseDirs.data = xdgPaths(envDataDirs, kf.roamingAppData, kf.programData)
+	baseDirs.configHome = xdgPath(envConfigHome, kf.localAppData)
+	baseDirs.config = xdgPaths(envConfigDirs, kf.programData, kf.roamingAppData)
+	baseDirs.stateHome = xdgPath(envStateHome, kf.localAppData)
+	baseDirs.cacheHome = xdgPath(envCacheHome, filepath.Join(kf.localAppData, "cache"))
+	baseDirs.runtime = xdgPath(envRuntimeDir, kf.localAppData)
 
 	// Initialize non-standard directories.
 	baseDirs.applications = []string{
-		filepath.Join(roamingAppDataDir, "Microsoft", "Windows", "Start Menu", "Programs"),
+		kf.programs,
+		kf.commonPrograms,
 	}
 	baseDirs.fonts = []string{
-		filepath.Join(winDir, "Fonts"),
-		filepath.Join(localAppDataDir, "Microsoft", "Windows", "Fonts"),
+		kf.fonts,
+		filepath.Join(kf.localAppData, "Microsoft", "Windows", "Fonts"),
 	}
 }
 
-func initUserDirs(home string) {
-	publicDir := os.Getenv("PUBLIC")
-	if publicDir == "" {
-		publicDir = filepath.Join(home, "Public")
-	}
-
-	UserDirs.Desktop = xdgPath(envDesktopDir, filepath.Join(home, "Desktop"))
-	UserDirs.Download = xdgPath(envDownloadDir, filepath.Join(home, "Downloads"))
-	UserDirs.Documents = xdgPath(envDocumentsDir, filepath.Join(home, "Documents"))
-	UserDirs.Music = xdgPath(envMusicDir, filepath.Join(home, "Music"))
-	UserDirs.Pictures = xdgPath(envPicturesDir, filepath.Join(home, "Pictures"))
-	UserDirs.Videos = xdgPath(envVideosDir, filepath.Join(home, "Videos"))
-	UserDirs.Templates = xdgPath(envTemplatesDir, filepath.Join(home, "Templates"))
-	UserDirs.PublicShare = xdgPath(envPublicShareDir, publicDir)
+func initUserDirs(home string, kf *knownFolders) {
+	UserDirs.Desktop = xdgPath(envDesktopDir, kf.desktop)
+	UserDirs.Download = xdgPath(envDownloadDir, kf.downloads)
+	UserDirs.Documents = xdgPath(envDocumentsDir, kf.documents)
+	UserDirs.Music = xdgPath(envMusicDir, kf.music)
+	UserDirs.Pictures = xdgPath(envPicturesDir, kf.pictures)
+	UserDirs.Videos = xdgPath(envVideosDir, kf.videos)
+	UserDirs.Templates = xdgPath(envTemplatesDir, kf.templates)
+	UserDirs.PublicShare = xdgPath(envPublicShareDir, kf.public)
 }

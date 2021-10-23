@@ -1,3 +1,4 @@
+//go:build aix || dragonfly || freebsd || (js && wasm) || nacl || linux || netbsd || openbsd || solaris
 // +build aix dragonfly freebsd js,wasm nacl linux netbsd openbsd solaris
 
 package xdg
@@ -8,8 +9,13 @@ import (
 	"strconv"
 )
 
+func initDirs(home string) {
+	initBaseDirs(home)
+	initUserDirs(home)
+}
+
 func initBaseDirs(home string) {
-	// Initialize base directories.
+	// Initialize standard directories.
 	baseDirs.dataHome = xdgPath(envDataHome, filepath.Join(home, ".local", "share"))
 	baseDirs.data = xdgPaths(envDataDirs, "/usr/local/share", "/usr/share")
 	baseDirs.configHome = xdgPath(envConfigHome, filepath.Join(home, ".config"))
