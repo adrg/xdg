@@ -1,3 +1,4 @@
+//go:build windows
 // +build windows
 
 package xdg_test
@@ -14,110 +15,88 @@ import (
 
 func TestDefaultBaseDirs(t *testing.T) {
 	home := xdg.Home
-	appData := filepath.Join(home, "AppData")
-	localAppData := filepath.Join(appData, "Local")
-	programData := filepath.Join(home, "ProgramData")
-	roamingAppData := filepath.Join(appData, "Roaming")
-	winDir := `C:\Windows`
+	systemDrive := `C:\`
+	roamingAppData := filepath.Join(home, "AppData", "Roaming")
+	localAppData := filepath.Join(home, "AppData", "Local")
+	systemRoot := filepath.Join(systemDrive, "Windows")
+	programData := filepath.Join(systemDrive, "ProgramData")
 
 	envSamples := []*envSample{
-		{
+		&envSample{
 			name:     "XDG_DATA_HOME",
 			expected: localAppData,
 			actual:   &xdg.DataHome,
 		},
-		{
+		&envSample{
 			name:     "XDG_DATA_DIRS",
 			expected: []string{roamingAppData, programData},
 			actual:   &xdg.DataDirs,
 		},
-		{
+		&envSample{
 			name:     "XDG_CONFIG_HOME",
 			expected: localAppData,
 			actual:   &xdg.ConfigHome,
 		},
-		{
+		&envSample{
 			name:     "XDG_CONFIG_DIRS",
-			expected: []string{programData},
+			expected: []string{programData, roamingAppData},
 			actual:   &xdg.ConfigDirs,
 		},
-		{
+		&envSample{
 			name:     "XDG_STATE_HOME",
 			expected: localAppData,
 			actual:   &xdg.StateHome,
 		},
-		{
+		&envSample{
 			name:     "XDG_CACHE_HOME",
 			expected: filepath.Join(localAppData, "cache"),
 			actual:   &xdg.CacheHome,
 		},
-		{
+		&envSample{
 			name:     "XDG_RUNTIME_DIR",
 			expected: localAppData,
 			actual:   &xdg.RuntimeDir,
 		},
-		{
+		&envSample{
 			name: "XDG_APPLICATION_DIRS",
 			expected: []string{
 				filepath.Join(roamingAppData, "Microsoft", "Windows", "Start Menu", "Programs"),
+				filepath.Join(programData, "Microsoft", "Windows", "Start Menu", "Programs"),
 			},
 			actual: &xdg.ApplicationDirs,
 		},
-		{
+		&envSample{
 			name: "XDG_FONT_DIRS",
 			expected: []string{
-				filepath.Join(winDir, "Fonts"),
+				filepath.Join(systemRoot, "Fonts"),
 				filepath.Join(localAppData, "Microsoft", "Windows", "Fonts"),
 			},
 			actual: &xdg.FontDirs,
 		},
 	}
 
-	// Test environment variable fallbacks.
-	require.NoError(t, os.Unsetenv("APPDATA"))
-	require.NoError(t, os.Unsetenv("LOCALAPPDATA"))
-	require.NoError(t, os.Unsetenv("PROGRAMDATA"))
-	require.NoError(t, os.Unsetenv("windir"))
-	require.NoError(t, os.Setenv("SystemDrive", home))
-	require.NoError(t, os.Setenv("SystemRoot", winDir))
-
+	// Test default environment.
 	testDirs(t, envSamples...)
 
-	// Test environment variables set.
-	require.NoError(t, os.Setenv("APPDATA", appData))
-	require.NoError(t, os.Setenv("LOCALAPPDATA", localAppData))
-	require.NoError(t, os.Setenv("PROGRAMDATA", programData))
-	require.NoError(t, os.Setenv("windir", winDir))
-
-	testDirs(t, envSamples...)
-
-	// Test no environment variables set.
-	require.NoError(t, os.Unsetenv("APPDATA"))
-	require.NoError(t, os.Unsetenv("LOCALAPPDATA"))
-	require.NoError(t, os.Unsetenv("PROGRAMDATA"))
-	require.NoError(t, os.Unsetenv("windir"))
+	// Test system drive not set.
+	envSystemDrive := os.Getenv("SystemDrive")
 	require.NoError(t, os.Unsetenv("SystemDrive"))
-	require.NoError(t, os.Unsetenv("SystemRoot"))
-
-	envSamples[1].expected = []string{roamingAppData, home}
-	envSamples[3].expected = []string{home}
-	envSamples[8].expected = []string{
-		filepath.Join(home, "Fonts"),
-		filepath.Join(localAppData, "Microsoft", "Windows", "Fonts"),
-	}
-
 	testDirs(t, envSamples...)
+	require.NoError(t, os.Setenv("SystemDrive", envSystemDrive))
 }
 
 func TestCustomBaseDirs(t *testing.T) {
 	home := xdg.Home
-	appData := filepath.Join(home, "Appdata")
-	localAppData := filepath.Join(appData, "Local")
-	programData := filepath.Join(home, "ProgramData")
+	roamingAppData := filepath.Join(home, "Custom", "Appdata", "Roaming")
+	localAppData := filepath.Join(home, "Custom", "AppData", "Local")
+	programData := filepath.Join(home, "Custom", "ProgramData")
 
-	require.NoError(t, os.Setenv("APPDATA", appData))
+	envRoamingAppData := os.Getenv("APPDATA")
+	require.NoError(t, os.Setenv("APPDATA", roamingAppData))
+	envLocalAppData := os.Getenv("LOCALAPPDATA")
 	require.NoError(t, os.Setenv("LOCALAPPDATA", localAppData))
-	require.NoError(t, os.Setenv("PROGRAMDATA", programData))
+	envProgramData := os.Getenv("ProgramData")
+	require.NoError(t, os.Setenv("ProgramData", programData))
 
 	testDirs(t,
 		&envSample{
@@ -128,8 +107,8 @@ func TestCustomBaseDirs(t *testing.T) {
 		},
 		&envSample{
 			name:     "XDG_DATA_DIRS",
-			value:    fmt.Sprintf("%s;%s", filepath.Join(localAppData, "Data"), filepath.Join(appData, "Data")),
-			expected: []string{filepath.Join(localAppData, "Data"), filepath.Join(appData, "Data")},
+			value:    fmt.Sprintf("%s;%s", filepath.Join(localAppData, "Data"), filepath.Join(roamingAppData, "Data")),
+			expected: []string{filepath.Join(localAppData, "Data"), filepath.Join(roamingAppData, "Data")},
 			actual:   &xdg.DataDirs,
 		},
 		&envSample{
@@ -140,8 +119,8 @@ func TestCustomBaseDirs(t *testing.T) {
 		},
 		&envSample{
 			name:     "XDG_CONFIG_DIRS",
-			value:    fmt.Sprintf("%s;%s", filepath.Join(localAppData, "Config"), filepath.Join(appData, "Config")),
-			expected: []string{filepath.Join(localAppData, "Config"), filepath.Join(appData, "Config")},
+			value:    fmt.Sprintf("%s;%s", filepath.Join(localAppData, "Config"), filepath.Join(roamingAppData, "Config")),
+			expected: []string{filepath.Join(localAppData, "Config"), filepath.Join(roamingAppData, "Config")},
 			actual:   &xdg.ConfigDirs,
 		},
 		&envSample{
@@ -163,62 +142,58 @@ func TestCustomBaseDirs(t *testing.T) {
 			actual:   &xdg.RuntimeDir,
 		},
 	)
+
+	require.NoError(t, os.Setenv("APPDATA", envRoamingAppData))
+	require.NoError(t, os.Setenv("LOCALAPPDATA", envLocalAppData))
+	require.NoError(t, os.Setenv("ProgramData", envProgramData))
 }
 
 func TestDefaultUserDirs(t *testing.T) {
 	home := xdg.Home
-	public := filepath.Join(home, "Public")
+	roamingAppData := filepath.Join(home, "AppData", "Roaming")
 
-	samples := []*envSample{
-		{
+	testDirs(t,
+		&envSample{
 			name:     "XDG_DESKTOP_DIR",
 			expected: filepath.Join(home, "Desktop"),
 			actual:   &xdg.UserDirs.Desktop,
 		},
-		{
+		&envSample{
 			name:     "XDG_DOWNLOAD_DIR",
 			expected: filepath.Join(home, "Downloads"),
 			actual:   &xdg.UserDirs.Download,
 		},
-		{
+		&envSample{
 			name:     "XDG_DOCUMENTS_DIR",
 			expected: filepath.Join(home, "Documents"),
 			actual:   &xdg.UserDirs.Documents,
 		},
-		{
+		&envSample{
 			name:     "XDG_MUSIC_DIR",
 			expected: filepath.Join(home, "Music"),
 			actual:   &xdg.UserDirs.Music,
 		},
-		{
+		&envSample{
 			name:     "XDG_PICTURES_DIR",
 			expected: filepath.Join(home, "Pictures"),
 			actual:   &xdg.UserDirs.Pictures,
 		},
-		{
+		&envSample{
 			name:     "XDG_VIDEOS_DIR",
 			expected: filepath.Join(home, "Videos"),
 			actual:   &xdg.UserDirs.Videos,
 		},
-		{
+		&envSample{
 			name:     "XDG_TEMPLATES_DIR",
-			expected: filepath.Join(home, "Templates"),
+			expected: filepath.Join(roamingAppData, "Microsoft", "Windows", "Templates"),
 			actual:   &xdg.UserDirs.Templates,
 		},
-		{
+		&envSample{
 			name:     "XDG_PUBLICSHARE_DIR",
-			expected: public,
+			expected: filepath.Join(`C:\`, "Users", "Public"),
 			actual:   &xdg.UserDirs.PublicShare,
 		},
-	}
-
-	// Test %PUBLIC% not set.
-	require.NoError(t, os.Unsetenv("PUBLIC"))
-	testDirs(t, samples...)
-
-	// Test %PUBLIC% set.
-	require.NoError(t, os.Setenv("PUBLIC", public))
-	testDirs(t, samples...)
+	)
 }
 
 func TestCustomUserDirs(t *testing.T) {
