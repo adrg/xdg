@@ -1,10 +1,10 @@
 package xdg
 
 import (
-	"os"
 	"path/filepath"
 	"strings"
 
+	"github.com/adrg/xdg/internal/util"
 	"golang.org/x/sys/windows"
 )
 
@@ -31,111 +31,86 @@ func initKnownFolders(home string) *knownFolders {
 	sep := string(filepath.Separator)
 
 	kf := &knownFolders{}
-	kf.systemDrive = strings.TrimRight(knownFolder(
+	kf.systemDrive = strings.TrimRight(util.KnownFolderPath(
 		nil,
 		[]string{"SystemDrive"},
 		[]string{filepath.VolumeName(home), `C:\`},
 	), sep) + sep
-	kf.systemRoot = knownFolder(
+	kf.systemRoot = util.KnownFolderPath(
 		windows.FOLDERID_Windows,
 		[]string{"SystemRoot", "windir"},
 		[]string{filepath.Join(kf.systemDrive, "Windows")},
 	)
-	kf.programData = knownFolder(
+	kf.programData = util.KnownFolderPath(
 		windows.FOLDERID_ProgramData,
 		[]string{"ALLUSERSPROFILE", "ProgramData"},
 		[]string{filepath.Join(kf.systemDrive, "ProgramData")},
 	)
-	kf.roamingAppData = knownFolder(
+	kf.roamingAppData = util.KnownFolderPath(
 		windows.FOLDERID_RoamingAppData,
 		[]string{"APPDATA"},
 		[]string{filepath.Join(home, "AppData", "Roaming")},
 	)
-	kf.localAppData = knownFolder(
+	kf.localAppData = util.KnownFolderPath(
 		windows.FOLDERID_LocalAppData,
 		[]string{"LOCALAPPDATA"},
 		[]string{filepath.Join(home, "AppData", "Local")},
 	)
-	kf.desktop = knownFolder(
+	kf.desktop = util.KnownFolderPath(
 		windows.FOLDERID_Desktop,
 		nil,
 		[]string{filepath.Join(home, "Desktop")},
 	)
-	kf.downloads = knownFolder(
+	kf.downloads = util.KnownFolderPath(
 		windows.FOLDERID_Downloads,
 		nil,
 		[]string{filepath.Join(home, "Downloads")},
 	)
-	kf.documents = knownFolder(
+	kf.documents = util.KnownFolderPath(
 		windows.FOLDERID_Documents,
 		nil,
 		[]string{filepath.Join(home, "Documents")},
 	)
-	kf.music = knownFolder(
+	kf.music = util.KnownFolderPath(
 		windows.FOLDERID_Music,
 		nil,
 		[]string{filepath.Join(home, "Music")},
 	)
-	kf.pictures = knownFolder(
+	kf.pictures = util.KnownFolderPath(
 		windows.FOLDERID_Pictures,
 		nil,
 		[]string{filepath.Join(home, "Pictures")},
 	)
-	kf.videos = knownFolder(
+	kf.videos = util.KnownFolderPath(
 		windows.FOLDERID_Videos,
 		nil,
 		[]string{filepath.Join(home, "Videos")},
 	)
-	kf.templates = knownFolder(
+	kf.templates = util.KnownFolderPath(
 		windows.FOLDERID_Templates,
 		nil,
 		[]string{filepath.Join(kf.roamingAppData, "Microsoft", "Windows", "Templates")},
 	)
-	kf.public = knownFolder(
+	kf.public = util.KnownFolderPath(
 		windows.FOLDERID_Public,
 		[]string{"PUBLIC"},
 		[]string{filepath.Join(kf.systemDrive, "Users", "Public")},
 	)
-	kf.fonts = knownFolder(
+	kf.fonts = util.KnownFolderPath(
 		windows.FOLDERID_Fonts,
 		nil,
 		[]string{filepath.Join(kf.systemRoot, "Fonts")},
 	)
-	kf.programs = knownFolder(
+	kf.programs = util.KnownFolderPath(
 		windows.FOLDERID_Programs,
 		nil,
 		[]string{filepath.Join(kf.roamingAppData, "Microsoft", "Windows", "Start Menu", "Programs")},
 	)
-	kf.commonPrograms = knownFolder(
+	kf.commonPrograms = util.KnownFolderPath(
 		windows.FOLDERID_CommonPrograms,
 		nil,
 		[]string{filepath.Join(kf.programData, "Microsoft", "Windows", "Start Menu", "Programs")},
 	)
 
 	return kf
-}
-
-func knownFolder(id *windows.KNOWNFOLDERID, envVars []string, fallbacks []string) string {
-	if id != nil {
-		flags := []uint32{windows.KF_FLAG_DEFAULT, windows.KF_FLAG_DEFAULT_PATH}
-		for _, flag := range flags {
-			if p, _ := windows.KnownFolderPath(id, flag|windows.KF_FLAG_DONT_VERIFY); p != "" {
-				return p
-			}
-		}
-	}
-
-	for _, envVar := range envVars {
-		if p := os.Getenv(envVar); p != "" {
-			return p
-		}
-	}
-
-	for _, fallback := range fallbacks {
-		if fallback != "" {
-			return fallback
-		}
-	}
-
-	return ""
 }
