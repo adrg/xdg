@@ -7,6 +7,8 @@ import (
 	"os"
 	"path/filepath"
 	"strconv"
+
+	"github.com/adrg/xdg/internal/util"
 )
 
 func homeDir() string {
@@ -53,8 +55,8 @@ func initBaseDirs(home string) {
 		fontDirs = append(fontDirs, filepath.Join(dir, "fonts"))
 	}
 
-	baseDirs.applications = uniquePaths(appDirs)
-	baseDirs.fonts = uniquePaths(fontDirs)
+	baseDirs.applications = util.UniquePaths(appDirs, Home)
+	baseDirs.fonts = util.UniquePaths(fontDirs, Home)
 }
 
 func initUserDirs(home string) {
