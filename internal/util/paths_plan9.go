@@ -1,9 +1,16 @@
 package util
 
 import (
+	"os"
 	"path/filepath"
 	"strings"
 )
+
+// PathExists returns true if the specified path exists.
+func PathExists(path string) bool {
+	_, err := os.Stat(path)
+	return err == nil || os.IsExist(err)
+}
 
 // ExpandHome substitutes `~` and `$HOME` at the start of the specified
 // `path` using the provided `home` location.
@@ -14,7 +21,7 @@ func ExpandHome(path, home string) string {
 	if path[0] == '~' {
 		return filepath.Join(home, path[1:])
 	}
-	if strings.HasPrefix(path, "$HOME") {
+	if strings.HasPrefix(path, "$home") {
 		return filepath.Join(home, path[5:])
 	}
 

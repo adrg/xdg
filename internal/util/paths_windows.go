@@ -2,9 +2,37 @@ package util
 
 import (
 	"os"
+	"path/filepath"
+	"strings"
 
 	"golang.org/x/sys/windows"
 )
+
+// PathExists returns true if the specified path exists.
+func PathExists(path string) bool {
+	fi, err := os.Lstat(path)
+	if fi != nil && fi.Mode()&os.ModeSymlink != 0 {
+		_, err = filepath.EvalSymlinks(path)
+	}
+
+	return err == nil || os.IsExist(err)
+}
+
+// ExpandHome substitutes `%USERPROFILE%` at the start of the specified
+// `path` using the provided `home` location.
+func ExpandHome(path, home string) string {
+	if path == "" || home == "" {
+		return path
+	}
+	if path[0] == '~' {
+		return filepath.Join(home, path[1:])
+	}
+	if strings.HasPrefix(path, "%USERPROFILE%") {
+		return filepath.Join(home, path[13:])
+	}
+
+	return path
+}
 
 // KnownFolderPath returns the location of the folder with the specified ID.
 // If that fails, the folder location is determined by reading the provided
