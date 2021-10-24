@@ -32,3 +32,24 @@ func TestExpandHome(t *testing.T) {
 
 	require.Equal(t, home, util.ExpandHome(home, home))
 }
+
+func TestUniquePaths(t *testing.T) {
+	input := []string{
+		"",
+		`C:\Users`,
+		`C:\Users\test`,
+		"a",
+		`C:\Users\test\appname`,
+		`%USERPROFILE%/appname`,
+		"a",
+		`C:\Users`,
+	}
+
+	expected := []string{
+		`C:\Users`,
+		`C:\Users\test`,
+		`C:\Users\test\appname`,
+	}
+
+	require.EqualValues(t, expected, util.UniquePaths(input, `C:\Users\test`))
+}
