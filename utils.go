@@ -35,20 +35,6 @@ func homeDir() string {
 	return ""
 }
 
-func expandPath(path, homeDir string) string {
-	if path == "" || homeDir == "" {
-		return path
-	}
-	if path[0] == '~' {
-		return filepath.Join(homeDir, path[1:])
-	}
-	if strings.HasPrefix(path, "$HOME") {
-		return filepath.Join(homeDir, path[5:])
-	}
-
-	return path
-}
-
 func createPath(name string, paths []string) (string, error) {
 	var searchedPaths []string
 	for _, p := range paths {
@@ -85,7 +71,7 @@ func searchFile(name string, paths []string) (string, error) {
 }
 
 func xdgPath(name, defaultPath string) string {
-	dir := expandPath(os.Getenv(name), Home)
+	dir := util.ExpandHome(os.Getenv(name), Home)
 	if dir != "" && filepath.IsAbs(dir) {
 		return dir
 	}
@@ -109,7 +95,7 @@ func uniquePaths(paths []string) []string {
 	)
 
 	for _, p := range paths {
-		dir := expandPath(p, Home)
+		dir := util.ExpandHome(p, Home)
 		if dir != "" && filepath.IsAbs(dir) {
 			if _, ok := registry[dir]; ok {
 				continue
