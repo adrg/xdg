@@ -24,10 +24,7 @@ func ExpandHome(path, home string) string {
 	if path == "" || home == "" {
 		return path
 	}
-	if path[0] == '~' {
-		return filepath.Join(home, path[1:])
-	}
-	if strings.HasPrefix(path, "%USERPROFILE%") {
+	if strings.HasPrefix(path, `%USERPROFILE%`) {
 		return filepath.Join(home, path[13:])
 	}
 

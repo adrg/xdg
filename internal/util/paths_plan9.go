@@ -12,7 +12,7 @@ func PathExists(path string) bool {
 	return err == nil || os.IsExist(err)
 }
 
-// ExpandHome substitutes `~` and `$HOME` at the start of the specified
+// ExpandHome substitutes `~` and `$home` at the start of the specified
 // `path` using the provided `home` location.
 func ExpandHome(path, home string) string {
 	if path == "" || home == "" {
