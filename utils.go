@@ -4,36 +4,10 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
-	"runtime"
 	"strings"
 
 	"github.com/adrg/xdg/internal/util"
 )
-
-func homeDir() string {
-	homeEnv := "HOME"
-	switch runtime.GOOS {
-	case "windows":
-		homeEnv = "USERPROFILE"
-	case "plan9":
-		homeEnv = "home"
-	}
-
-	if home := os.Getenv(homeEnv); home != "" {
-		return home
-	}
-
-	switch runtime.GOOS {
-	case "nacl":
-		return "/"
-	case "darwin":
-		if runtime.GOARCH == "arm" || runtime.GOARCH == "arm64" {
-			return "/"
-		}
-	}
-
-	return ""
-}
 
 func createPath(name string, paths []string) (string, error) {
 	var searchedPaths []string

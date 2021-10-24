@@ -9,6 +9,14 @@ import (
 	"strconv"
 )
 
+func homeDir() string {
+	if home := os.Getenv("HOME"); home != "" {
+		return home
+	}
+
+	return "/"
+}
+
 func initDirs(home string) {
 	initBaseDirs(home)
 	initUserDirs(home)
