@@ -4,10 +4,12 @@
 package xdg_test
 
 import (
+	"os"
 	"path/filepath"
 	"testing"
 
 	"github.com/adrg/xdg"
+	"github.com/stretchr/testify/require"
 )
 
 func TestDefaultBaseDirs(t *testing.T) {
@@ -217,4 +219,17 @@ func TestCustomUserDirs(t *testing.T) {
 			actual:   &xdg.UserDirs.PublicShare,
 		},
 	)
+}
+
+func TestHomeNotSet(t *testing.T) {
+	envHomeVar := "home"
+	envHomeVal := os.Getenv(envHomeVar)
+	require.NoError(t, os.Unsetenv(envHomeVar))
+
+	xdg.Reload()
+	require.Equal(t, "/", xdg.Home)
+
+	require.NoError(t, os.Setenv(envHomeVar, envHomeVal))
+	xdg.Reload()
+	require.Equal(t, envHomeVal, xdg.Home)
 }
