@@ -29,3 +29,24 @@ func TestExpandHome(t *testing.T) {
 	require.Equal(t, "/usr/bin", util.ExpandHome("~/bin", "/usr"))
 	require.Equal(t, "/usr/bin", util.ExpandHome("$home/bin", "/usr"))
 }
+
+func TestUniquePaths(t *testing.T) {
+	input := []string{
+		"",
+		"/home",
+		"/home/test",
+		"a",
+		"~/appname",
+		"$home/appname",
+		"a",
+		"/home",
+	}
+
+	expected := []string{
+		"/home",
+		"/home/test",
+		"/home/test/appname",
+	}
+
+	require.EqualValues(t, expected, util.UniquePaths(input, "/home/test"))
+}
