@@ -2,7 +2,6 @@ package xdg
 
 import (
 	"path/filepath"
-	"strings"
 
 	"github.com/adrg/xdg/internal/util"
 	"golang.org/x/sys/windows"
@@ -54,6 +53,8 @@ type knownFolders struct {
 	systemDrive    string
 	systemRoot     string
 	programData    string
+	userProfile    string
+	userProfiles   string
 	roamingAppData string
 	localAppData   string
 	desktop        string
@@ -70,14 +71,14 @@ type knownFolders struct {
 }
 
 func initKnownFolders(home string) *knownFolders {
-	sep := string(filepath.Separator)
-
-	kf := &knownFolders{}
-	kf.systemDrive = strings.TrimRight(util.KnownFolderPath(
-		nil,
-		[]string{"SystemDrive"},
-		[]string{filepath.VolumeName(home), `C:\`},
-	), sep) + sep
+	kf := &knownFolders{
+		userProfile: home,
+	}
+	kf.systemDrive = filepath.VolumeName(util.KnownFolderPath(
+		windows.FOLDERID_Windows,
+		[]string{"SystemDrive", "SystemRoot", "windir"},
+		[]string{home, `C:`},
+	)) + string(filepath.Separator)
 	kf.systemRoot = util.KnownFolderPath(
 		windows.FOLDERID_Windows,
 		[]string{"SystemRoot", "windir"},
@@ -87,6 +88,11 @@ func initKnownFolders(home string) *knownFolders {
 		windows.FOLDERID_ProgramData,
 		[]string{"ProgramData", "ALLUSERSPROFILE"},
 		[]string{filepath.Join(kf.systemDrive, "ProgramData")},
+	)
+	kf.userProfiles = util.KnownFolderPath(
+		windows.FOLDERID_UserProfiles,
+		nil,
+		[]string{filepath.Join(kf.systemDrive, "Users")},
 	)
 	kf.roamingAppData = util.KnownFolderPath(
 		windows.FOLDERID_RoamingAppData,
@@ -136,7 +142,7 @@ func initKnownFolders(home string) *knownFolders {
 	kf.public = util.KnownFolderPath(
 		windows.FOLDERID_Public,
 		[]string{"PUBLIC"},
-		[]string{filepath.Join(kf.systemDrive, "Users", "Public")},
+		[]string{filepath.Join(kf.userProfiles, "Public")},
 	)
 	kf.fonts = util.KnownFolderPath(
 		windows.FOLDERID_Fonts,
