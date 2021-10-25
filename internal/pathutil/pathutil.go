@@ -59,10 +59,10 @@ func Create(name string, paths []string) (string, error) {
 		strings.Join(searchedPaths, ", "))
 }
 
-// SearchFile searches for the file with the specified `name` in the provided
+// Search searches for the file with the specified `name` in the provided
 // slice of `paths`. The `name` parameter must contain the name of the file,
 // but it can also contain a set of parent directories.
-func SearchFile(name string, paths []string) (string, error) {
+func Search(name string, paths []string) (string, error) {
 	var searchedPaths []string
 	for _, p := range paths {
 		if p = filepath.Join(p, name); Exists(p) {

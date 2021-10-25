@@ -65,11 +65,11 @@ func TestCreate(t *testing.T) {
 	require.Error(t, err)
 }
 
-func TestSearchFile(t *testing.T) {
+func TestSearch(t *testing.T) {
 	tempDir := os.TempDir()
 
 	// Test file not found.
-	_, err := pathutil.SearchFile("test", []string{tempDir, filepath.Join(tempDir, "appname")})
+	_, err := pathutil.Search("test", []string{tempDir, filepath.Join(tempDir, "appname")})
 	require.Error(t, err)
 
 	// Test file found.
@@ -78,11 +78,11 @@ func TestSearchFile(t *testing.T) {
 	require.NoError(t, err)
 	require.NoError(t, f.Close())
 
-	p, err := pathutil.SearchFile("test", []string{tempDir})
+	p, err := pathutil.Search("test", []string{tempDir})
 	require.NoError(t, err)
 	require.Equal(t, expected, p)
 
-	p, err = pathutil.SearchFile("test", []string{filepath.Join(tempDir, "appname"), tempDir})
+	p, err = pathutil.Search("test", []string{filepath.Join(tempDir, "appname"), tempDir})
 	require.NoError(t, err)
 	require.Equal(t, expected, p)
 
@@ -96,11 +96,11 @@ func TestSearchFile(t *testing.T) {
 	require.NoError(t, err)
 	require.NoError(t, f.Close())
 
-	p, err = pathutil.SearchFile(filepath.Join("appname", "test"), []string{tempDir})
+	p, err = pathutil.Search(filepath.Join("appname", "test"), []string{tempDir})
 	require.NoError(t, err)
 	require.Equal(t, expected, p)
 
-	p, err = pathutil.SearchFile("test", []string{tempDir, filepath.Join(tempDir, "appname")})
+	p, err = pathutil.Search("test", []string{tempDir, filepath.Join(tempDir, "appname")})
 	require.NoError(t, err)
 	require.Equal(t, expected, p)
 
