@@ -31,3 +31,38 @@ func TestExists(t *testing.T) {
 	require.NoError(t, os.Remove(pathSymlink))
 	require.False(t, pathutil.Exists(pathSymlink))
 }
+
+func TestCreate(t *testing.T) {
+	tempDir := os.TempDir()
+
+	// Test path selection order.
+	p, err := pathutil.Create("test", []string{tempDir, "\000a"})
+	require.NoError(t, err)
+	require.Equal(t, filepath.Join(tempDir, "test"), p)
+
+	p, err = pathutil.Create("test", []string{"\000a", tempDir})
+	require.NoError(t, err)
+	require.Equal(t, filepath.Join(tempDir, "test"), p)
+
+	// Test relative parent directories.
+	expected := filepath.Join(tempDir, "appname", "config", "test")
+	p, err = pathutil.Create(filepath.Join("appname", "config", "test"), []string{"\000a", tempDir})
+	require.NoError(t, err)
+	require.Equal(t, expected, p)
+	t.Log(expected)
+	require.NoError(t, os.RemoveAll(filepath.Dir(expected)))
+
+	expected = filepath.Join(tempDir, "appname", "test")
+	p, err = pathutil.Create(filepath.Join("appname", "test"), []string{"\000a", tempDir})
+	require.NoError(t, err)
+	require.Equal(t, expected, p)
+	t.Log(expected)
+	require.NoError(t, os.RemoveAll(filepath.Dir(expected)))
+
+	// Test invalid paths.
+	_, err = pathutil.Create(filepath.Join("appname", "test"), []string{"\000a"})
+	require.Error(t, err)
+
+	_, err = pathutil.Create("test", []string{filepath.Join(tempDir, "\000a")})
+	require.Error(t, err)
+}
