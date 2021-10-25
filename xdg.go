@@ -15,6 +15,13 @@ The current implementation supports most flavors of Unix, Windows, Mac OS and Pl
 */
 package xdg
 
+import (
+	"os"
+	"path/filepath"
+
+	"github.com/adrg/xdg/internal/util"
+)
+
 var (
 	// Home contains the path of the user's home directory.
 	Home string
@@ -201,6 +208,24 @@ func SearchCacheFile(relPath string) (string, error) {
 // file cannot be found, an error specifying the searched path is returned.
 func SearchRuntimeFile(relPath string) (string, error) {
 	return baseDirs.searchRuntimeFile(relPath)
+}
+
+func xdgPath(name, defaultPath string) string {
+	dir := util.ExpandHome(os.Getenv(name), Home)
+	if dir != "" && filepath.IsAbs(dir) {
+		return dir
+	}
+
+	return defaultPath
+}
+
+func xdgPaths(name string, defaultPaths ...string) []string {
+	dirs := util.UniquePaths(filepath.SplitList(os.Getenv(name)), Home)
+	if len(dirs) != 0 {
+		return dirs
+	}
+
+	return util.UniquePaths(defaultPaths, Home)
 }
 
 func init() {
