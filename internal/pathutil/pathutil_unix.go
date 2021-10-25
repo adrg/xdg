@@ -9,8 +9,8 @@ import (
 	"strings"
 )
 
-// PathExists returns true if the specified path exists.
-func PathExists(path string) bool {
+// Exists returns true if the specified path exists.
+func Exists(path string) bool {
 	_, err := os.Stat(path)
 	return err == nil || os.IsExist(err)
 }

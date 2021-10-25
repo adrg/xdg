@@ -44,7 +44,7 @@ func CreatePath(name string, paths []string) (string, error) {
 		p = filepath.Join(p, name)
 
 		dir := filepath.Dir(p)
-		if PathExists(dir) {
+		if Exists(dir) {
 			return p, nil
 		}
 		if err := os.MkdirAll(dir, os.ModeDir|0700); err == nil {
@@ -64,7 +64,7 @@ func CreatePath(name string, paths []string) (string, error) {
 func SearchFile(name string, paths []string) (string, error) {
 	var searchedPaths []string
 	for _, p := range paths {
-		if p = filepath.Join(p, name); PathExists(p) {
+		if p = filepath.Join(p, name); Exists(p) {
 			return p, nil
 		}
 
