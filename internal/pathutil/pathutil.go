@@ -18,7 +18,7 @@ func Unique(paths []string, home string) []string {
 	)
 
 	for _, p := range paths {
-		p := ExpandHome(p, home)
+		p = ExpandHome(p, home)
 		if p != "" && filepath.IsAbs(p) {
 			if _, ok := registry[p]; ok {
 				continue
@@ -65,7 +65,8 @@ func Create(name string, paths []string) (string, error) {
 func Search(name string, paths []string) (string, error) {
 	var searchedPaths []string
 	for _, p := range paths {
-		if p = filepath.Join(p, name); Exists(p) {
+		p = filepath.Join(p, name)
+		if Exists(p) {
 			return p, nil
 		}
 

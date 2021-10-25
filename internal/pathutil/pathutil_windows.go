@@ -40,14 +40,16 @@ func KnownFolder(id *windows.KNOWNFOLDERID, envVars []string, fallbacks []string
 	if id != nil {
 		flags := []uint32{windows.KF_FLAG_DEFAULT, windows.KF_FLAG_DEFAULT_PATH}
 		for _, flag := range flags {
-			if p, _ := windows.KnownFolderPath(id, flag|windows.KF_FLAG_DONT_VERIFY); p != "" {
+			p, _ := windows.KnownFolderPath(id, flag|windows.KF_FLAG_DONT_VERIFY)
+			if p != "" {
 				return p
 			}
 		}
 	}
 
 	for _, envVar := range envVars {
-		if p := os.Getenv(envVar); p != "" {
+		p := os.Getenv(envVar)
+		if p != "" {
 			return p
 		}
 	}
