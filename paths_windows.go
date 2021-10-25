@@ -8,7 +8,11 @@ import (
 )
 
 func homeDir() string {
-	return util.KnownFolderPath(windows.FOLDERID_Profile, []string{"USERPROFILE"}, nil)
+	return util.KnownFolderPath(
+		windows.FOLDERID_Profile,
+		[]string{"USERPROFILE"},
+		nil,
+	)
 }
 
 func initDirs(home string) {
