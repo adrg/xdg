@@ -49,14 +49,12 @@ func TestCreate(t *testing.T) {
 	p, err = pathutil.Create(filepath.Join("appname", "config", "test"), []string{"\000a", tempDir})
 	require.NoError(t, err)
 	require.Equal(t, expected, p)
-	t.Log(expected)
 	require.NoError(t, os.RemoveAll(filepath.Dir(expected)))
 
 	expected = filepath.Join(tempDir, "appname", "test")
 	p, err = pathutil.Create(filepath.Join("appname", "test"), []string{"\000a", tempDir})
 	require.NoError(t, err)
 	require.Equal(t, expected, p)
-	t.Log(expected)
 	require.NoError(t, os.RemoveAll(filepath.Dir(expected)))
 
 	// Test invalid paths.
@@ -65,4 +63,46 @@ func TestCreate(t *testing.T) {
 
 	_, err = pathutil.Create("test", []string{filepath.Join(tempDir, "\000a")})
 	require.Error(t, err)
+}
+
+func TestSearchFile(t *testing.T) {
+	tempDir := os.TempDir()
+
+	// Test file not found.
+	_, err := pathutil.SearchFile("test", []string{tempDir, filepath.Join(tempDir, "appname")})
+	require.Error(t, err)
+
+	// Test file found.
+	expected := filepath.Join(tempDir, "test")
+	f, err := os.Create(expected)
+	require.NoError(t, err)
+	require.NoError(t, f.Close())
+
+	p, err := pathutil.SearchFile("test", []string{tempDir})
+	require.NoError(t, err)
+	require.Equal(t, expected, p)
+
+	p, err = pathutil.SearchFile("test", []string{filepath.Join(tempDir, "appname"), tempDir})
+	require.NoError(t, err)
+	require.Equal(t, expected, p)
+
+	require.NoError(t, os.Remove(expected))
+
+	// Test relative parent directories.
+	expected = filepath.Join(tempDir, "appname", "test")
+	_, err = pathutil.Create(filepath.Join("appname", "test"), []string{tempDir})
+	require.NoError(t, err)
+	f, err = os.Create(expected)
+	require.NoError(t, err)
+	require.NoError(t, f.Close())
+
+	p, err = pathutil.SearchFile(filepath.Join("appname", "test"), []string{tempDir})
+	require.NoError(t, err)
+	require.Equal(t, expected, p)
+
+	p, err = pathutil.SearchFile("test", []string{tempDir, filepath.Join(tempDir, "appname")})
+	require.NoError(t, err)
+	require.Equal(t, expected, p)
+
+	require.NoError(t, os.RemoveAll(filepath.Dir(expected)))
 }
