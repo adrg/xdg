@@ -9,26 +9,6 @@ import (
 	"github.com/adrg/xdg/internal/util"
 )
 
-func createPath(name string, paths []string) (string, error) {
-	var searchedPaths []string
-	for _, p := range paths {
-		path := filepath.Join(p, name)
-		dir := filepath.Dir(path)
-
-		if util.PathExists(dir) {
-			return path, nil
-		}
-		if err := os.MkdirAll(dir, os.ModeDir|0700); err == nil {
-			return path, nil
-		}
-
-		searchedPaths = append(searchedPaths, dir)
-	}
-
-	return "", fmt.Errorf("could not create any of the following paths: %s",
-		strings.Join(searchedPaths, ", "))
-}
-
 func searchFile(name string, paths []string) (string, error) {
 	var searchedPaths []string
 	for _, p := range paths {

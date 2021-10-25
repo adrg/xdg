@@ -1,5 +1,7 @@
 package xdg
 
+import "github.com/adrg/xdg/internal/util"
+
 // XDG Base Directory environment variables.
 const (
 	envDataHome   = "XDG_DATA_HOME"
@@ -26,23 +28,23 @@ type baseDirectories struct {
 }
 
 func (bd baseDirectories) dataFile(relPath string) (string, error) {
-	return createPath(relPath, append([]string{bd.dataHome}, bd.data...))
+	return util.CreatePath(relPath, append([]string{bd.dataHome}, bd.data...))
 }
 
 func (bd baseDirectories) configFile(relPath string) (string, error) {
-	return createPath(relPath, append([]string{bd.configHome}, bd.config...))
+	return util.CreatePath(relPath, append([]string{bd.configHome}, bd.config...))
 }
 
 func (bd baseDirectories) stateFile(relPath string) (string, error) {
-	return createPath(relPath, []string{bd.stateHome})
+	return util.CreatePath(relPath, []string{bd.stateHome})
 }
 
 func (bd baseDirectories) cacheFile(relPath string) (string, error) {
-	return createPath(relPath, []string{bd.cacheHome})
+	return util.CreatePath(relPath, []string{bd.cacheHome})
 }
 
 func (bd baseDirectories) runtimeFile(relPath string) (string, error) {
-	return createPath(relPath, []string{bd.runtime})
+	return util.CreatePath(relPath, []string{bd.runtime})
 }
 
 func (bd baseDirectories) searchDataFile(relPath string) (string, error) {
