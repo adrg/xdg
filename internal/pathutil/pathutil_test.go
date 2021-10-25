@@ -1,11 +1,11 @@
-package util_test
+package pathutil_test
 
 import (
 	"os"
 	"path/filepath"
 	"testing"
 
-	"github.com/adrg/xdg/internal/util"
+	"github.com/adrg/xdg/internal/pathutil"
 	"github.com/stretchr/testify/require"
 )
 
@@ -17,17 +17,17 @@ func TestPathExists(t *testing.T) {
 	f, err := os.Create(pathFile)
 	require.NoError(t, err)
 	require.NoError(t, f.Close())
-	require.True(t, util.PathExists(pathFile))
+	require.True(t, pathutil.PathExists(pathFile))
 
 	// Test symlink.
 	pathSymlink := filepath.Join(tempDir, "symlink")
 	require.NoError(t, os.Symlink(pathFile, pathSymlink))
-	require.True(t, util.PathExists(pathSymlink))
+	require.True(t, pathutil.PathExists(pathSymlink))
 
 	// Test non-existent file.
 	require.NoError(t, os.Remove(pathFile))
-	require.False(t, util.PathExists(pathFile))
-	require.False(t, util.PathExists(pathSymlink))
+	require.False(t, pathutil.PathExists(pathFile))
+	require.False(t, pathutil.PathExists(pathSymlink))
 	require.NoError(t, os.Remove(pathSymlink))
-	require.False(t, util.PathExists(pathSymlink))
+	require.False(t, pathutil.PathExists(pathSymlink))
 }

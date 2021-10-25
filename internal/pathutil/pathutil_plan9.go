@@ -1,7 +1,4 @@
-//go:build aix || darwin || dragonfly || freebsd || (js && wasm) || nacl || linux || netbsd || openbsd || solaris
-// +build aix darwin dragonfly freebsd js,wasm nacl linux netbsd openbsd solaris
-
-package util
+package pathutil
 
 import (
 	"os"
@@ -15,7 +12,7 @@ func PathExists(path string) bool {
 	return err == nil || os.IsExist(err)
 }
 
-// ExpandHome substitutes `~` and `$HOME` at the start of the specified
+// ExpandHome substitutes `~` and `$home` at the start of the specified
 // `path` using the provided `home` location.
 func ExpandHome(path, home string) string {
 	if path == "" || home == "" {
@@ -24,7 +21,7 @@ func ExpandHome(path, home string) string {
 	if path[0] == '~' {
 		return filepath.Join(home, path[1:])
 	}
-	if strings.HasPrefix(path, "$HOME") {
+	if strings.HasPrefix(path, "$home") {
 		return filepath.Join(home, path[5:])
 	}
 

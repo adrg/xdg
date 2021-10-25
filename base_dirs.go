@@ -1,6 +1,6 @@
 package xdg
 
-import "github.com/adrg/xdg/internal/util"
+import "github.com/adrg/xdg/internal/pathutil"
 
 // XDG Base Directory environment variables.
 const (
@@ -28,41 +28,41 @@ type baseDirectories struct {
 }
 
 func (bd baseDirectories) dataFile(relPath string) (string, error) {
-	return util.CreatePath(relPath, append([]string{bd.dataHome}, bd.data...))
+	return pathutil.CreatePath(relPath, append([]string{bd.dataHome}, bd.data...))
 }
 
 func (bd baseDirectories) configFile(relPath string) (string, error) {
-	return util.CreatePath(relPath, append([]string{bd.configHome}, bd.config...))
+	return pathutil.CreatePath(relPath, append([]string{bd.configHome}, bd.config...))
 }
 
 func (bd baseDirectories) stateFile(relPath string) (string, error) {
-	return util.CreatePath(relPath, []string{bd.stateHome})
+	return pathutil.CreatePath(relPath, []string{bd.stateHome})
 }
 
 func (bd baseDirectories) cacheFile(relPath string) (string, error) {
-	return util.CreatePath(relPath, []string{bd.cacheHome})
+	return pathutil.CreatePath(relPath, []string{bd.cacheHome})
 }
 
 func (bd baseDirectories) runtimeFile(relPath string) (string, error) {
-	return util.CreatePath(relPath, []string{bd.runtime})
+	return pathutil.CreatePath(relPath, []string{bd.runtime})
 }
 
 func (bd baseDirectories) searchDataFile(relPath string) (string, error) {
-	return util.SearchFile(relPath, append([]string{bd.dataHome}, bd.data...))
+	return pathutil.SearchFile(relPath, append([]string{bd.dataHome}, bd.data...))
 }
 
 func (bd baseDirectories) searchConfigFile(relPath string) (string, error) {
-	return util.SearchFile(relPath, append([]string{bd.configHome}, bd.config...))
+	return pathutil.SearchFile(relPath, append([]string{bd.configHome}, bd.config...))
 }
 
 func (bd baseDirectories) searchStateFile(relPath string) (string, error) {
-	return util.SearchFile(relPath, []string{bd.stateHome})
+	return pathutil.SearchFile(relPath, []string{bd.stateHome})
 }
 
 func (bd baseDirectories) searchCacheFile(relPath string) (string, error) {
-	return util.SearchFile(relPath, []string{bd.cacheHome})
+	return pathutil.SearchFile(relPath, []string{bd.cacheHome})
 }
 
 func (bd baseDirectories) searchRuntimeFile(relPath string) (string, error) {
-	return util.SearchFile(relPath, []string{bd.runtime})
+	return pathutil.SearchFile(relPath, []string{bd.runtime})
 }

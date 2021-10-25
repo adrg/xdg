@@ -19,7 +19,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/adrg/xdg/internal/util"
+	"github.com/adrg/xdg/internal/pathutil"
 )
 
 var (
@@ -211,7 +211,7 @@ func SearchRuntimeFile(relPath string) (string, error) {
 }
 
 func xdgPath(name, defaultPath string) string {
-	dir := util.ExpandHome(os.Getenv(name), Home)
+	dir := pathutil.ExpandHome(os.Getenv(name), Home)
 	if dir != "" && filepath.IsAbs(dir) {
 		return dir
 	}
@@ -220,12 +220,12 @@ func xdgPath(name, defaultPath string) string {
 }
 
 func xdgPaths(name string, defaultPaths ...string) []string {
-	dirs := util.UniquePaths(filepath.SplitList(os.Getenv(name)), Home)
+	dirs := pathutil.UniquePaths(filepath.SplitList(os.Getenv(name)), Home)
 	if len(dirs) != 0 {
 		return dirs
 	}
 
-	return util.UniquePaths(defaultPaths, Home)
+	return pathutil.UniquePaths(defaultPaths, Home)
 }
 
 func init() {
