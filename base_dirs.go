@@ -28,23 +28,23 @@ type baseDirectories struct {
 }
 
 func (bd baseDirectories) dataFile(relPath string) (string, error) {
-	return pathutil.CreatePath(relPath, append([]string{bd.dataHome}, bd.data...))
+	return pathutil.Create(relPath, append([]string{bd.dataHome}, bd.data...))
 }
 
 func (bd baseDirectories) configFile(relPath string) (string, error) {
-	return pathutil.CreatePath(relPath, append([]string{bd.configHome}, bd.config...))
+	return pathutil.Create(relPath, append([]string{bd.configHome}, bd.config...))
 }
 
 func (bd baseDirectories) stateFile(relPath string) (string, error) {
-	return pathutil.CreatePath(relPath, []string{bd.stateHome})
+	return pathutil.Create(relPath, []string{bd.stateHome})
 }
 
 func (bd baseDirectories) cacheFile(relPath string) (string, error) {
-	return pathutil.CreatePath(relPath, []string{bd.cacheHome})
+	return pathutil.Create(relPath, []string{bd.cacheHome})
 }
 
 func (bd baseDirectories) runtimeFile(relPath string) (string, error) {
-	return pathutil.CreatePath(relPath, []string{bd.runtime})
+	return pathutil.Create(relPath, []string{bd.runtime})
 }
 
 func (bd baseDirectories) searchDataFile(relPath string) (string, error) {

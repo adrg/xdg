@@ -94,6 +94,10 @@ var (
 	baseDirs baseDirectories
 )
 
+func init() {
+	Reload()
+}
+
 // Reload refreshes base and user directories by reading the environment.
 // Defaults are applied for XDG variables which are empty or not present
 // in the environment.
@@ -226,8 +230,4 @@ func xdgPaths(name string, defaultPaths ...string) []string {
 	}
 
 	return pathutil.Unique(defaultPaths, Home)
-}
-
-func init() {
-	Reload()
 }

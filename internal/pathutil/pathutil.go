@@ -32,13 +32,14 @@ func Unique(paths []string, home string) []string {
 	return uniq
 }
 
-// CreatePath returns a suitable location relative to which the file with the
-// specified `name` can be written, based on the first writable path from the
-// provided `paths` slice. The `name` parameter should contain the name of the
-// file which is going to be written in the location returned by this function,
-// but it can also contain a set of parent directories, which will be created
+// Create returns a suitable location relative to which the file with the
+// specified `name` can be written. The first path from the provided `paths`
+// slice which is successfully created (or already exists) is used as a base
+// path for the file. The `name` parameter should contain the name of the file
+// which is going to be written in the location returned by this function, but
+// it can also contain a set of parent directories, which will be created
 // relative to the selected parent path.
-func CreatePath(name string, paths []string) (string, error) {
+func Create(name string, paths []string) (string, error) {
 	var searchedPaths []string
 	for _, p := range paths {
 		p = filepath.Join(p, name)
