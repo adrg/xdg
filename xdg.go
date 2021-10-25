@@ -220,12 +220,12 @@ func xdgPath(name, defaultPath string) string {
 }
 
 func xdgPaths(name string, defaultPaths ...string) []string {
-	dirs := pathutil.UniquePaths(filepath.SplitList(os.Getenv(name)), Home)
+	dirs := pathutil.Unique(filepath.SplitList(os.Getenv(name)), Home)
 	if len(dirs) != 0 {
 		return dirs
 	}
 
-	return pathutil.UniquePaths(defaultPaths, Home)
+	return pathutil.Unique(defaultPaths, Home)
 }
 
 func init() {

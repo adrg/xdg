@@ -33,7 +33,7 @@ func TestExpandHome(t *testing.T) {
 	require.Equal(t, home, pathutil.ExpandHome(home, home))
 }
 
-func TestUniquePaths(t *testing.T) {
+func TestUnique(t *testing.T) {
 	input := []string{
 		"",
 		`C:\Users`,
@@ -51,5 +51,5 @@ func TestUniquePaths(t *testing.T) {
 		`C:\Users\test\appname`,
 	}
 
-	require.EqualValues(t, expected, pathutil.UniquePaths(input, `C:\Users\test`))
+	require.EqualValues(t, expected, pathutil.Unique(input, `C:\Users\test`))
 }

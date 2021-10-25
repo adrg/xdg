@@ -30,7 +30,7 @@ func TestExpandHome(t *testing.T) {
 	require.Equal(t, "/usr/bin", pathutil.ExpandHome("$home/bin", "/usr"))
 }
 
-func TestUniquePaths(t *testing.T) {
+func TestUnique(t *testing.T) {
 	input := []string{
 		"",
 		"/home",
@@ -48,5 +48,5 @@ func TestUniquePaths(t *testing.T) {
 		"/home/test/appname",
 	}
 
-	require.EqualValues(t, expected, pathutil.UniquePaths(input, "/home/test"))
+	require.EqualValues(t, expected, pathutil.Unique(input, "/home/test"))
 }

@@ -7,11 +7,11 @@ import (
 	"strings"
 )
 
-// UniquePaths eliminates the duplicate paths from the provided slice and
-// returns the result. The items in the output slice are in the order in
-// which they occur in the input slice. If a `home` location is provided,
-// the paths are expanded using the `ExpandHome` function.
-func UniquePaths(paths []string, home string) []string {
+// Unique eliminates the duplicate paths from the provided slice and returns
+// the result. The items in the output slice are in the order in which they
+// occur in the input slice. If a `home` location is provided, the paths are
+// expanded using the `ExpandHome` function.
+func Unique(paths []string, home string) []string {
 	var (
 		uniq     []string
 		registry = map[string]struct{}{}
