@@ -8,7 +8,7 @@ import (
 )
 
 func homeDir() string {
-	return pathutil.KnownFolderPath(
+	return pathutil.KnownFolder(
 		windows.FOLDERID_Profile,
 		[]string{"USERPROFILE"},
 		nil,
@@ -78,87 +78,87 @@ func initKnownFolders(home string) *knownFolders {
 	kf := &knownFolders{
 		userProfile: home,
 	}
-	kf.systemDrive = filepath.VolumeName(pathutil.KnownFolderPath(
+	kf.systemDrive = filepath.VolumeName(pathutil.KnownFolder(
 		windows.FOLDERID_Windows,
 		[]string{"SystemDrive", "SystemRoot", "windir"},
 		[]string{home, `C:`},
 	)) + string(filepath.Separator)
-	kf.systemRoot = pathutil.KnownFolderPath(
+	kf.systemRoot = pathutil.KnownFolder(
 		windows.FOLDERID_Windows,
 		[]string{"SystemRoot", "windir"},
 		[]string{filepath.Join(kf.systemDrive, "Windows")},
 	)
-	kf.programData = pathutil.KnownFolderPath(
+	kf.programData = pathutil.KnownFolder(
 		windows.FOLDERID_ProgramData,
 		[]string{"ProgramData", "ALLUSERSPROFILE"},
 		[]string{filepath.Join(kf.systemDrive, "ProgramData")},
 	)
-	kf.userProfiles = pathutil.KnownFolderPath(
+	kf.userProfiles = pathutil.KnownFolder(
 		windows.FOLDERID_UserProfiles,
 		nil,
 		[]string{filepath.Join(kf.systemDrive, "Users")},
 	)
-	kf.roamingAppData = pathutil.KnownFolderPath(
+	kf.roamingAppData = pathutil.KnownFolder(
 		windows.FOLDERID_RoamingAppData,
 		[]string{"APPDATA"},
 		[]string{filepath.Join(home, "AppData", "Roaming")},
 	)
-	kf.localAppData = pathutil.KnownFolderPath(
+	kf.localAppData = pathutil.KnownFolder(
 		windows.FOLDERID_LocalAppData,
 		[]string{"LOCALAPPDATA"},
 		[]string{filepath.Join(home, "AppData", "Local")},
 	)
-	kf.desktop = pathutil.KnownFolderPath(
+	kf.desktop = pathutil.KnownFolder(
 		windows.FOLDERID_Desktop,
 		nil,
 		[]string{filepath.Join(home, "Desktop")},
 	)
-	kf.downloads = pathutil.KnownFolderPath(
+	kf.downloads = pathutil.KnownFolder(
 		windows.FOLDERID_Downloads,
 		nil,
 		[]string{filepath.Join(home, "Downloads")},
 	)
-	kf.documents = pathutil.KnownFolderPath(
+	kf.documents = pathutil.KnownFolder(
 		windows.FOLDERID_Documents,
 		nil,
 		[]string{filepath.Join(home, "Documents")},
 	)
-	kf.music = pathutil.KnownFolderPath(
+	kf.music = pathutil.KnownFolder(
 		windows.FOLDERID_Music,
 		nil,
 		[]string{filepath.Join(home, "Music")},
 	)
-	kf.pictures = pathutil.KnownFolderPath(
+	kf.pictures = pathutil.KnownFolder(
 		windows.FOLDERID_Pictures,
 		nil,
 		[]string{filepath.Join(home, "Pictures")},
 	)
-	kf.videos = pathutil.KnownFolderPath(
+	kf.videos = pathutil.KnownFolder(
 		windows.FOLDERID_Videos,
 		nil,
 		[]string{filepath.Join(home, "Videos")},
 	)
-	kf.templates = pathutil.KnownFolderPath(
+	kf.templates = pathutil.KnownFolder(
 		windows.FOLDERID_Templates,
 		nil,
 		[]string{filepath.Join(kf.roamingAppData, "Microsoft", "Windows", "Templates")},
 	)
-	kf.public = pathutil.KnownFolderPath(
+	kf.public = pathutil.KnownFolder(
 		windows.FOLDERID_Public,
 		[]string{"PUBLIC"},
 		[]string{filepath.Join(kf.userProfiles, "Public")},
 	)
-	kf.fonts = pathutil.KnownFolderPath(
+	kf.fonts = pathutil.KnownFolder(
 		windows.FOLDERID_Fonts,
 		nil,
 		[]string{filepath.Join(kf.systemRoot, "Fonts")},
 	)
-	kf.programs = pathutil.KnownFolderPath(
+	kf.programs = pathutil.KnownFolder(
 		windows.FOLDERID_Programs,
 		nil,
 		[]string{filepath.Join(kf.roamingAppData, "Microsoft", "Windows", "Start Menu", "Programs")},
 	)
-	kf.commonPrograms = pathutil.KnownFolderPath(
+	kf.commonPrograms = pathutil.KnownFolder(
 		windows.FOLDERID_CommonPrograms,
 		nil,
 		[]string{filepath.Join(kf.programData, "Microsoft", "Windows", "Start Menu", "Programs")},
