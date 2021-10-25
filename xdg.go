@@ -97,7 +97,7 @@ func Reload() {
 	// Initialize base and user directories.
 	initDirs(Home)
 
-	// Set base directories.
+	// Set standard directories.
 	DataHome = baseDirs.dataHome
 	DataDirs = baseDirs.data
 	ConfigHome = baseDirs.configHome
