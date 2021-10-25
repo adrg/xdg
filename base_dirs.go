@@ -48,21 +48,21 @@ func (bd baseDirectories) runtimeFile(relPath string) (string, error) {
 }
 
 func (bd baseDirectories) searchDataFile(relPath string) (string, error) {
-	return searchFile(relPath, append([]string{bd.dataHome}, bd.data...))
+	return util.SearchFile(relPath, append([]string{bd.dataHome}, bd.data...))
 }
 
 func (bd baseDirectories) searchConfigFile(relPath string) (string, error) {
-	return searchFile(relPath, append([]string{bd.configHome}, bd.config...))
+	return util.SearchFile(relPath, append([]string{bd.configHome}, bd.config...))
 }
 
 func (bd baseDirectories) searchStateFile(relPath string) (string, error) {
-	return searchFile(relPath, []string{bd.stateHome})
+	return util.SearchFile(relPath, []string{bd.stateHome})
 }
 
 func (bd baseDirectories) searchCacheFile(relPath string) (string, error) {
-	return searchFile(relPath, []string{bd.cacheHome})
+	return util.SearchFile(relPath, []string{bd.cacheHome})
 }
 
 func (bd baseDirectories) searchRuntimeFile(relPath string) (string, error) {
-	return searchFile(relPath, []string{bd.runtime})
+	return util.SearchFile(relPath, []string{bd.runtime})
 }

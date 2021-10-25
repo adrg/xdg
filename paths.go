@@ -1,28 +1,11 @@
 package xdg
 
 import (
-	"fmt"
 	"os"
 	"path/filepath"
-	"strings"
 
 	"github.com/adrg/xdg/internal/util"
 )
-
-func searchFile(name string, paths []string) (string, error) {
-	var searchedPaths []string
-	for _, p := range paths {
-		path := filepath.Join(p, name)
-		if util.PathExists(path) {
-			return path, nil
-		}
-
-		searchedPaths = append(searchedPaths, filepath.Dir(path))
-	}
-
-	return "", fmt.Errorf("could not locate `%s` in any of the following paths: %s",
-		filepath.Base(name), strings.Join(searchedPaths, ", "))
-}
 
 func xdgPath(name, defaultPath string) string {
 	dir := util.ExpandHome(os.Getenv(name), Home)

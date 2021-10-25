@@ -57,3 +57,20 @@ func CreatePath(name string, paths []string) (string, error) {
 	return "", fmt.Errorf("could not create any of the following paths: %s",
 		strings.Join(searchedPaths, ", "))
 }
+
+// SearchFile searches for the file with the specified `name` in the provided
+// slice of `paths`. The `name` parameter must contain the name of the file,
+// but it can also contain a set of parent directories.
+func SearchFile(name string, paths []string) (string, error) {
+	var searchedPaths []string
+	for _, p := range paths {
+		if p = filepath.Join(p, name); PathExists(p) {
+			return p, nil
+		}
+
+		searchedPaths = append(searchedPaths, filepath.Dir(p))
+	}
+
+	return "", fmt.Errorf("could not locate `%s` in any of the following paths: %s",
+		filepath.Base(name), strings.Join(searchedPaths, ", "))
+}
