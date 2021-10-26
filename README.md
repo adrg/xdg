@@ -112,14 +112,14 @@ present in the environment.
 
 #### Unix-like operating systems
 
-| <a href="#xdg-base-directory"><img width="900" height="1"></a> | <a href="#xdg-base-directory"><img width="400" height="1"></a><p>Unix</p>                                                                                                                                        | <a href="#xdg-base-directory"><img width="500" height="1"></a><p>macOS</p>                                                               | <a href="#xdg-base-directory"><img width="200" height="1"></a><p>Plan 9</p> |
+| <a href="#xdg-base-directory"><img width="400" height="1"></a> | <a href="#xdg-base-directory"><img width="600" height="1"></a><p>Unix</p>                                                                                                                                        | <a href="#xdg-base-directory"><img width="500" height="1"></a><p>macOS</p>                                                               | <a href="#xdg-base-directory"><img width="500" height="1"></a><p>Plan 9</p> |
 | :------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------: |
 | <kbd><b><samp>Application&nbsp;directories</samp></b></kbd>    | <kbd>$XDG_DATA_HOME/applications</kbd><br/><kbd>~/.local/share/applications</kbd><br/><kbd>/usr/local/share/applications</kbd><br/><kbd>/usr/share/applications</kbd><br/><kbd>$XDG_DATA_DIRS/applications</kbd> | <kbd>/Applications</kbd>                                                                                                                 | <kbd>$home/bin</kbd>                                                        |
 | <kbd><b><samp>Font directories</samp></b></kbd>                | <kbd>$XDG_DATA_HOME/fonts</kbd><br/><kbd>&#126;/.fonts</kbd><br/><kbd>~/.local/share/fonts</kbd><br/><kbd>/usr/local/share/fonts</kbd><br/><kbd>/usr/share/fonts</kbd><br/><kbd>$XDG_DATA_DIRS/fonts</kbd>       | <kbd>~/Library/Fonts</kbd><br/><kbd>/Library/Fonts</kbd><br/><kbd>/System/Library/Fonts</kbd><br/><kbd>/Network/Library/Fonts</kbd>      | <kbd>$home/bin</kbd><br/><kbd>/bin</kbd>                                    |
 
 #### Microsoft Windows
 
-| <a href="#xdg-base-directory"><img width="700" height="1"></a> | <a href="#xdg-base-directory"><img width="200" height="1"></a><p>Folder IDs</p> | <a href="#xdg-base-directory"><img width="1100" height="1"></a><p>Default paths</p>                                                     |
+| <a href="#xdg-base-directory"><img width="400" height="1"></a> | <a href="#xdg-base-directory"><img width="300" height="1"></a><p>Folder IDs</p> | <a href="#xdg-base-directory"><img width="1300" height="1"></a><p>Default paths</p>                                                     |
 | :------------------------------------------------------------: | :-----------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------: |
 | <kbd><b><samp>Application&nbsp;directories</samp></b></kbd>    | <kbd>FOLDERID_Programs</kbd><br/><kbd>FOLDERID_CommonPrograms</kbd>             | <kbd>%APPDATA%\Microsoft\Windows\Start&nbsp;Menu\Programs</kbd><br/><kbd>%ProgramData%\Microsoft\Windows\Start&nbsp;Menu\Programs</kbd> |
 | <kbd><b><samp>Font directories</samp></b></kbd>                | <kbd>FOLDERID_Fonts</kbd><br/><kbd>-</kbd>                                      | <kbd>%SystemRoot%\Fonts</kbd><br/><kbd>%LOCALAPPDATA%\Microsoft\Windows\Fonts</kbd>                                                     |
@@ -233,6 +233,7 @@ See [CONTRIBUTING.MD](CONTRIBUTING.md).
 For more information see:
 * [XDG Base Directory Specification](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html)
 * [XDG user directories](https://wiki.archlinux.org/index.php/XDG_user_directories)
+* [Windows Known Folders](https://docs.microsoft.com/en-us/windows/win32/shell/knownfolderid)
 
 ## License
 
