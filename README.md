@@ -59,17 +59,17 @@ present in the environment.
 <table>
     <thead>
         <tr>
-           <th width="10%" align="center"></th>
-           <th width="25%" align="center">Unix</th>
-           <th width="30%" align="center">macOS</th>
-           <th width="25%" align="center">Plan9</th>
+           <th align="center"></th>
+           <th align="center">Unix</th>
+           <th align="center">macOS</th>
+           <th align="center">Plan9</th>
         </tr>
     </thead>
     <tbody>
         <tr>
             <td align="center"><kbd><b><samp>XDG_DATA_HOME</samp></b></kbd></td>
             <td align="center"><kbd>~/.local/share</kbd></td>
-            <td align="center"><kbd>~/Library/Application Support</kbd></td>
+            <td align="center"><kbd>~/Library/Application&nbsp;Support</kbd></td>
             <td align="center"><kbd>$home/lib</kbd></td>
         </tr>
         <tr>
@@ -79,13 +79,13 @@ present in the environment.
                 <br/>
                 <kbd>/usr/share</kbd>
             </td>
-            <td align="center"><kbd>/Library/Application Support</kbd></td>
+            <td align="center"><kbd>/Library/Application&nbsp;Support</kbd></td>
             <td align="center"><kbd>/lib</kbd></td>
         </tr>
         <tr>
             <td align="center"><kbd><b><samp>XDG_CONFIG_HOME</samp></b></kbd></td>
             <td align="center"><kbd>~/.config</kbd></td>
-            <td align="center"><kbd>~/Library/Application Support</kbd></td>
+            <td align="center"><kbd>~/Library/Application&nbsp;Support</kbd></td>
             <td align="center"><kbd>$home/lib</kbd></td>
         </tr>
         <tr>
@@ -94,14 +94,16 @@ present in the environment.
             <td align="center">
                 <kbd>~/Library/Preferences</kbd>
                 <br/>
-                <kbd>/Library/Application Support</kbd><br/><kbd>/Library/Preferences</kbd>
+                <kbd>/Library/Application&nbsp;Support</kbd>
+                <br/>
+                <kbd>/Library/Preferences</kbd>
             </td>
             <td align="center"><kbd>/lib</kbd></td>
         </tr>
         <tr>
             <td align="center"><kbd><b><samp>XDG_STATE_HOME</samp></b></kbd></td>
             <td align="center"><kbd>~/.local/state</kbd></td>
-            <td align="center"><kbd>~/Library/Application Support</kbd></td>
+            <td align="center"><kbd>~/Library/Application&nbsp;Support</kbd></td>
             <td align="center"><kbd>$home/lib/state</kbd></td>
         </tr>
         <tr>
@@ -113,7 +115,7 @@ present in the environment.
         <tr>
             <td align="center"><kbd><b><samp>XDG_RUNTIME_DIR</samp></b></kbd></td>
             <td align="center"><kbd>/run/user/UID</kbd></td>
-            <td align="center"><kbd>~/Library/Application Support</kbd></td>
+            <td align="center"><kbd>~/Library/Application&nbsp;Support</kbd></td>
             <td align="center"><kbd>/tmp</kbd></td>
         </tr>
     </tbody>
