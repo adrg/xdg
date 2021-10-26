@@ -60,7 +60,7 @@ present in the environment.
     <summary><strong>Unix-like operating systems</strong></summary>
     <br/>
 
-| <a href="#xdg-base-directory"><img width="400" height="1"></a> | <a href="#xdg-base-directory"><img width="500" height="1"></a><p>Unix</p> | <a href="#xdg-base-directory"><img width="600" height="1"></a><p>macOS</p>                                            | <a href="#xdg-base-directory"><img width="500" height="1"></a><p>Plan 9</p> |
+| <a href="#xdg-base-directory"><img width="400" height="0"></a> | <a href="#xdg-base-directory"><img width="500" height="0"></a><p>Unix</p> | <a href="#xdg-base-directory"><img width="600" height="0"></a><p>macOS</p>                                            | <a href="#xdg-base-directory"><img width="500" height="0"></a><p>Plan 9</p> |
 | :------------------------------------------------------------: | :-----------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------: |
 | <kbd><b><samp>XDG_DATA_HOME</samp></b></kbd>                   | <kbd>~/.local/share</kbd>                                                 | <kbd>~/Library/Application&nbsp;Support</kbd>                                                                         | <kbd>$home/lib</kbd>                                                        |
 | <kbd><b><samp>XDG_DATA_DIRS</samp></b></kbd>                   | <kbd>/usr/local/share</kbd><br/><kbd>/usr/share</kbd>                     | <kbd>/Library/Application&nbsp;Support</kbd>                                                                          | <kbd>/lib</kbd>                                                             |
@@ -76,7 +76,7 @@ present in the environment.
     <summary><strong>Microsoft Windows</strong></summary>
     <br/>
 
-| <a href="#xdg-base-directory"><img width="400" height="1"></a> | <a href="#xdg-base-directory"><img width="700" height="1"></a><p>Folder IDs</p> | <a href="#xdg-base-directory"><img width="900" height="1"></a><p>Default paths</p> |
+| <a href="#xdg-base-directory"><img width="400" height="0"></a> | <a href="#xdg-base-directory"><img width="700" height="0"></a><p>Folder IDs</p> | <a href="#xdg-base-directory"><img width="900" height="0"></a><p>Default paths</p> |
 | :------------------------------------------------------------: | :-----------------------------------------------------------------------------: | :--------------------------------------------------------------------------------: |
 | <kbd><b><samp>XDG_DATA_HOME</samp></b></kbd>                   | <kbd>FOLDERID_LocalAppData</kbd>                                                | <kbd>%LOCALAPPDATA%</kbd>                                                          |
 | <kbd><b><samp>XDG_DATA_DIRS</samp></b></kbd>                   | <kbd>FOLDERID_RoamingAppData</kbd><br/><kbd>FOLDERID_ProgramData</kbd>          | <kbd>%APPADATA%</kbd><br/><kbd>%ProgramData%</kbd>                                 |
@@ -94,7 +94,7 @@ present in the environment.
     <summary><strong>Unix-like operating systems</strong></summary>
     <br/>
 
-| <a href="#xdg-base-directory"><img width="500" height="1"></a> | <a href="#xdg-base-directory"><img width="500" height="1"></a><p>Unix</p> | <a href="#xdg-base-directory"><img width="500" height="1"></a><p>macOS</p>                                            | <a href="#xdg-base-directory"><img width="500" height="1"></a><p>Plan 9</p> |
+| <a href="#xdg-base-directory"><img width="500" height="0"></a> | <a href="#xdg-base-directory"><img width="500" height="0"></a><p>Unix</p> | <a href="#xdg-base-directory"><img width="500" height="0"></a><p>macOS</p>                                            | <a href="#xdg-base-directory"><img width="500" height="0"></a><p>Plan 9</p> |
 | :------------------------------------------------------------: | :-----------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------: |
 | <kbd><b><samp>XDG_DESKTOP_DIR</samp></b></kbd>                 | <kbd>~/Desktop</kbd>                                                      | <kbd>~/Desktop</kbd>                                                                                                  | <kbd>$home/desktop</kbd>                                                    |
 | <kbd><b><samp>XDG_DOWNLOAD_DIR</samp></b></kbd>                | <kbd>~/Downloads</kbd>                                                    | <kbd>~/Downloads</kbd>                                                                                                | <kbd>$home/downloads</kbd>                                                  |
@@ -111,7 +111,7 @@ present in the environment.
     <summary><strong>Microsoft Windows</strong></summary>
     <br/>
 
-| <a href="#xdg-base-directory"><img width="500" height="1"></a> | <a href="#xdg-base-directory"><img width="600" height="1"></a><p>Folder IDs</p> | <a href="#xdg-base-directory"><img width="900" height="1"></a><p>Default paths</p> |
+| <a href="#xdg-base-directory"><img width="500" height="0"></a> | <a href="#xdg-base-directory"><img width="600" height="0"></a><p>Folder IDs</p> | <a href="#xdg-base-directory"><img width="900" height="0"></a><p>Default paths</p> |
 | :------------------------------------------------------------: | :-----------------------------------------------------------------------------: | :--------------------------------------------------------------------------------: |
 | <kbd><b><samp>XDG_DESKTOP_DIR</samp></b></kbd>                 | <kbd>FOLDERID_Desktop</kbd>                                                     | <kbd>%USERPROFILE%\Desktop</kbd>                                                   |
 | <kbd><b><samp>XDG_DOWNLOAD_DIR</samp></b></kbd>                | <kbd>FOLDERID_Downloads</kbd>                                                   | <kbd>%USERPROFILE%\Downloads</kbd>                                                 |
@@ -130,7 +130,7 @@ present in the environment.
     <summary><strong>Unix-like operating systems</strong></summary>
     <br/>
 
-| <a href="#xdg-base-directory"><img width="400" height="1"></a> | <a href="#xdg-base-directory"><img width="600" height="1"></a><p>Unix</p>                                                                                                                                        | <a href="#xdg-base-directory"><img width="600" height="1"></a><p>macOS</p>                                                               | <a href="#xdg-base-directory"><img width="400" height="1"></a><p>Plan 9</p> |
+| <a href="#xdg-base-directory"><img width="400" height="0"></a> | <a href="#xdg-base-directory"><img width="600" height="0"></a><p>Unix</p>                                                                                                                                        | <a href="#xdg-base-directory"><img width="600" height="0"></a><p>macOS</p>                                                               | <a href="#xdg-base-directory"><img width="400" height="0"></a><p>Plan 9</p> |
 | :------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------: |
 | <kbd><b><samp>Application&nbsp;directories</samp></b></kbd>    | <kbd>$XDG_DATA_HOME/applications</kbd><br/><kbd>~/.local/share/applications</kbd><br/><kbd>/usr/local/share/applications</kbd><br/><kbd>/usr/share/applications</kbd><br/><kbd>$XDG_DATA_DIRS/applications</kbd> | <kbd>/Applications</kbd>                                                                                                                 | <kbd>$home/bin</kbd>                                                        |
 | <kbd><b><samp>Font directories</samp></b></kbd>                | <kbd>$XDG_DATA_HOME/fonts</kbd><br/><kbd>&#126;/.fonts</kbd><br/><kbd>~/.local/share/fonts</kbd><br/><kbd>/usr/local/share/fonts</kbd><br/><kbd>/usr/share/fonts</kbd><br/><kbd>$XDG_DATA_DIRS/fonts</kbd>       | <kbd>~/Library/Fonts</kbd><br/><kbd>/Library/Fonts</kbd><br/><kbd>/System/Library/Fonts</kbd><br/><kbd>/Network/Library/Fonts</kbd>      | <kbd>$home/bin</kbd><br/><kbd>/bin</kbd>                                    |
@@ -141,7 +141,7 @@ present in the environment.
     <summary><strong>Microsoft Windows</strong></summary>
     <br/>
 
-| <a href="#xdg-base-directory"><img width="400" height="1"></a> | <a href="#xdg-base-directory"><img width="300" height="1"></a><p>Folder IDs</p> | <a href="#xdg-base-directory"><img width="1300" height="1"></a><p>Default paths</p>                                                     |
+| <a href="#xdg-base-directory"><img width="400" height="0"></a> | <a href="#xdg-base-directory"><img width="300" height="0"></a><p>Folder IDs</p> | <a href="#xdg-base-directory"><img width="1300" height="0"></a><p>Default paths</p>                                                     |
 | :------------------------------------------------------------: | :-----------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------: |
 | <kbd><b><samp>Application&nbsp;directories</samp></b></kbd>    | <kbd>FOLDERID_Programs</kbd><br/><kbd>FOLDERID_CommonPrograms</kbd>             | <kbd>%APPDATA%\Microsoft\Windows\Start&nbsp;Menu\Programs</kbd><br/><kbd>%ProgramData%\Microsoft\Windows\Start&nbsp;Menu\Programs</kbd> |
 | <kbd><b><samp>Font directories</samp></b></kbd>                | <kbd>FOLDERID_Fonts</kbd><br/><kbd>-</kbd>                                      | <kbd>%SystemRoot%\Fonts</kbd><br/><kbd>%LOCALAPPDATA%\Microsoft\Windows\Fonts</kbd>                                                     |
