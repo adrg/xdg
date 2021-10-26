@@ -56,15 +56,78 @@ present in the environment.
 
 #### XDG Base Directory
 
-|                                                | Unix                                                  | macOS                                                                                                            | Windows                                           | Plan 9                     |
-| :--------------------------------------------- | :---------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------- | :------------------------------------------------ | :------------------------- |
-| <kbd><b><samp>XDG_DATA_HOME</samp></b></kbd>   | <kbd>~/.local/share</kbd>                             | <kbd>~/Library/Application Support</kbd>                                                                         | <kbd>%LOCALAPPDATA%</kbd>                         | <kbd>$home/lib</kbd>       |
-| <kbd><b><samp>XDG_DATA_DIRS</samp></b></kbd>   | <kbd>/usr/local/share</kbd><br/><kbd>/usr/share</kbd> | <kbd>/Library/Application Support</kbd>                                                                          | <kbd>%APPDATA%</kbd><br/><kbd>%ProgramData%</kbd> | <kbd>/lib</kbd>            |
-| <kbd><b><samp>XDG_CONFIG_HOME</samp></b></kbd> | <kbd>~/.config</kbd>                                  | <kbd>~/Library/Application Support</kbd>                                                                         | <kbd>%LOCALAPPDATA%</kbd>                         | <kbd>$home/lib</kbd>       |
-| <kbd><b><samp>XDG_CONFIG_DIRS</samp></b></kbd> | <kbd>/etc/xdg</kbd>                                   | <kbd>~/Library/Preferences</kbd><br/><kbd>/Library/Application Support</kbd><br/><kbd>/Library/Preferences</kbd> | <kbd>%ProgramData%</kbd><br/><kbd>%APPDATA%</kbd> | <kbd>/lib</kbd>            |
-| <kbd><b><samp>XDG_STATE_HOME</samp></b></kbd>  | <kbd>~/.local/state</kbd>                             | <kbd>~/Library/Application Support</kbd>                                                                         | <kbd>%LOCALAPPDATA%</kbd>                         | <kbd>$home/lib/state</kbd> |
-| <kbd><b><samp>XDG_CACHE_HOME</samp></b></kbd>  | <kbd>~/.cache</kbd>                                   | <kbd>~/Library/Caches</kbd>                                                                                      | <kbd>%LOCALAPPDATA%\cache</kbd>                   | <kbd>$home/lib/cache</kbd> |
-| <kbd><b><samp>XDG_RUNTIME_DIR</samp></b></kbd> | <kbd>/run/user/UID</kbd>                              | <kbd>~/Library/Application Support</kbd>                                                                         | <kbd>%LOCALAPPDATA%</kbd>                         | <kbd>/tmp</kbd>            |
+<table>
+    <thead>
+        <tr>
+           <th width="10%" align="center"></th>
+           <th width="25%" align="center">Unix</th>
+           <th width="30%" align="center">macOS</th>
+           <th width="25%" align="center">Plan9</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td align="center"><kbd><b><samp>XDG_DATA_HOME</samp></b></kbd></td>
+            <td align="center"><kbd>~/.local/share</kbd></td>
+            <td align="center"><kbd>~/Library/Application Support</kbd></td>
+            <td align="center"><kbd>$home/lib</kbd></td>
+        </tr>
+        <tr>
+            <td align="center"><kbd><b><samp>XDG_DATA_DIRS</samp></b></kbd></td>
+            <td align="center">
+                <kbd>/usr/local/share</kbd>
+                <br/>
+                <kbd>/usr/share</kbd>
+            </td>
+            <td align="center"><kbd>/Library/Application Support</kbd></td>
+            <td align="center"><kbd>/lib</kbd></td>
+        </tr>
+        <tr>
+            <td align="center"><kbd><b><samp>XDG_CONFIG_HOME</samp></b></kbd></td>
+            <td align="center"><kbd>~/.config</kbd></td>
+            <td align="center"><kbd>~/Library/Application Support</kbd></td>
+            <td align="center"><kbd>$home/lib</kbd></td>
+        </tr>
+        <tr>
+            <td align="center"><kbd><b><samp>XDG_CONFIG_DIRS</samp></b></kbd></td>
+            <td align="center"><kbd>/etc/xdg</kbd></td>
+            <td align="center">
+                <kbd>~/Library/Preferences</kbd>
+                <br/>
+                <kbd>/Library/Application Support</kbd><br/><kbd>/Library/Preferences</kbd>
+            </td>
+            <td align="center"><kbd>/lib</kbd></td>
+        </tr>
+        <tr>
+            <td align="center"><kbd><b><samp>XDG_STATE_HOME</samp></b></kbd></td>
+            <td align="center"><kbd>~/.local/state</kbd></td>
+            <td align="center"><kbd>~/Library/Application Support</kbd></td>
+            <td align="center"><kbd>$home/lib/state</kbd></td>
+        </tr>
+        <tr>
+            <td align="center"><kbd><b><samp>XDG_CACHE_HOME</samp></b></kbd></td>
+            <td align="center"><kbd>~/.cache</kbd></td>
+            <td align="center"><kbd>~/Library/Caches</kbd></td>
+            <td align="center"><kbd>$home/lib/cache</kbd></td>
+        </tr>
+        <tr>
+            <td align="center"><kbd><b><samp>XDG_RUNTIME_DIR</samp></b></kbd></td>
+            <td align="center"><kbd>/run/user/UID</kbd></td>
+            <td align="center"><kbd>~/Library/Application Support</kbd></td>
+            <td align="center"><kbd>/tmp</kbd></td>
+        </tr>
+    </tbody>
+</table>
+
+| Windows                                        | Folder IDs                                                             | Environment variables                             | Default paths                                                                     |
+| :--------------------------------------------- | :--------------------------------------------------------------------- | :------------------------------------------------ | :-------------------------------------------------------------------------------- |
+| <kbd><b><samp>XDG_DATA_HOME</samp></b></kbd>   | <kbd>FOLDERID_LocalAppData</kbd>                                       | <kbd>%LOCALAPPDATA%</kbd>                         | <kbd>%USERPROFILE%\AppData\Local</kbd>                                            |
+| <kbd><b><samp>XDG_DATA_DIRS</samp></b></kbd>   | <kbd>FOLDERID_RoamingAppData</kbd><br/><kbd>FOLDERID_ProgramData</kbd> | <kbd>%APPDATA%</kbd><br/><kbd>%ProgramData%</kbd> | <kbd>%USERPROFILE%\AppData\Roaming</kbd><br/><kbd>%SystemDrive%\ProgramData</kbd> |
+| <kbd><b><samp>XDG_CONFIG_HOME</samp></b></kbd> | <kbd>FOLDERID_LocalAppData</kbd>                                       | <kbd>%LOCALAPPDATA%</kbd>                         | <kbd>%USERPROFILE%\AppData\Local</kbd>                                            |
+| <kbd><b><samp>XDG_CONFIG_DIRS</samp></b></kbd> | <kbd>FOLDERID_ProgramData</kbd><br/><kbd>FOLDERID_RoamingAppData</kbd> | <kbd>%ProgramData%</kbd><br/><kbd>%APPDATA%</kbd> | <kbd>%SystemDrive%\ProgramData</kbd><br/><kbd>%USERPROFILE%\AppData\Roaming</kbd> |
+| <kbd><b><samp>XDG_STATE_HOME</samp></b></kbd>  | <kbd>FOLDERID_LocalAppData</kbd>                                       | <kbd>%LOCALAPPDATA%</kbd>                         | <kbd>%USERPROFILE%\AppData\Local</kbd>                                            |
+| <kbd><b><samp>XDG_CACHE_HOME</samp></b></kbd>  | <kbd>FOLDERID_LocalAppData\cache</kbd>                                 | <kbd>%LOCALAPPDATA%\cache</kbd>                   | <kbd>%USERPROFILE%\AppData\Local\cache</kbd>                                      |
+| <kbd><b><samp>XDG_RUNTIME_DIR</samp></b></kbd> | <kbd>FOLDERID_LocalAppData</kbd>                                       | <kbd>%LOCALAPPDATA%</kbd>                         | <kbd>%USERPROFILE%\AppData\Local</kbd>                                            |
 
 #### XDG user directories
 
