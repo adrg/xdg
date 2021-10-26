@@ -60,9 +60,18 @@ present in the environment.
     <thead>
         <tr>
            <th align="center"></th>
-           <th align="center">Unix</th>
-           <th align="center">macOS</th>
-           <th align="center">Plan9</th>
+           <th align="center">
+               <a href="#xdg-base-directory"><img width="218" height="1"></a>
+               <p>Unix</p>
+           </th>
+           <th align="center">
+               <a href="#xdg-base-directory"><img width="218" height="1"></a>
+               <p>macOS</p>
+           </th>
+           <th align="center">
+               <a href="#xdg-base-directory"><img width="218" height="1"></a>
+               <p>Plan 9</p>
+           </th>
         </tr>
     </thead>
     <tbody>
