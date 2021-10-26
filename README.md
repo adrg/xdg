@@ -119,10 +119,10 @@ present in the environment.
 
 #### Microsoft Windows
 
-| <a href="#xdg-base-directory"><img width="700" height="1"></a> | <a href="#xdg-base-directory"><img width="200" height="1"></a><p>Folder IDs</p> | <a href="#xdg-base-directory"><img width="1100" height="1"></a><p>Default paths</p>                                           |
-| :------------------------------------------------------------: | :-----------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------: |
-| <kbd><b><samp>Application directories</samp></b></kbd>         | <kbd>FOLDERID_Programs</kbd><br/><kbd>FOLDERID_CommonPrograms</kbd>             | <kbd>%APPDATA%\Microsoft\Windows\Start Menu\Programs</kbd><br/><kbd>%ProgramData%\Microsoft\Windows\Start Menu\Programs</kbd> |
-| <kbd><b><samp>Font directories</samp></b></kbd>                | <kbd>FOLDERID_Fonts</kbd><br/><kbd>-</kbd>                                      | <kbd>%SystemRoot%\Fonts</kbd><br/><kbd>%LOCALAPPDATA%\Microsoft\Windows\Fonts</kbd>                                           |
+| <a href="#xdg-base-directory"><img width="700" height="1"></a> | <a href="#xdg-base-directory"><img width="200" height="1"></a><p>Folder IDs</p> | <a href="#xdg-base-directory"><img width="1100" height="1"></a><p>Default paths</p>                                                     |
+| :------------------------------------------------------------: | :-----------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------: |
+| <kbd><b><samp>Application directories</samp></b></kbd>         | <kbd>FOLDERID_Programs</kbd><br/><kbd>FOLDERID_CommonPrograms</kbd>             | <kbd>%APPDATA%\Microsoft\Windows\Start&nbsp;Menu\Programs</kbd><br/><kbd>%ProgramData%\Microsoft\Windows\Start&nbsp;Menu\Programs</kbd> |
+| <kbd><b><samp>Font directories</samp></b></kbd>                | <kbd>FOLDERID_Fonts</kbd><br/><kbd>-</kbd>                                      | <kbd>%SystemRoot%\Fonts</kbd><br/><kbd>%LOCALAPPDATA%\Microsoft\Windows\Fonts</kbd>                                                     |
 
 ## Usage
 
