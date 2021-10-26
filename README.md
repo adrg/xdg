@@ -43,8 +43,11 @@ including data and configuration files. For portability and flexibility reasons,
 applications should use the XDG defined locations instead of hardcoding paths.
 The package also includes the locations of well known [user directories](https://wiki.archlinux.org/index.php/XDG_user_directories).
 
-The current implementation supports most flavors of Unix, Windows, Mac OS and Plan 9.  
-Full documentation can be found at https://pkg.go.dev/github.com/adrg/xdg.
+The current implementation supports **most flavors of Unix**, **Windows**, **macOS** and **Plan 9**.  
+On Windows, where XDG variables are not usually set, the package uses [Known Folders](https://docs.microsoft.com/en-us/windows/win32/shell/known-folders)
+as defaults. Therefore, appropriate locations are used for common [directories](https://docs.microsoft.com/en-us/windows/win32/shell/knownfolderid) which may have been externally redirected.
+
+See usage [examples](#usage) below. Full documentation can be found at https://pkg.go.dev/github.com/adrg/xdg.
 
 ## Installation
     go get github.com/adrg/xdg
@@ -53,6 +56,12 @@ Full documentation can be found at https://pkg.go.dev/github.com/adrg/xdg.
 
 The package defines sensible defaults for XDG variables which are empty or not
 present in the environment.
+
+- On Unix-like operating systems, XDG environment variables are tipically defined.
+Appropriate default locations are used for the environment variables which are not set.
+- On Windows, XDG environment variables are usually not set. If that is the case,
+the package uses the appropriate [Known Folders](https://docs.microsoft.com/en-us/windows/win32/shell/knownfolderid).
+Sensible fallback locations are used for the folders which are not set.
 
 ### XDG Base Directory
 
