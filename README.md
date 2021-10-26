@@ -56,7 +56,9 @@ present in the environment.
 
 ### XDG Base Directory
 
-#### Unix-like operating systems
+<details open>
+    <summary><strong>Unix-like operating systems</strong></summary>
+    <br/>
 
 | <a href="#xdg-base-directory"><img width="400" height="1"></a> | <a href="#xdg-base-directory"><img width="500" height="1"></a><p>Unix</p> | <a href="#xdg-base-directory"><img width="600" height="1"></a><p>macOS</p>                                            | <a href="#xdg-base-directory"><img width="500" height="1"></a><p>Plan 9</p> |
 | :------------------------------------------------------------: | :-----------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------: |
@@ -68,7 +70,11 @@ present in the environment.
 | <kbd><b><samp>XDG_CACHE_HOME</samp></b></kbd>                  | <kbd>~/.cache</kbd>                                                       | <kbd>~/Library/Caches</kbd>                                                                                           | <kbd>$home/lib/cache</kbd>                                                  |
 | <kbd><b><samp>XDG_RUNTIME_DIR</samp></b></kbd>                 | <kbd>/run/user/UID</kbd>                                                  | <kbd>~/Library/Application&nbsp;Support</kbd>                                                                         | <kbd>/tmp</kbd>                                                             |
 
-#### Microsoft Windows
+</details>
+
+<details open>
+    <summary><strong>Microsoft Windows</strong></summary>
+    <br/>
 
 | <a href="#xdg-base-directory"><img width="400" height="1"></a> | <a href="#xdg-base-directory"><img width="700" height="1"></a><p>Folder IDs</p> | <a href="#xdg-base-directory"><img width="900" height="1"></a><p>Default paths</p> |
 | :------------------------------------------------------------: | :-----------------------------------------------------------------------------: | :--------------------------------------------------------------------------------: |
@@ -80,9 +86,13 @@ present in the environment.
 | <kbd><b><samp>XDG_CACHE_HOME</samp></b></kbd>                  | <kbd>FOLDERID_LocalAppData\cache</kbd>                                          | <kbd>%LOCALAPPDATA%\cache</kbd>                                                    |
 | <kbd><b><samp>XDG_RUNTIME_DIR</samp></b></kbd>                 | <kbd>FOLDERID_LocalAppData</kbd>                                                | <kbd>%LOCALAPPDATA%</kbd>                                                          |
 
+</details>
+
 ### XDG user directories
 
-#### Unix-like operating systems
+<details open>
+    <summary><strong>Unix-like operating systems</strong></summary>
+    <br/>
 
 | <a href="#xdg-base-directory"><img width="500" height="1"></a> | <a href="#xdg-base-directory"><img width="500" height="1"></a><p>Unix</p> | <a href="#xdg-base-directory"><img width="500" height="1"></a><p>macOS</p>                                            | <a href="#xdg-base-directory"><img width="500" height="1"></a><p>Plan 9</p> |
 | :------------------------------------------------------------: | :-----------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------: |
@@ -95,7 +105,11 @@ present in the environment.
 | <kbd><b><samp>XDG_TEMPLATES_DIR</samp></b></kbd>               | <kbd>~/Templates</kbd>                                                    | <kbd>~/Templates</kbd>                                                                                                | <kbd>$home/templates</kbd>                                                  |
 | <kbd><b><samp>XDG_PUBLICSHARE_DIR</samp></b></kbd>             | <kbd>~/Public</kbd>                                                       | <kbd>~/Public</kbd>                                                                                                   | <kbd>$home/public</kbd>                                                     |
 
-#### Microsoft Windows
+</details>
+
+<details open>
+    <summary><strong>Microsoft Windows</strong></summary>
+    <br/>
 
 | <a href="#xdg-base-directory"><img width="500" height="1"></a> | <a href="#xdg-base-directory"><img width="600" height="1"></a><p>Folder IDs</p> | <a href="#xdg-base-directory"><img width="900" height="1"></a><p>Default paths</p> |
 | :------------------------------------------------------------: | :-----------------------------------------------------------------------------: | :--------------------------------------------------------------------------------: |
@@ -108,21 +122,31 @@ present in the environment.
 | <kbd><b><samp>XDG_TEMPLATES_DIR</samp></b></kbd>               | <kbd>FOLDERID_Templates</kbd>                                                   | <kbd>%APPDATA%\Microsoft\Windows\Templates</kbd>                                   |
 | <kbd><b><samp>XDG_PUBLICSHARE_DIR</samp></b></kbd>             | <kbd>FOLDERID_Public</kbd>                                                      | <kbd>%PUBLIC%</kbd>                                                                 |
 
+</details>
+
 ### Non-standard directories
 
-#### Unix-like operating systems
+<details open>
+    <summary><strong>Unix-like operating systems</strong></summary>
+    <br/>
 
-| <a href="#xdg-base-directory"><img width="400" height="1"></a> | <a href="#xdg-base-directory"><img width="600" height="1"></a><p>Unix</p>                                                                                                                                        | <a href="#xdg-base-directory"><img width="500" height="1"></a><p>macOS</p>                                                               | <a href="#xdg-base-directory"><img width="500" height="1"></a><p>Plan 9</p> |
+| <a href="#xdg-base-directory"><img width="400" height="1"></a> | <a href="#xdg-base-directory"><img width="600" height="1"></a><p>Unix</p>                                                                                                                                        | <a href="#xdg-base-directory"><img width="600" height="1"></a><p>macOS</p>                                                               | <a href="#xdg-base-directory"><img width="400" height="1"></a><p>Plan 9</p> |
 | :------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------: |
 | <kbd><b><samp>Application&nbsp;directories</samp></b></kbd>    | <kbd>$XDG_DATA_HOME/applications</kbd><br/><kbd>~/.local/share/applications</kbd><br/><kbd>/usr/local/share/applications</kbd><br/><kbd>/usr/share/applications</kbd><br/><kbd>$XDG_DATA_DIRS/applications</kbd> | <kbd>/Applications</kbd>                                                                                                                 | <kbd>$home/bin</kbd>                                                        |
 | <kbd><b><samp>Font directories</samp></b></kbd>                | <kbd>$XDG_DATA_HOME/fonts</kbd><br/><kbd>&#126;/.fonts</kbd><br/><kbd>~/.local/share/fonts</kbd><br/><kbd>/usr/local/share/fonts</kbd><br/><kbd>/usr/share/fonts</kbd><br/><kbd>$XDG_DATA_DIRS/fonts</kbd>       | <kbd>~/Library/Fonts</kbd><br/><kbd>/Library/Fonts</kbd><br/><kbd>/System/Library/Fonts</kbd><br/><kbd>/Network/Library/Fonts</kbd>      | <kbd>$home/bin</kbd><br/><kbd>/bin</kbd>                                    |
 
-#### Microsoft Windows
+</details>
+
+<details open>
+    <summary><strong>Microsoft Windows</strong></summary>
+    <br/>
 
 | <a href="#xdg-base-directory"><img width="400" height="1"></a> | <a href="#xdg-base-directory"><img width="300" height="1"></a><p>Folder IDs</p> | <a href="#xdg-base-directory"><img width="1300" height="1"></a><p>Default paths</p>                                                     |
 | :------------------------------------------------------------: | :-----------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------: |
 | <kbd><b><samp>Application&nbsp;directories</samp></b></kbd>    | <kbd>FOLDERID_Programs</kbd><br/><kbd>FOLDERID_CommonPrograms</kbd>             | <kbd>%APPDATA%\Microsoft\Windows\Start&nbsp;Menu\Programs</kbd><br/><kbd>%ProgramData%\Microsoft\Windows\Start&nbsp;Menu\Programs</kbd> |
 | <kbd><b><samp>Font directories</samp></b></kbd>                | <kbd>FOLDERID_Fonts</kbd><br/><kbd>-</kbd>                                      | <kbd>%SystemRoot%\Fonts</kbd><br/><kbd>%LOCALAPPDATA%\Microsoft\Windows\Fonts</kbd>                                                     |
+
+</details>
 
 ## Usage
 
