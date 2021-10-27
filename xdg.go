@@ -15,6 +15,13 @@ The current implementation supports most flavors of Unix, Windows, Mac OS and Pl
 */
 package xdg
 
+import (
+	"os"
+	"path/filepath"
+
+	"github.com/adrg/xdg/internal/pathutil"
+)
+
 var (
 	// Home contains the path of the user's home directory.
 	Home string
@@ -87,6 +94,10 @@ var (
 	baseDirs baseDirectories
 )
 
+func init() {
+	Reload()
+}
+
 // Reload refreshes base and user directories by reading the environment.
 // Defaults are applied for XDG variables which are empty or not present
 // in the environment.
@@ -94,8 +105,10 @@ func Reload() {
 	// Initialize home directory.
 	Home = homeDir()
 
-	// Initialize base directories.
-	initBaseDirs(Home)
+	// Initialize base and user directories.
+	initDirs(Home)
+
+	// Set standard directories.
 	DataHome = baseDirs.dataHome
 	DataDirs = baseDirs.data
 	ConfigHome = baseDirs.configHome
@@ -104,12 +117,9 @@ func Reload() {
 	CacheHome = baseDirs.cacheHome
 	RuntimeDir = baseDirs.runtime
 
-	// Initialize non-standard directories.
+	// Set non-standard directories.
 	FontDirs = baseDirs.fonts
 	ApplicationDirs = baseDirs.applications
-
-	// Initialize user directories.
-	initUserDirs(Home)
 }
 
 // DataFile returns a suitable location for the specified data file.
@@ -204,6 +214,20 @@ func SearchRuntimeFile(relPath string) (string, error) {
 	return baseDirs.searchRuntimeFile(relPath)
 }
 
-func init() {
-	Reload()
+func xdgPath(name, defaultPath string) string {
+	dir := pathutil.ExpandHome(os.Getenv(name), Home)
+	if dir != "" && filepath.IsAbs(dir) {
+		return dir
+	}
+
+	return defaultPath
+}
+
+func xdgPaths(name string, defaultPaths ...string) []string {
+	dirs := pathutil.Unique(filepath.SplitList(os.Getenv(name)), Home)
+	if len(dirs) != 0 {
+		return dirs
+	}
+
+	return pathutil.Unique(defaultPaths, Home)
 }

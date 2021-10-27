@@ -1,14 +1,28 @@
 package xdg
 
 import (
+	"os"
 	"path/filepath"
 )
+
+func homeDir() string {
+	if home := os.Getenv("home"); home != "" {
+		return home
+	}
+
+	return "/"
+}
+
+func initDirs(home string) {
+	initBaseDirs(home)
+	initUserDirs(home)
+}
 
 func initBaseDirs(home string) {
 	homeLibDir := filepath.Join(home, "lib")
 	rootLibDir := "/lib"
 
-	// Initialize base directories.
+	// Initialize standard directories.
 	baseDirs.dataHome = xdgPath(envDataHome, homeLibDir)
 	baseDirs.data = xdgPaths(envDataDirs, rootLibDir)
 	baseDirs.configHome = xdgPath(envConfigHome, homeLibDir)
