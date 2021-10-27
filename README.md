@@ -42,7 +42,7 @@ The specification defines a set of standard paths for storing application files,
 including data and configuration files. For portability and flexibility reasons,
 applications should use the XDG defined locations instead of hardcoding paths.
 The package also includes the locations of well known [user directories](https://wiki.archlinux.org/index.php/XDG_user_directories), as well as
-the locations of other common directories such as fonts and applications.
+other common directories such as fonts and applications.
 
 The current implementation supports **most flavors of Unix**, **Windows**, **macOS** and **Plan 9**.  
 On Windows, where XDG environment variables are not usually set, the package uses [Known Folders](https://docs.microsoft.com/en-us/windows/win32/shell/known-folders)
