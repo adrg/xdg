@@ -41,7 +41,8 @@ Provides an implementation of the [XDG Base Directory Specification](https://spe
 The specification defines a set of standard paths for storing application files,
 including data and configuration files. For portability and flexibility reasons,
 applications should use the XDG defined locations instead of hardcoding paths.
-The package also includes the locations of well known [user directories](https://wiki.archlinux.org/index.php/XDG_user_directories).
+The package also includes the locations of well known [user directories](https://wiki.archlinux.org/index.php/XDG_user_directories), as well as
+the locations of other common directories such as fonts and applications.
 
 The current implementation supports **most flavors of Unix**, **Windows**, **macOS** and **Plan 9**.  
 On Windows, where XDG environment variables are not usually set, the package uses [Known Folders](https://docs.microsoft.com/en-us/windows/win32/shell/known-folders)
@@ -60,7 +61,7 @@ present in the environment.
 - On Unix-like operating systems, XDG environment variables are tipically defined.
 Appropriate default locations are used for the environment variables which are not set.
 - On Windows, XDG environment variables are usually not set. If that is the case,
-the package uses the appropriate [Known Folders](https://docs.microsoft.com/en-us/windows/win32/shell/knownfolderid).
+the package relies on the appropriate [Known Folders](https://docs.microsoft.com/en-us/windows/win32/shell/knownfolderid).
 Sensible fallback locations are used for the folders which are not set.
 
 ### XDG Base Directory
@@ -133,16 +134,17 @@ Sensible fallback locations are used for the folders which are not set.
 
 </details>
 
-### Non-standard directories
+### Other directories
 
 <details open>
     <summary><strong>Unix-like operating systems</strong></summary>
     <br/>
 
-| <a href="#non-standard-directories"><img width="400" height="0"></a> | <a href="#non-standard-directories"><img width="600" height="0"></a><p>Unix</p>                                                                                                                                        | <a href="#non-standard-directories"><img width="600" height="0"></a><p>macOS</p>                                                     | <a href="#non-standard-directories"><img width="400" height="0"></a><p>Plan 9</p> |
-| :------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------: |
-| <kbd><b>Applications</b></kbd>                                       | <kbd>$XDG_DATA_HOME/applications</kbd><br/><kbd>~/.local/share/applications</kbd><br/><kbd>/usr/local/share/applications</kbd><br/><kbd>/usr/share/applications</kbd><br/><kbd>$XDG_DATA_DIRS/applications</kbd>       | <kbd>/Applications</kbd>                                                                                                             | <kbd>$home/bin</kbd><br/><kbd>/bin</kbd>                                          |
-| <kbd><b>Fonts</b></kbd>                                              | <kbd>$XDG_DATA_HOME/fonts</kbd><br/><kbd>&#126;/.fonts</kbd><br/><kbd>~/.local/share/fonts</kbd><br/><kbd>/usr/local/share/fonts</kbd><br/><kbd>/usr/share/fonts</kbd><br/><kbd>$XDG_DATA_DIRS/fonts</kbd>             | <kbd>~/Library/Fonts</kbd><br/><kbd>/Library/Fonts</kbd><br/><kbd>/System/Library/Fonts</kbd><br/><kbd>/Network/Library/Fonts</kbd>  | <kbd>$home/lib/font</kbd><br/><kbd>/lib/font</kbd>                                |
+| <a href="#other-directories"><img width="400" height="0"></a> | <a href="#other-directories"><img width="600" height="0"></a><p>Unix</p>                                                                                                                                         | <a href="#other-directories"><img width="600" height="0"></a><p>macOS</p>                                                           | <a href="#other-directories"><img width="400" height="0"></a><p>Plan 9</p> |
+| :-----------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------: |
+| <kbd><b>Home</b></kbd>                                        | <kbd>$HOME</kbd>                                                                                                                                                                                                 | <kbd>$HOME</kbd>                                                                                                                    | <kbd>$home</kbd>                                                           |
+| <kbd><b>Applications</b></kbd>                                | <kbd>$XDG_DATA_HOME/applications</kbd><br/><kbd>~/.local/share/applications</kbd><br/><kbd>/usr/local/share/applications</kbd><br/><kbd>/usr/share/applications</kbd><br/><kbd>$XDG_DATA_DIRS/applications</kbd> | <kbd>/Applications</kbd>                                                                                                            | <kbd>$home/bin</kbd><br/><kbd>/bin</kbd>                                   |
+| <kbd><b>Fonts</b></kbd>                                       | <kbd>$XDG_DATA_HOME/fonts</kbd><br/><kbd>&#126;/.fonts</kbd><br/><kbd>~/.local/share/fonts</kbd><br/><kbd>/usr/local/share/fonts</kbd><br/><kbd>/usr/share/fonts</kbd><br/><kbd>$XDG_DATA_DIRS/fonts</kbd>       | <kbd>~/Library/Fonts</kbd><br/><kbd>/Library/Fonts</kbd><br/><kbd>/System/Library/Fonts</kbd><br/><kbd>/Network/Library/Fonts</kbd> | <kbd>$home/lib/font</kbd><br/><kbd>/lib/font</kbd>                         |
 
 </details>
 
@@ -150,10 +152,11 @@ Sensible fallback locations are used for the folders which are not set.
     <summary><strong>Microsoft Windows</strong></summary>
     <br/>
 
-| <a href="#non-standard-directories"><img width="400" height="0"></a> | <a href="#non-standard-directories"><img width="300" height="0"></a><p>Known&nbsp;Folder(s)</p> | <a href="#non-standard-directories"><img width="1300" height="0"></a><p>Fallback(s)</p>                                                 |
-| :------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------: |
-| <kbd><b>Applications</b></kbd>                                       | <kbd>Programs</kbd><br/><kbd>CommonPrograms</kbd>                                               | <kbd>%APPDATA%\Microsoft\Windows\Start&nbsp;Menu\Programs</kbd><br/><kbd>%ProgramData%\Microsoft\Windows\Start&nbsp;Menu\Programs</kbd> |
-| <kbd><b>Fonts</b></kbd>                                              | <kbd>Fonts</kbd><br/><kbd>-</kbd>                                                               | <kbd>%SystemRoot%\Fonts</kbd><br/><kbd>%LOCALAPPDATA%\Microsoft\Windows\Fonts</kbd>                                                     |
+| <a href="#other-directories"><img width="400" height="0"></a> | <a href="#other-directories"><img width="300" height="0"></a><p>Known&nbsp;Folder(s)</p> | <a href="#other-directories"><img width="1300" height="0"></a><p>Fallback(s)</p>                                                        |
+| :-----------------------------------------------------------: | :--------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------: |
+| <kbd><b>Home</b></kbd>                                        | <kbd>Profile</kbd>                                                                       | <kbd>%USERPROFILE%</kbd>                                                                                                                |
+| <kbd><b>Applications</b></kbd>                                | <kbd>Programs</kbd><br/><kbd>CommonPrograms</kbd>                                        | <kbd>%APPDATA%\Microsoft\Windows\Start&nbsp;Menu\Programs</kbd><br/><kbd>%ProgramData%\Microsoft\Windows\Start&nbsp;Menu\Programs</kbd> |
+| <kbd><b>Fonts</b></kbd>                                       | <kbd>Fonts</kbd><br/><kbd>-</kbd>                                                        | <kbd>%SystemRoot%\Fonts</kbd><br/><kbd>%LOCALAPPDATA%\Microsoft\Windows\Fonts</kbd>                                                     |
 
 </details>
 
@@ -180,7 +183,8 @@ func main() {
 	log.Println("Cache directory:", xdg.CacheHome)
 	log.Println("Runtime directory:", xdg.RuntimeDir)
 
-	// Non-standard directories.
+	// Other common directories.
+	log.Println("Home directory:", xdg.Home)
 	log.Println("Application directories:", xdg.ApplicationDirs)
 	log.Println("Font directories:", xdg.FontDirs)
 
