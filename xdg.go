@@ -1,18 +1,3 @@
-/*
-Package xdg provides an implementation of the XDG Base Directory Specification.
-The specification defines a set of standard paths for storing application files
-including data and configuration files. For portability and flexibility reasons,
-applications should use the XDG defined locations instead of hardcoding paths.
-The package also includes the locations of well known user directories.
-
-The current implementation supports most flavors of Unix, Windows, Mac OS and Plan 9.
-
-	For more information regarding the XDG Base Directory Specification see:
-	https://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html
-
-	For more information regarding the XDG user directories see:
-	https://wiki.archlinux.org/index.php/XDG_user_directories
-*/
 package xdg
 
 import (
