@@ -32,6 +32,7 @@ func initBaseDirs(home string) {
 	baseDirs.config = xdgPaths(envConfigDirs, "/etc/xdg")
 	baseDirs.stateHome = xdgPath(envStateHome, filepath.Join(home, ".local", "state"))
 	baseDirs.cacheHome = xdgPath(envCacheHome, filepath.Join(home, ".cache"))
+	baseDirs.executableHome = filepath.Join(home, ".local", "bin")
 	baseDirs.runtime = xdgPath(envRuntimeDir, filepath.Join("/run/user", strconv.Itoa(os.Getuid())))
 
 	// Initialize non-standard directories.

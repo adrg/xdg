@@ -14,13 +14,14 @@ const (
 )
 
 type baseDirectories struct {
-	dataHome   string
-	data       []string
-	configHome string
-	config     []string
-	stateHome  string
-	cacheHome  string
-	runtime    string
+	dataHome       string
+	data           []string
+	configHome     string
+	config         []string
+	stateHome      string
+	cacheHome      string
+	executableHome string
+	runtime        string
 
 	// Non-standard directories.
 	fonts        []string
@@ -43,6 +44,10 @@ func (bd baseDirectories) cacheFile(relPath string) (string, error) {
 	return pathutil.Create(relPath, []string{bd.cacheHome})
 }
 
+func (bd baseDirectories) executableFile(relPath string) (string, error) {
+	return pathutil.Create(relPath, []string{bd.executableHome})
+}
+
 func (bd baseDirectories) runtimeFile(relPath string) (string, error) {
 	return pathutil.Create(relPath, []string{bd.runtime})
 }
@@ -61,6 +66,10 @@ func (bd baseDirectories) searchStateFile(relPath string) (string, error) {
 
 func (bd baseDirectories) searchCacheFile(relPath string) (string, error) {
 	return pathutil.Search(relPath, []string{bd.cacheHome})
+}
+
+func (bd baseDirectories) searchExecutableFile(relPath string) (string, error) {
+	return pathutil.Search(relPath, []string{bd.executableHome})
 }
 
 func (bd baseDirectories) searchRuntimeFile(relPath string) (string, error) {

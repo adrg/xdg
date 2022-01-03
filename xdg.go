@@ -55,6 +55,11 @@ var (
 	// is not set, a default equal to $HOME/.cache should be used.
 	CacheHome string
 
+	// ExecutableHome defines the base directory relative to which user-specific
+	// executable files should be written. This directory is not defined by
+	// any specific environment variable; it defaults to $HOME/.local/bin.
+	ExecutableHome string
+
 	// RuntimeDir defines the base directory relative to which user-specific
 	// non-essential runtime files and other file objects (such as sockets,
 	// named pipes, etc.) should be stored. This directory is defined by the
@@ -100,6 +105,7 @@ func Reload() {
 	ConfigDirs = baseDirs.config
 	StateHome = baseDirs.stateHome
 	CacheHome = baseDirs.cacheHome
+	ExecutableHome = baseDirs.executableHome
 	RuntimeDir = baseDirs.runtime
 
 	// Set non-standard directories.
@@ -149,6 +155,15 @@ func CacheFile(relPath string) (string, error) {
 	return baseDirs.cacheFile(relPath)
 }
 
+// ExecutableFile returns a suitable location for the specified user
+// specific executable file. The relPath parameter must contain the name of
+// the runtime file, without any parent directories. On failure, an error
+// containing the attempted path is returned.
+func ExecutableFile(relPath string) (string, error) {
+	// TODO: fail if relPath contains parent dirs
+	return baseDirs.executableFile(relPath)
+}
+
 // RuntimeFile returns a suitable location for the specified runtime file.
 // The relPath parameter must contain the name of the runtime file, and
 // optionally, a set of parent directories (e.g. appname/app.pid).
@@ -189,6 +204,15 @@ func SearchStateFile(relPath string) (string, error) {
 // file cannot be found, an error specifying the searched path is returned.
 func SearchCacheFile(relPath string) (string, error) {
 	return baseDirs.searchCacheFile(relPath)
+}
+
+// SearchExecutableFile searches for the specified file in the user specific
+// executable path. The relPath parameter must contain the name of the cache
+// file, without any parent directories. If the file cannot be found, an
+// error specifying the searched path is returned.
+func SearchExecutableFile(relPath string) (string, error) {
+	// TODO: fail if relPath contains parent dirs
+	return baseDirs.searchExecutableFile(relPath)
 }
 
 // SearchRuntimeFile searches for the specified file in the runtime search path.

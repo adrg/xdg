@@ -71,6 +71,11 @@ func TestBaseDirFuncs(t *testing.T) {
 			searchFunc: xdg.SearchCacheFile,
 		},
 		{
+			relPaths:   []string{"app"},
+			pathFunc:   xdg.ExecutableFile,
+			searchFunc: xdg.SearchExecutableFile,
+		},
+		{
 			relPaths:   []string{"app.pid", "appname/app.pid"},
 			pathFunc:   xdg.RuntimeFile,
 			searchFunc: xdg.SearchRuntimeFile,
@@ -174,6 +179,7 @@ func TestInvalidPaths(t *testing.T) {
 		"appname\000/app.yaml":   xdg.ConfigFile,
 		"appname/\000/app.state": xdg.StateFile,
 		"\000appname/app.cache":  xdg.CacheFile,
+		"appname/app":            xdg.ExecutableFile,
 		"\000/appname/app.pid":   xdg.RuntimeFile,
 	}
 
