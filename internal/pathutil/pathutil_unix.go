@@ -7,11 +7,13 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+
+	"github.com/spf13/afero"
 )
 
 // Exists returns true if the specified path exists.
-func Exists(path string) bool {
-	_, err := os.Stat(path)
+func Exists(fs afero.Fs, path string) bool {
+	_, err := fs.Stat(path)
 	return err == nil || os.IsExist(err)
 }
 

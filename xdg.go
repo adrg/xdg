@@ -5,6 +5,7 @@ import (
 	"path/filepath"
 
 	"github.com/adrg/xdg/internal/pathutil"
+	"github.com/spf13/afero"
 )
 
 var (
@@ -76,7 +77,7 @@ var (
 	ApplicationDirs []string
 
 	// baseDirs defines the locations of base directories.
-	baseDirs baseDirectories
+	baseDirs = New(afero.NewOsFs())
 )
 
 func init() {
@@ -114,7 +115,7 @@ func Reload() {
 // to the base data directory. On failure, an error containing the
 // attempted paths is returned.
 func DataFile(relPath string) (string, error) {
-	return baseDirs.dataFile(relPath)
+	return baseDirs.DataFile(relPath)
 }
 
 // ConfigFile returns a suitable location for the specified config file.
@@ -124,7 +125,7 @@ func DataFile(relPath string) (string, error) {
 // to the base config directory. On failure, an error containing the
 // attempted paths is returned.
 func ConfigFile(relPath string) (string, error) {
-	return baseDirs.configFile(relPath)
+	return baseDirs.ConfigFile(relPath)
 }
 
 // StateFile returns a suitable location for the specified state file. State
@@ -136,7 +137,7 @@ func ConfigFile(relPath string) (string, error) {
 // to the base state directory. On failure, an error containing the
 // attempted paths is returned.
 func StateFile(relPath string) (string, error) {
-	return baseDirs.stateFile(relPath)
+	return baseDirs.StateFile(relPath)
 }
 
 // CacheFile returns a suitable location for the specified cache file.
@@ -146,7 +147,7 @@ func StateFile(relPath string) (string, error) {
 // to the base cache directory. On failure, an error containing the
 // attempted paths is returned.
 func CacheFile(relPath string) (string, error) {
-	return baseDirs.cacheFile(relPath)
+	return baseDirs.CacheFile(relPath)
 }
 
 // RuntimeFile returns a suitable location for the specified runtime file.
@@ -156,7 +157,7 @@ func CacheFile(relPath string) (string, error) {
 // to the base runtime directory. On failure, an error containing the
 // attempted paths is returned.
 func RuntimeFile(relPath string) (string, error) {
-	return baseDirs.runtimeFile(relPath)
+	return baseDirs.RuntimeFile(relPath)
 }
 
 // SearchDataFile searches for specified file in the data search paths.
@@ -164,7 +165,7 @@ func RuntimeFile(relPath string) (string, error) {
 // optionally, a set of parent directories (e.g. appname/app.data). If the
 // file cannot be found, an error specifying the searched paths is returned.
 func SearchDataFile(relPath string) (string, error) {
-	return baseDirs.searchDataFile(relPath)
+	return baseDirs.SearchDataFile(relPath)
 }
 
 // SearchConfigFile searches for the specified file in config search paths.
@@ -172,7 +173,7 @@ func SearchDataFile(relPath string) (string, error) {
 // optionally, a set of parent directories (e.g. appname/app.yaml). If the
 // file cannot be found, an error specifying the searched paths is returned.
 func SearchConfigFile(relPath string) (string, error) {
-	return baseDirs.searchConfigFile(relPath)
+	return baseDirs.SearchConfigFile(relPath)
 }
 
 // SearchStateFile searches for the specified file in the state search path.
@@ -180,7 +181,7 @@ func SearchConfigFile(relPath string) (string, error) {
 // optionally, a set of parent directories (e.g. appname/app.state). If the
 // file cannot be found, an error specifying the searched path is returned.
 func SearchStateFile(relPath string) (string, error) {
-	return baseDirs.searchStateFile(relPath)
+	return baseDirs.SearchStateFile(relPath)
 }
 
 // SearchCacheFile searches for the specified file in the cache search path.
@@ -188,7 +189,7 @@ func SearchStateFile(relPath string) (string, error) {
 // optionally, a set of parent directories (e.g. appname/app.cache). If the
 // file cannot be found, an error specifying the searched path is returned.
 func SearchCacheFile(relPath string) (string, error) {
-	return baseDirs.searchCacheFile(relPath)
+	return baseDirs.SearchCacheFile(relPath)
 }
 
 // SearchRuntimeFile searches for the specified file in the runtime search path.
@@ -196,7 +197,7 @@ func SearchCacheFile(relPath string) (string, error) {
 // optionally, a set of parent directories (e.g. appname/app.pid). If the
 // file cannot be found, an error specifying the searched path is returned.
 func SearchRuntimeFile(relPath string) (string, error) {
-	return baseDirs.searchRuntimeFile(relPath)
+	return baseDirs.SearchRuntimeFile(relPath)
 }
 
 func xdgPath(name, defaultPath string) string {
