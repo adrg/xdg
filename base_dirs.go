@@ -1,6 +1,9 @@
 package xdg
 
-import "github.com/adrg/xdg/internal/pathutil"
+import (
+	"github.com/adrg/xdg/internal/pathutil"
+	"github.com/spf13/afero"
+)
 
 // XDG Base Directory environment variables.
 const (
@@ -13,7 +16,9 @@ const (
 	envRuntimeDir = "XDG_RUNTIME_DIR"
 )
 
-type baseDirectories struct {
+type BaseDirectories struct {
+	fs afero.Fs
+
 	dataHome   string
 	data       []string
 	configHome string
@@ -27,42 +32,48 @@ type baseDirectories struct {
 	applications []string
 }
 
-func (bd baseDirectories) dataFile(relPath string) (string, error) {
-	return pathutil.Create(relPath, append([]string{bd.dataHome}, bd.data...))
+func New(fs afero.Fs) BaseDirectories {
+	return BaseDirectories{
+		fs: fs,
+	}
 }
 
-func (bd baseDirectories) configFile(relPath string) (string, error) {
-	return pathutil.Create(relPath, append([]string{bd.configHome}, bd.config...))
+func (bd BaseDirectories) DataFile(relPath string) (string, error) {
+	return pathutil.Create(bd.fs, relPath, append([]string{bd.dataHome}, bd.data...))
 }
 
-func (bd baseDirectories) stateFile(relPath string) (string, error) {
-	return pathutil.Create(relPath, []string{bd.stateHome})
+func (bd BaseDirectories) ConfigFile(relPath string) (string, error) {
+	return pathutil.Create(bd.fs, relPath, append([]string{bd.configHome}, bd.config...))
 }
 
-func (bd baseDirectories) cacheFile(relPath string) (string, error) {
-	return pathutil.Create(relPath, []string{bd.cacheHome})
+func (bd BaseDirectories) StateFile(relPath string) (string, error) {
+	return pathutil.Create(bd.fs, relPath, []string{bd.stateHome})
 }
 
-func (bd baseDirectories) runtimeFile(relPath string) (string, error) {
-	return pathutil.Create(relPath, []string{bd.runtime})
+func (bd BaseDirectories) CacheFile(relPath string) (string, error) {
+	return pathutil.Create(bd.fs, relPath, []string{bd.cacheHome})
 }
 
-func (bd baseDirectories) searchDataFile(relPath string) (string, error) {
-	return pathutil.Search(relPath, append([]string{bd.dataHome}, bd.data...))
+func (bd BaseDirectories) RuntimeFile(relPath string) (string, error) {
+	return pathutil.Create(bd.fs, relPath, []string{bd.runtime})
 }
 
-func (bd baseDirectories) searchConfigFile(relPath string) (string, error) {
-	return pathutil.Search(relPath, append([]string{bd.configHome}, bd.config...))
+func (bd BaseDirectories) SearchDataFile(relPath string) (string, error) {
+	return pathutil.Search(bd.fs, relPath, append([]string{bd.dataHome}, bd.data...))
 }
 
-func (bd baseDirectories) searchStateFile(relPath string) (string, error) {
-	return pathutil.Search(relPath, []string{bd.stateHome})
+func (bd BaseDirectories) SearchConfigFile(relPath string) (string, error) {
+	return pathutil.Search(bd.fs, relPath, append([]string{bd.configHome}, bd.config...))
 }
 
-func (bd baseDirectories) searchCacheFile(relPath string) (string, error) {
-	return pathutil.Search(relPath, []string{bd.cacheHome})
+func (bd BaseDirectories) SearchStateFile(relPath string) (string, error) {
+	return pathutil.Search(bd.fs, relPath, []string{bd.stateHome})
 }
 
-func (bd baseDirectories) searchRuntimeFile(relPath string) (string, error) {
-	return pathutil.Search(relPath, []string{bd.runtime})
+func (bd BaseDirectories) SearchCacheFile(relPath string) (string, error) {
+	return pathutil.Search(bd.fs, relPath, []string{bd.cacheHome})
+}
+
+func (bd BaseDirectories) SearchRuntimeFile(relPath string) (string, error) {
+	return pathutil.Search(bd.fs, relPath, []string{bd.runtime})
 }

@@ -5,6 +5,8 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+
+	"github.com/spf13/afero"
 )
 
 // Unique eliminates the duplicate paths from the provided slice and returns
@@ -39,16 +41,16 @@ func Unique(paths []string, home string) []string {
 // which is going to be written in the location returned by this function, but
 // it can also contain a set of parent directories, which will be created
 // relative to the selected parent path.
-func Create(name string, paths []string) (string, error) {
+func Create(fs afero.Fs, name string, paths []string) (string, error) {
 	var searchedPaths []string
 	for _, p := range paths {
 		p = filepath.Join(p, name)
 
 		dir := filepath.Dir(p)
-		if Exists(dir) {
+		if Exists(fs, dir) {
 			return p, nil
 		}
-		if err := os.MkdirAll(dir, os.ModeDir|0700); err == nil {
+		if err := fs.MkdirAll(dir, os.ModeDir|0700); err == nil {
 			return p, nil
 		}
 
@@ -62,11 +64,11 @@ func Create(name string, paths []string) (string, error) {
 // Search searches for the file with the specified `name` in the provided
 // slice of `paths`. The `name` parameter must contain the name of the file,
 // but it can also contain a set of parent directories.
-func Search(name string, paths []string) (string, error) {
+func Search(fs afero.Fs, name string, paths []string) (string, error) {
 	var searchedPaths []string
 	for _, p := range paths {
 		p = filepath.Join(p, name)
-		if Exists(p) {
+		if Exists(fs, p) {
 			return p, nil
 		}
 
