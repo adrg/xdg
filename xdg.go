@@ -92,7 +92,7 @@ func Reload() {
 	Home = homeDir()
 
 	// Initialize base and user directories.
-	initDirs(Home)
+	initDirs(&baseDirs, Home)
 
 	// Set standard directories.
 	DataHome = baseDirs.dataHome
@@ -102,6 +102,7 @@ func Reload() {
 	StateHome = baseDirs.stateHome
 	CacheHome = baseDirs.cacheHome
 	RuntimeDir = baseDirs.runtime
+	UserDirs = baseDirs.UserDirs
 
 	// Set non-standard directories.
 	FontDirs = baseDirs.fonts
