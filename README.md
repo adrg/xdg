@@ -58,7 +58,7 @@ See usage [examples](#usage) below. Full documentation can be found at https://p
 The package defines sensible defaults for XDG variables which are empty or not
 present in the environment.
 
-- On Unix-like operating systems, XDG environment variables are tipically defined.
+- On Unix-like operating systems, XDG environment variables are typically defined.
 Appropriate default locations are used for the environment variables which are not set.
 - On Windows, XDG environment variables are usually not set. If that is the case,
 the package relies on the appropriate [Known Folders](https://docs.microsoft.com/en-us/windows/win32/shell/knownfolderid).
