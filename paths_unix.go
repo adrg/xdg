@@ -9,6 +9,7 @@ import (
 	"strconv"
 
 	"github.com/adrg/xdg/internal/pathutil"
+	"gopkg.in/ini.v1"
 )
 
 func homeDir() string {
@@ -60,6 +61,21 @@ func initBaseDirs(home string) {
 }
 
 func initUserDirs(home string) {
+
+	// Load user dirs configuration if available
+	userDirFile := filepath.Join(Home, ".config/user-dirs.dirs")
+	if _, err := os.Stat(userDirFile); err == nil {
+		if cfg, err := ini.Load(userDirFile); err == nil {
+			for _, xdgFolder := range []string{envDesktopDir, envDownloadDir, envDocumentsDir, envMusicDir, envPicturesDir, envVideosDir, envTemplatesDir, envPublicShareDir} {
+				if os.Getenv(xdgFolder) == "" {
+					if key, err := cfg.Section("").GetKey(xdgFolder); err == nil {
+						os.Setenv(xdgFolder, key.Value())
+					}
+				}
+			}
+		}
+	}
+
 	UserDirs.Desktop = xdgPath(envDesktopDir, filepath.Join(home, "Desktop"))
 	UserDirs.Download = xdgPath(envDownloadDir, filepath.Join(home, "Downloads"))
 	UserDirs.Documents = xdgPath(envDocumentsDir, filepath.Join(home, "Documents"))
