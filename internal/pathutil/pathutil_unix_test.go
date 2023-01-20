@@ -7,8 +7,9 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/adrg/xdg/internal/pathutil"
 	"github.com/stretchr/testify/require"
+
+	"github.com/adrg/xdg/internal/pathutil"
 )
 
 func TestExpandHome(t *testing.T) {
