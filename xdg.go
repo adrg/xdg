@@ -29,7 +29,7 @@ var (
 
 	// ConfigHome defines the base directory relative to which user-specific
 	// configuration files should be written. This directory is defined by
-	// the $XDG_CONFIG_HOME environment variable. If the variable is not
+	// the $XDG_CONFIG_HOME environment variable. If the variable is
 	// not set, a default equal to $HOME/.config should be used.
 	ConfigHome string
 

@@ -40,7 +40,8 @@ func Unique(paths []string, home string) []string {
 // it can also contain a set of parent directories, which will be created
 // relative to the selected parent path.
 func Create(name string, paths []string) (string, error) {
-	var searchedPaths []string
+	searchedPaths := make([]string, 0, len(paths))
+
 	for _, p := range paths {
 		p = filepath.Join(p, name)
 
@@ -48,7 +49,7 @@ func Create(name string, paths []string) (string, error) {
 		if Exists(dir) {
 			return p, nil
 		}
-		if err := os.MkdirAll(dir, os.ModeDir|0700); err == nil {
+		if err := os.MkdirAll(dir, os.ModeDir|0o700); err == nil {
 			return p, nil
 		}
 
@@ -63,7 +64,8 @@ func Create(name string, paths []string) (string, error) {
 // slice of `paths`. The `name` parameter must contain the name of the file,
 // but it can also contain a set of parent directories.
 func Search(name string, paths []string) (string, error) {
-	var searchedPaths []string
+	searchedPaths := make([]string, 0, len(paths))
+
 	for _, p := range paths {
 		p = filepath.Join(p, name)
 		if Exists(p) {

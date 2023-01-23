@@ -5,8 +5,9 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/adrg/xdg"
 	"github.com/stretchr/testify/require"
+
+	"github.com/adrg/xdg"
 )
 
 type envSample struct {
