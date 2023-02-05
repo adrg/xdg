@@ -263,7 +263,9 @@ See [CONTRIBUTING.MD](CONTRIBUTING.md).
 [gabriel-vasile](https://github.com/gabriel-vasile),
 [KalleDK](https://github.com/KalleDK),
 [nvkv](https://github.com/nvkv),
-[djdv](https://github.com/djdv).
+[djdv](https://github.com/djdv),
+[rrjjvv](https://github.com/rrjjvv),
+[GreyXor](https://github.com/GreyXor).
 
 ## References
 
