@@ -4,6 +4,8 @@
 package pathutil
 
 import (
+	"errors"
+	"io/fs"
 	"os"
 	"path/filepath"
 	"strings"
@@ -12,7 +14,7 @@ import (
 // Exists returns true if the specified path exists.
 func Exists(path string) bool {
 	_, err := os.Stat(path)
-	return err == nil || os.IsExist(err)
+	return err == nil || errors.Is(err, fs.ErrExist)
 }
 
 // ExpandHome substitutes `~` and `$HOME` at the start of the specified

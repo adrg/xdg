@@ -1,6 +1,8 @@
 package pathutil
 
 import (
+	"errors"
+	"io/fs"
 	"os"
 	"path/filepath"
 	"strings"
@@ -15,7 +17,7 @@ func Exists(path string) bool {
 		_, err = filepath.EvalSymlinks(path)
 	}
 
-	return err == nil || os.IsExist(err)
+	return err == nil || errors.Is(err, fs.ErrExist)
 }
 
 // ExpandHome substitutes `%USERPROFILE%` at the start of the specified
