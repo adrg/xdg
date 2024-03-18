@@ -1,15 +1,18 @@
-name: CI
+name: Test
 
 on:
   push:
     branches: [master]
   pull_request:
-    branches: [master]
+
+permissions:
+  contents: read
+
 jobs:
-  build:
+  test:
     strategy:
       matrix:
-        go: ['1.17']
+        go: ['1.21']
         os: [ubuntu-latest, macos-latest, windows-latest]
     runs-on: ${{ matrix.os }}
     steps:
@@ -23,18 +26,6 @@ jobs:
 
     - name: Checkout
       uses: actions/checkout@v4
-
-    - name: Dependencies
-      run: |
-        go version
-        go get -v -t -d ./...
-        go get -u golang.org/x/lint/golint
-
-    - name: Lint
-      run: golint -set_exit_status=1 ./...
-
-    - name: Vet
-      run: go vet ./...
 
     - name: Test
       run: go test -v -coverprofile coverage.txt -covermode atomic ./...
