@@ -115,6 +115,12 @@ func TestCustomBaseDirs(t *testing.T) {
 			actual:   &xdg.CacheHome,
 		},
 		&envSample{
+			name:     "__UNUSED__",
+			value:    "__UNUSED__",
+			expected: filepath.Join(home, ".local/bin"),
+			actual:   &xdg.ExecutableHome,
+		},
+		&envSample{
 			name:     "XDG_RUNTIME_DIR",
 			value:    "~/.local/runtime",
 			expected: filepath.Join(home, ".local/runtime"),
