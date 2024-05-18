@@ -265,7 +265,8 @@ See [CONTRIBUTING.MD](CONTRIBUTING.md).
 [nvkv](https://github.com/nvkv),
 [djdv](https://github.com/djdv),
 [rrjjvv](https://github.com/rrjjvv),
-[GreyXor](https://github.com/GreyXor).
+[GreyXor](https://github.com/GreyXor),
+[Rican7](https://github.com/Rican7).
 
 ## References
 

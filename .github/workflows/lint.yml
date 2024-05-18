@@ -1,0 +1,34 @@
+name: Lint
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    strategy:
+      matrix:
+        go: ['1.21']
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+    - name: Setup
+      uses: actions/setup-go@v5
+      with:
+        go-version: ${{ matrix.go }}
+
+    - name: Prepare checkout
+      run: git config --global core.autocrlf false
+
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Lint
+      uses: golangci/golangci-lint-action@v5.0.0
+      with:
+        version: "v1.54"
+        args: --timeout=5m

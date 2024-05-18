@@ -1,23 +1,25 @@
-name: CI
+name: Test
 
 on:
   push:
     branches: [master]
   pull_request:
-    branches: [master]
+
+permissions:
+  contents: read
+
 jobs:
-  build:
+  test:
     strategy:
       matrix:
+        go: ['1.21']
         os: [ubuntu-latest, macos-latest, windows-latest]
     runs-on: ${{ matrix.os }}
     steps:
     - name: Setup
       uses: actions/setup-go@v5
       with:
-        go-version-file: 'go.mod'
-        check-latest: true
-        cache: true
+        go-version: ${{ matrix.go }}
 
     - name: Prepare checkout
       run: git config --global core.autocrlf false
@@ -25,20 +27,8 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
 
-    - name: Dependencies
-      run: |
-        go version
-        go get -v -t -d ./...
-        go get -u golang.org/x/lint/golint
-
-    - name: Lint
-      run: golint -set_exit_status=1 ./...
-
-    - name: Vet
-      run: go vet ./...
-
     - name: Test
       run: go test -v -coverprofile coverage.txt -covermode atomic ./...
 
     - name: Coverage
-      uses: codecov/codecov-action@v3
+      uses: codecov/codecov-action@v4
