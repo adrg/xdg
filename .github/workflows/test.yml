@@ -12,14 +12,15 @@ jobs:
   test:
     strategy:
       matrix:
-        go: ['1.21']
         os: [ubuntu-latest, macos-latest, windows-latest]
     runs-on: ${{ matrix.os }}
     steps:
     - name: Setup
       uses: actions/setup-go@v5
       with:
-        go-version: ${{ matrix.go }}
+        go-version-file: 'go.mod'
+        check-latest: true
+        cache: true
 
     - name: Prepare checkout
       run: git config --global core.autocrlf false
