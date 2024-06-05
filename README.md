@@ -7,8 +7,8 @@
 <h4 align="center">Go implementation of the XDG Base Directory Specification and XDG user directories.</h4>
 
 <p align="center">
-    <a href="https://github.com/adrg/xdg/actions?query=workflow%3ACI">
-        <img alt="Build status" src="https://github.com/adrg/xdg/workflows/CI/badge.svg">
+    <a href="https://github.com/adrg/xdg/actions/workflows/tests.yml">
+        <img alt="Tests status" src="https://github.com/adrg/xdg/actions/workflows/tests.yml/badge.svg">
     </a>
     <a href="https://app.codecov.io/gh/adrg/xdg">
         <img alt="Code coverage" src="https://codecov.io/gh/adrg/xdg/branch/master/graphs/badge.svg?branch=master">
