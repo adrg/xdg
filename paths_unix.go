@@ -3,9 +3,12 @@
 package xdg
 
 import (
+	"bufio"
+	"log"
 	"os"
 	"path/filepath"
 	"strconv"
+	"strings"
 
 	"github.com/adrg/xdg/internal/pathutil"
 )
@@ -59,6 +62,7 @@ func initBaseDirs(home string) {
 }
 
 func initUserDirs(home string) {
+	// Initialize standard user directories.
 	UserDirs.Desktop = xdgPath(envDesktopDir, filepath.Join(home, "Desktop"))
 	UserDirs.Download = xdgPath(envDownloadDir, filepath.Join(home, "Downloads"))
 	UserDirs.Documents = xdgPath(envDocumentsDir, filepath.Join(home, "Documents"))
@@ -67,4 +71,51 @@ func initUserDirs(home string) {
 	UserDirs.Videos = xdgPath(envVideosDir, filepath.Join(home, "Videos"))
 	UserDirs.Templates = xdgPath(envTemplatesDir, filepath.Join(home, "Templates"))
 	UserDirs.PublicShare = xdgPath(envPublicShareDir, filepath.Join(home, "Public"))
+
+	// Initialize non-standard user directories.
+	userDirFile := filepath.Join(baseDirs.configHome, "user-dirs.dirs")
+	if _, err := os.Stat(userDirFile); err == nil {
+		file, err := os.Open(userDirFile)
+		if err != nil {
+			log.Fatal(err)
+		}
+		defer file.Close()
+
+		scanner := bufio.NewScanner(file)
+		for scanner.Scan() {
+			line := scanner.Text()
+			if strings.HasPrefix(line, "XDG_") {
+				xdgData := strings.SplitN(line, "=", 2)
+				if len(xdgData) != 2 {
+					continue
+				}
+				key := strings.TrimSpace(xdgData[0])
+				value := strings.TrimSpace(xdgData[1])
+				switch key {
+				case "XDG_DESKTOP_DIR":
+					UserDirs.Desktop = parseUserDirs(value)
+				case "XDG_DOWNLOAD_DIR":
+					UserDirs.Download = parseUserDirs(value)
+				case "XDG_DOCUMENTS_DIR":
+					UserDirs.Documents = parseUserDirs(value)
+				case "XDG_MUSIC_DIR":
+					UserDirs.Music = parseUserDirs(value)
+				case "XDG_PICTURES_DIR":
+					UserDirs.Pictures = parseUserDirs(value)
+				case "XDG_VIDEOS_DIR":
+					UserDirs.Videos = parseUserDirs(value)
+				case "XDG_TEMPLATES_DIR":
+					UserDirs.Templates = parseUserDirs(value)
+				case "XDG_PUBLICSHARE_DIR":
+					UserDirs.PublicShare = parseUserDirs(value)
+				}
+			}
+		}
+	}
+}
+
+func parseUserDirs(xdgValue string) string {
+	value := strings.Trim(xdgValue, "\"")
+	value = strings.Replace(value, "$HOME", homeDir(), 1)
+	return filepath.Clean(value)
 }
