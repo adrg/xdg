@@ -10,14 +10,6 @@ import (
 	"github.com/adrg/xdg/internal/pathutil"
 )
 
-func homeDir() string {
-	if home := os.Getenv("HOME"); home != "" {
-		return home
-	}
-
-	return "/"
-}
-
 func initDirs(home string) {
 	initBaseDirs(home)
 	initUserDirs(home)
@@ -54,8 +46,8 @@ func initBaseDirs(home string) {
 		fontDirs = append(fontDirs, filepath.Join(dir, "fonts"))
 	}
 
-	baseDirs.applications = pathutil.Unique(appDirs, Home)
-	baseDirs.fonts = pathutil.Unique(fontDirs, Home)
+	baseDirs.applications = pathutil.Unique(appDirs)
+	baseDirs.fonts = pathutil.Unique(fontDirs)
 }
 
 func initUserDirs(home string) {

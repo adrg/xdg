@@ -1,17 +1,8 @@
 package xdg
 
 import (
-	"os"
 	"path/filepath"
 )
-
-func homeDir() string {
-	if home := os.Getenv("home"); home != "" {
-		return home
-	}
-
-	return "/"
-}
 
 func initDirs(home string) {
 	initBaseDirs(home)

@@ -7,14 +7,6 @@ import (
 	"golang.org/x/sys/windows"
 )
 
-func homeDir() string {
-	return pathutil.KnownFolder(
-		windows.FOLDERID_Profile,
-		[]string{"USERPROFILE"},
-		nil,
-	)
-}
-
 func initDirs(home string) {
 	kf := initKnownFolders(home)
 	initBaseDirs(home, kf)

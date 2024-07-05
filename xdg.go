@@ -88,7 +88,7 @@ func init() {
 // in the environment.
 func Reload() {
 	// Initialize home directory.
-	Home = homeDir()
+	Home = pathutil.UserHomeDir()
 
 	// Initialize base and user directories.
 	initDirs(Home)
@@ -199,20 +199,20 @@ func SearchRuntimeFile(relPath string) (string, error) {
 	return baseDirs.searchRuntimeFile(relPath)
 }
 
-func xdgPath(name, defaultPath string) string {
-	dir := pathutil.ExpandHome(os.Getenv(name), Home)
+func xdgPath(name string, defaultPaths ...string) string {
+	dir := pathutil.ExpandHome(os.Getenv(name))
 	if dir != "" && filepath.IsAbs(dir) {
 		return dir
 	}
 
-	return defaultPath
+	return pathutil.First(defaultPaths)
 }
 
 func xdgPaths(name string, defaultPaths ...string) []string {
-	dirs := pathutil.Unique(filepath.SplitList(os.Getenv(name)), Home)
+	dirs := pathutil.Unique(filepath.SplitList(os.Getenv(name)))
 	if len(dirs) != 0 {
 		return dirs
 	}
 
-	return pathutil.Unique(defaultPaths, Home)
+	return pathutil.Unique(defaultPaths)
 }

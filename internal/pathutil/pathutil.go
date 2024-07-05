@@ -8,18 +8,17 @@ import (
 )
 
 // Unique eliminates the duplicate paths from the provided slice and returns
-// the result. The items in the output slice are in the order in which they
-// occur in the input slice. If a `home` location is provided, the paths are
-// expanded using the `ExpandHome` function.
-func Unique(paths []string, home string) []string {
+// the result. The paths are expanded using the `ExpandHome` function and only
+// non-empty, absolute paths are kept. The items in the output slice are in
+// the order in which they occur in the input slice.
+func Unique(paths []string) []string {
 	var (
 		uniq     []string
 		registry = map[string]struct{}{}
 	)
 
 	for _, p := range paths {
-		p = ExpandHome(p, home)
-		if p != "" && filepath.IsAbs(p) {
+		if p = ExpandHome(p); p != "" && filepath.IsAbs(p) {
 			if _, ok := registry[p]; ok {
 				continue
 			}
@@ -30,6 +29,18 @@ func Unique(paths []string, home string) []string {
 	}
 
 	return uniq
+}
+
+// First returns the first non-empty, absolute path from the provided slice.
+// The paths in the input slice are expanded using the `ExpandHome` function.
+func First(paths []string) string {
+	for _, p := range paths {
+		if p = ExpandHome(p); p != "" && filepath.IsAbs(p) {
+			return p
+		}
+	}
+
+	return ""
 }
 
 // Create returns a suitable location relative to which the file with the
