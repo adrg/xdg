@@ -156,7 +156,7 @@ Sensible fallback locations are used for the folders which are not set.
 | :-----------------------------------------------------------: | :--------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------: |
 | <kbd><b>Home</b></kbd>                                        | <kbd>Profile</kbd>                                                                       | <kbd>%USERPROFILE%</kbd>                                                                                                                |
 | <kbd><b>Applications</b></kbd>                                | <kbd>Programs</kbd><br/><kbd>CommonPrograms</kbd>                                        | <kbd>%APPDATA%\Microsoft\Windows\Start&nbsp;Menu\Programs</kbd><br/><kbd>%ProgramData%\Microsoft\Windows\Start&nbsp;Menu\Programs</kbd> |
-| <kbd><b>Fonts</b></kbd>                                       | <kbd>Fonts</kbd><br/><kbd>-</kbd>                                                        | <kbd>%SystemRoot%\Fonts</kbd><br/><kbd>%LOCALAPPDATA%\Microsoft\Windows\Fonts</kbd>                                                     |
+| <kbd><b>Fonts</b></kbd>                                       | <kbd>Fonts</kbd>                                                                         | <kbd>%SystemRoot%\Fonts</kbd><br/><kbd>%LOCALAPPDATA%\Microsoft\Windows\Fonts</kbd>                                                     |
 
 </details>
 
