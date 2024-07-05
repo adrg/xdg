@@ -8,11 +8,12 @@ import (
 	"strconv"
 
 	"github.com/adrg/xdg/internal/pathutil"
+	"github.com/adrg/xdg/internal/userdirs"
 )
 
 func initDirs(home string) {
 	initBaseDirs(home)
-	initUserDirs(home)
+	initUserDirs(home, baseDirs.configHome)
 }
 
 func initBaseDirs(home string) {
@@ -50,13 +51,18 @@ func initBaseDirs(home string) {
 	baseDirs.fonts = pathutil.Unique(fontDirs)
 }
 
-func initUserDirs(home string) {
-	UserDirs.Desktop = xdgPath(envDesktopDir, filepath.Join(home, "Desktop"))
-	UserDirs.Download = xdgPath(envDownloadDir, filepath.Join(home, "Downloads"))
-	UserDirs.Documents = xdgPath(envDocumentsDir, filepath.Join(home, "Documents"))
-	UserDirs.Music = xdgPath(envMusicDir, filepath.Join(home, "Music"))
-	UserDirs.Pictures = xdgPath(envPicturesDir, filepath.Join(home, "Pictures"))
-	UserDirs.Videos = xdgPath(envVideosDir, filepath.Join(home, "Videos"))
-	UserDirs.Templates = xdgPath(envTemplatesDir, filepath.Join(home, "Templates"))
-	UserDirs.PublicShare = xdgPath(envPublicShareDir, filepath.Join(home, "Public"))
+func initUserDirs(home, configHome string) {
+	userDirsMap := userdirs.ParseConfigFile(filepath.Join(configHome, "user-dirs.dirs"))
+	if userDirsMap == nil {
+		userDirsMap = map[string]string{}
+	}
+
+	UserDirs.Desktop = xdgPath(envDesktopDir, userDirsMap[envDesktopDir], filepath.Join(home, "Desktop"))
+	UserDirs.Download = xdgPath(envDownloadDir, userDirsMap[envDownloadDir], filepath.Join(home, "Downloads"))
+	UserDirs.Documents = xdgPath(envDocumentsDir, userDirsMap[envDocumentsDir], filepath.Join(home, "Documents"))
+	UserDirs.Music = xdgPath(envMusicDir, userDirsMap[envMusicDir], filepath.Join(home, "Music"))
+	UserDirs.Pictures = xdgPath(envPicturesDir, userDirsMap[envPicturesDir], filepath.Join(home, "Pictures"))
+	UserDirs.Videos = xdgPath(envVideosDir, userDirsMap[envVideosDir], filepath.Join(home, "Videos"))
+	UserDirs.Templates = xdgPath(envTemplatesDir, userDirsMap[envTemplatesDir], filepath.Join(home, "Templates"))
+	UserDirs.PublicShare = xdgPath(envPublicShareDir, userDirsMap[envPublicShareDir], filepath.Join(home, "Public"))
 }
