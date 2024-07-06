@@ -1,17 +1,5 @@
 package xdg
 
-// XDG user directories environment variables.
-const (
-	envDesktopDir     = "XDG_DESKTOP_DIR"
-	envDownloadDir    = "XDG_DOWNLOAD_DIR"
-	envDocumentsDir   = "XDG_DOCUMENTS_DIR"
-	envMusicDir       = "XDG_MUSIC_DIR"
-	envPicturesDir    = "XDG_PICTURES_DIR"
-	envVideosDir      = "XDG_VIDEOS_DIR"
-	envTemplatesDir   = "XDG_TEMPLATES_DIR"
-	envPublicShareDir = "XDG_PUBLICSHARE_DIR"
-)
-
 // UserDirectories defines the locations of well known user directories.
 type UserDirectories struct {
 	// Desktop defines the location of the user's desktop directory.

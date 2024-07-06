@@ -2,6 +2,8 @@ package xdg
 
 import (
 	"path/filepath"
+
+	"github.com/adrg/xdg/internal/userdirs"
 )
 
 func initDirs(home string) {
@@ -40,12 +42,12 @@ func initBaseDirs(home string) {
 }
 
 func initUserDirs(home string) {
-	UserDirs.Desktop = xdgPath(envDesktopDir, filepath.Join(home, "Desktop"))
-	UserDirs.Download = xdgPath(envDownloadDir, filepath.Join(home, "Downloads"))
-	UserDirs.Documents = xdgPath(envDocumentsDir, filepath.Join(home, "Documents"))
-	UserDirs.Music = xdgPath(envMusicDir, filepath.Join(home, "Music"))
-	UserDirs.Pictures = xdgPath(envPicturesDir, filepath.Join(home, "Pictures"))
-	UserDirs.Videos = xdgPath(envVideosDir, filepath.Join(home, "Movies"))
-	UserDirs.Templates = xdgPath(envTemplatesDir, filepath.Join(home, "Templates"))
-	UserDirs.PublicShare = xdgPath(envPublicShareDir, filepath.Join(home, "Public"))
+	UserDirs.Desktop = xdgPath(userdirs.EnvDesktopDir, filepath.Join(home, "Desktop"))
+	UserDirs.Download = xdgPath(userdirs.EnvDownloadDir, filepath.Join(home, "Downloads"))
+	UserDirs.Documents = xdgPath(userdirs.EnvDocumentsDir, filepath.Join(home, "Documents"))
+	UserDirs.Music = xdgPath(userdirs.EnvMusicDir, filepath.Join(home, "Music"))
+	UserDirs.Pictures = xdgPath(userdirs.EnvPicturesDir, filepath.Join(home, "Pictures"))
+	UserDirs.Videos = xdgPath(userdirs.EnvVideosDir, filepath.Join(home, "Movies"))
+	UserDirs.Templates = xdgPath(userdirs.EnvTemplatesDir, filepath.Join(home, "Templates"))
+	UserDirs.PublicShare = xdgPath(userdirs.EnvPublicShareDir, filepath.Join(home, "Public"))
 }

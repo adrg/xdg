@@ -9,6 +9,18 @@ import (
 	"github.com/adrg/xdg/internal/pathutil"
 )
 
+// XDG user directories environment variables.
+const (
+	EnvDesktopDir     = "XDG_DESKTOP_DIR"
+	EnvDownloadDir    = "XDG_DOWNLOAD_DIR"
+	EnvDocumentsDir   = "XDG_DOCUMENTS_DIR"
+	EnvMusicDir       = "XDG_MUSIC_DIR"
+	EnvPicturesDir    = "XDG_PICTURES_DIR"
+	EnvVideosDir      = "XDG_VIDEOS_DIR"
+	EnvTemplatesDir   = "XDG_TEMPLATES_DIR"
+	EnvPublicShareDir = "XDG_PUBLICSHARE_DIR"
+)
+
 // ParseConfigFile parses the user directories config file at the specified
 // location. The returned map contains pairs consisting of the user directory
 // names and their paths.
@@ -26,16 +38,7 @@ func ParseConfigFile(name string) map[string]string {
 // provided reader. The returned map contains pairs consisting of the user
 // directory names and their paths.
 func ParseConfig(r io.Reader) map[string]string {
-	dirs := map[string]string{
-		"XDG_DESKTOP_DIR":     "",
-		"XDG_DOWNLOAD_DIR":    "",
-		"XDG_DOCUMENTS_DIR":   "",
-		"XDG_MUSIC_DIR":       "",
-		"XDG_PICTURES_DIR":    "",
-		"XDG_VIDEOS_DIR":      "",
-		"XDG_TEMPLATES_DIR":   "",
-		"XDG_PUBLICSHARE_DIR": "",
-	}
+	dirs := map[string]string{}
 
 	scanner := bufio.NewScanner(r)
 	for scanner.Scan() {
@@ -54,7 +57,16 @@ func ParseConfig(r io.Reader) map[string]string {
 
 		// Parse key.
 		key := strings.TrimSpace(parts[0])
-		if _, ok := dirs[key]; !ok {
+		switch key {
+		case EnvDesktopDir,
+			EnvDownloadDir,
+			EnvDocumentsDir,
+			EnvMusicDir,
+			EnvPicturesDir,
+			EnvVideosDir,
+			EnvTemplatesDir,
+			EnvPublicShareDir:
+		default:
 			continue
 		}
 

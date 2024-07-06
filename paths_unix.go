@@ -57,12 +57,12 @@ func initUserDirs(home, configHome string) {
 		userDirsMap = map[string]string{}
 	}
 
-	UserDirs.Desktop = xdgPath(envDesktopDir, userDirsMap[envDesktopDir], filepath.Join(home, "Desktop"))
-	UserDirs.Download = xdgPath(envDownloadDir, userDirsMap[envDownloadDir], filepath.Join(home, "Downloads"))
-	UserDirs.Documents = xdgPath(envDocumentsDir, userDirsMap[envDocumentsDir], filepath.Join(home, "Documents"))
-	UserDirs.Music = xdgPath(envMusicDir, userDirsMap[envMusicDir], filepath.Join(home, "Music"))
-	UserDirs.Pictures = xdgPath(envPicturesDir, userDirsMap[envPicturesDir], filepath.Join(home, "Pictures"))
-	UserDirs.Videos = xdgPath(envVideosDir, userDirsMap[envVideosDir], filepath.Join(home, "Videos"))
-	UserDirs.Templates = xdgPath(envTemplatesDir, userDirsMap[envTemplatesDir], filepath.Join(home, "Templates"))
-	UserDirs.PublicShare = xdgPath(envPublicShareDir, userDirsMap[envPublicShareDir], filepath.Join(home, "Public"))
+	UserDirs.Desktop = xdgPath(userdirs.EnvDesktopDir, userDirsMap[userdirs.EnvDesktopDir], filepath.Join(home, "Desktop"))
+	UserDirs.Download = xdgPath(userdirs.EnvDownloadDir, userDirsMap[userdirs.EnvDownloadDir], filepath.Join(home, "Downloads"))
+	UserDirs.Documents = xdgPath(userdirs.EnvDocumentsDir, userDirsMap[userdirs.EnvDocumentsDir], filepath.Join(home, "Documents"))
+	UserDirs.Music = xdgPath(userdirs.EnvMusicDir, userDirsMap[userdirs.EnvMusicDir], filepath.Join(home, "Music"))
+	UserDirs.Pictures = xdgPath(userdirs.EnvPicturesDir, userDirsMap[userdirs.EnvPicturesDir], filepath.Join(home, "Pictures"))
+	UserDirs.Videos = xdgPath(userdirs.EnvVideosDir, userDirsMap[userdirs.EnvVideosDir], filepath.Join(home, "Videos"))
+	UserDirs.Templates = xdgPath(userdirs.EnvTemplatesDir, userDirsMap[userdirs.EnvTemplatesDir], filepath.Join(home, "Templates"))
+	UserDirs.PublicShare = xdgPath(userdirs.EnvPublicShareDir, userDirsMap[userdirs.EnvPublicShareDir], filepath.Join(home, "Public"))
 }

@@ -4,6 +4,7 @@ import (
 	"path/filepath"
 
 	"github.com/adrg/xdg/internal/pathutil"
+	"github.com/adrg/xdg/internal/userdirs"
 	"golang.org/x/sys/windows"
 )
 
@@ -35,14 +36,14 @@ func initBaseDirs(home string, kf *knownFolders) {
 }
 
 func initUserDirs(home string, kf *knownFolders) {
-	UserDirs.Desktop = xdgPath(envDesktopDir, kf.desktop)
-	UserDirs.Download = xdgPath(envDownloadDir, kf.downloads)
-	UserDirs.Documents = xdgPath(envDocumentsDir, kf.documents)
-	UserDirs.Music = xdgPath(envMusicDir, kf.music)
-	UserDirs.Pictures = xdgPath(envPicturesDir, kf.pictures)
-	UserDirs.Videos = xdgPath(envVideosDir, kf.videos)
-	UserDirs.Templates = xdgPath(envTemplatesDir, kf.templates)
-	UserDirs.PublicShare = xdgPath(envPublicShareDir, kf.public)
+	UserDirs.Desktop = xdgPath(userdirs.EnvDesktopDir, kf.desktop)
+	UserDirs.Download = xdgPath(userdirs.EnvDownloadDir, kf.downloads)
+	UserDirs.Documents = xdgPath(userdirs.EnvDocumentsDir, kf.documents)
+	UserDirs.Music = xdgPath(userdirs.EnvMusicDir, kf.music)
+	UserDirs.Pictures = xdgPath(userdirs.EnvPicturesDir, kf.pictures)
+	UserDirs.Videos = xdgPath(userdirs.EnvVideosDir, kf.videos)
+	UserDirs.Templates = xdgPath(userdirs.EnvTemplatesDir, kf.templates)
+	UserDirs.PublicShare = xdgPath(userdirs.EnvPublicShareDir, kf.public)
 }
 
 type knownFolders struct {
