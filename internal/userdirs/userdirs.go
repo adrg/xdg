@@ -40,6 +40,9 @@ func ParseConfig(r io.Reader) map[string]string {
 	scanner := bufio.NewScanner(r)
 	for scanner.Scan() {
 		line := strings.TrimSpace(scanner.Text())
+		if len(line) == 0 || line[0] == '#' {
+			continue
+		}
 		if !strings.HasPrefix(line, "XDG_") {
 			continue
 		}
