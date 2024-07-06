@@ -41,7 +41,7 @@ func TestParseConfigFile(t *testing.T) {
 	tmpFileRemoved = true
 
 	dirs = userdirs.ParseConfigFile(f.Name())
-	require.Nil(t, dirs)
+	require.NotNil(t, dirs)
 }
 
 func TestParseConfig(t *testing.T) {
@@ -89,5 +89,5 @@ func TestParseConfig(t *testing.T) {
 	require.NoError(t, err)
 
 	dirs = userdirs.ParseConfig(f)
-	require.Nil(t, dirs)
+	require.NotNil(t, dirs)
 }

@@ -53,9 +53,6 @@ func initBaseDirs(home string) {
 
 func initUserDirs(home, configHome string) {
 	userDirsMap := userdirs.ParseConfigFile(filepath.Join(configHome, "user-dirs.dirs"))
-	if userDirsMap == nil {
-		userDirsMap = map[string]string{}
-	}
 
 	UserDirs.Desktop = xdgPath(userdirs.EnvDesktopDir, userDirsMap[userdirs.EnvDesktopDir], filepath.Join(home, "Desktop"))
 	UserDirs.Download = xdgPath(userdirs.EnvDownloadDir, userDirsMap[userdirs.EnvDownloadDir], filepath.Join(home, "Downloads"))

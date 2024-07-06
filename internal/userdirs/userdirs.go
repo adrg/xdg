@@ -23,20 +23,20 @@ const (
 
 // ParseConfigFile parses the user directories config file at the specified
 // location. The returned map contains pairs consisting of the user directory
-// names and their paths.
+// names and their paths. An empty map is returned if an error is encountered.
 func ParseConfigFile(name string) map[string]string {
 	f, err := os.Open(name)
 	if err != nil {
-		return nil
+		return map[string]string{}
 	}
 	defer f.Close()
 
 	return ParseConfig(f)
 }
 
-// ParseConfig parses the user directories config file contained in the
-// provided reader. The returned map contains pairs consisting of the user
-// directory names and their paths.
+// ParseConfig parses the user directories config file contained in the provided
+// reader. The returned map contains pairs consisting of the user directory
+// names and their paths. An empty map is returned if an error is encountered.
 func ParseConfig(r io.Reader) map[string]string {
 	dirs := map[string]string{}
 
@@ -86,7 +86,7 @@ func ParseConfig(r io.Reader) map[string]string {
 		}
 	}
 	if err := scanner.Err(); err != nil {
-		return nil
+		return dirs
 	}
 
 	return dirs
