@@ -3,6 +3,7 @@ package xdg
 import (
 	"path/filepath"
 
+	"github.com/adrg/xdg/internal/pathutil"
 	"github.com/adrg/xdg/internal/userdirs"
 )
 
@@ -16,17 +17,17 @@ func initBaseDirs(home string) {
 	rootAppSupport := "/Library/Application Support"
 
 	// Initialize standard directories.
-	baseDirs.dataHome = xdgPath(envDataHome, homeAppSupport)
-	baseDirs.data = xdgPaths(envDataDirs, rootAppSupport)
-	baseDirs.configHome = xdgPath(envConfigHome, homeAppSupport)
-	baseDirs.config = xdgPaths(envConfigDirs,
+	baseDirs.dataHome = pathutil.EnvPath(envDataHome, homeAppSupport)
+	baseDirs.data = pathutil.EnvPathList(envDataDirs, rootAppSupport)
+	baseDirs.configHome = pathutil.EnvPath(envConfigHome, homeAppSupport)
+	baseDirs.config = pathutil.EnvPathList(envConfigDirs,
 		filepath.Join(home, "Library", "Preferences"),
 		rootAppSupport,
 		"/Library/Preferences",
 	)
-	baseDirs.stateHome = xdgPath(envStateHome, homeAppSupport)
-	baseDirs.cacheHome = xdgPath(envCacheHome, filepath.Join(home, "Library", "Caches"))
-	baseDirs.runtime = xdgPath(envRuntimeDir, homeAppSupport)
+	baseDirs.stateHome = pathutil.EnvPath(envStateHome, homeAppSupport)
+	baseDirs.cacheHome = pathutil.EnvPath(envCacheHome, filepath.Join(home, "Library", "Caches"))
+	baseDirs.runtime = pathutil.EnvPath(envRuntimeDir, homeAppSupport)
 
 	// Initialize non-standard directories.
 	baseDirs.applications = []string{
@@ -42,12 +43,12 @@ func initBaseDirs(home string) {
 }
 
 func initUserDirs(home string) {
-	UserDirs.Desktop = xdgPath(userdirs.EnvDesktopDir, filepath.Join(home, "Desktop"))
-	UserDirs.Download = xdgPath(userdirs.EnvDownloadDir, filepath.Join(home, "Downloads"))
-	UserDirs.Documents = xdgPath(userdirs.EnvDocumentsDir, filepath.Join(home, "Documents"))
-	UserDirs.Music = xdgPath(userdirs.EnvMusicDir, filepath.Join(home, "Music"))
-	UserDirs.Pictures = xdgPath(userdirs.EnvPicturesDir, filepath.Join(home, "Pictures"))
-	UserDirs.Videos = xdgPath(userdirs.EnvVideosDir, filepath.Join(home, "Movies"))
-	UserDirs.Templates = xdgPath(userdirs.EnvTemplatesDir, filepath.Join(home, "Templates"))
-	UserDirs.PublicShare = xdgPath(userdirs.EnvPublicShareDir, filepath.Join(home, "Public"))
+	UserDirs.Desktop = pathutil.EnvPath(userdirs.EnvDesktopDir, filepath.Join(home, "Desktop"))
+	UserDirs.Download = pathutil.EnvPath(userdirs.EnvDownloadDir, filepath.Join(home, "Downloads"))
+	UserDirs.Documents = pathutil.EnvPath(userdirs.EnvDocumentsDir, filepath.Join(home, "Documents"))
+	UserDirs.Music = pathutil.EnvPath(userdirs.EnvMusicDir, filepath.Join(home, "Music"))
+	UserDirs.Pictures = pathutil.EnvPath(userdirs.EnvPicturesDir, filepath.Join(home, "Pictures"))
+	UserDirs.Videos = pathutil.EnvPath(userdirs.EnvVideosDir, filepath.Join(home, "Movies"))
+	UserDirs.Templates = pathutil.EnvPath(userdirs.EnvTemplatesDir, filepath.Join(home, "Templates"))
+	UserDirs.PublicShare = pathutil.EnvPath(userdirs.EnvPublicShareDir, filepath.Join(home, "Public"))
 }
