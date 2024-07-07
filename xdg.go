@@ -1,9 +1,6 @@
 package xdg
 
 import (
-	"os"
-	"path/filepath"
-
 	"github.com/adrg/xdg/internal/pathutil"
 )
 
@@ -197,22 +194,4 @@ func SearchCacheFile(relPath string) (string, error) {
 // file cannot be found, an error specifying the searched path is returned.
 func SearchRuntimeFile(relPath string) (string, error) {
 	return baseDirs.searchRuntimeFile(relPath)
-}
-
-func xdgPath(name string, defaultPaths ...string) string {
-	dir := pathutil.ExpandHome(os.Getenv(name))
-	if dir != "" && filepath.IsAbs(dir) {
-		return dir
-	}
-
-	return pathutil.First(defaultPaths)
-}
-
-func xdgPaths(name string, defaultPaths ...string) []string {
-	dirs := pathutil.Unique(filepath.SplitList(os.Getenv(name)))
-	if len(dirs) != 0 {
-		return dirs
-	}
-
-	return pathutil.Unique(defaultPaths)
 }
