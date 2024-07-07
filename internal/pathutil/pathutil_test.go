@@ -3,6 +3,7 @@ package pathutil_test
 import (
 	"os"
 	"path/filepath"
+	"strings"
 	"testing"
 
 	"github.com/stretchr/testify/require"
@@ -106,4 +107,37 @@ func TestSearch(t *testing.T) {
 	require.Equal(t, expected, p)
 
 	require.NoError(t, os.RemoveAll(filepath.Dir(expected)))
+}
+
+func TestEnvPath(t *testing.T) {
+	home := pathutil.UserHomeDir()
+	val := filepath.Join(home, "test")
+
+	os.Setenv("PATHUTIL_TEST_VAR", val)
+	defer os.Unsetenv("PATHUTIL_TEST_VAR")
+
+	require.Equal(t, val, pathutil.EnvPath("PATHUTIL_TEST_VAR"))
+
+	os.Setenv("PATHUTIL_TEST_VAR", "")
+	require.Equal(t, val, pathutil.EnvPath("PATHUTIL_TEST_VAR", val))
+	require.Equal(t, val, pathutil.EnvPath("", val))
+}
+
+func TestEnvPathList(t *testing.T) {
+	home := pathutil.UserHomeDir()
+	pathList := []string{
+		filepath.Join(home, "test1"),
+		filepath.Join(home, "test2"),
+		filepath.Join(home, "test3"),
+	}
+	val := strings.Join(pathList, string(os.PathListSeparator))
+
+	os.Setenv("PATHUTIL_TEST_VAR", val)
+	defer os.Unsetenv("PATHUTIL_TEST_VAR")
+
+	require.Equal(t, val, strings.Join(pathutil.EnvPathList("PATHUTIL_TEST_VAR"), string(os.PathListSeparator)))
+
+	os.Setenv("PATHUTIL_TEST_VAR", "")
+	require.Equal(t, val, strings.Join(pathutil.EnvPathList("PATHUTIL_TEST_VAR", pathList...), string(os.PathListSeparator)))
+	require.Equal(t, val, strings.Join(pathutil.EnvPathList("", pathList...), string(os.PathListSeparator)))
 }

@@ -9,8 +9,8 @@ import (
 
 // Unique eliminates the duplicate paths from the provided slice and returns
 // the result. The paths are expanded using the `ExpandHome` function and only
-// non-empty, absolute paths are kept. The items in the output slice are in
-// the order in which they occur in the input slice.
+// absolute paths are kept. The items in the output slice are in the order in
+// which they occur in the input slice.
 func Unique(paths []string) []string {
 	var (
 		uniq     []string
@@ -31,7 +31,7 @@ func Unique(paths []string) []string {
 	return uniq
 }
 
-// First returns the first non-empty, absolute path from the provided slice.
+// First returns the first absolute path from the provided slice.
 // The paths in the input slice are expanded using the `ExpandHome` function.
 func First(paths []string) string {
 	for _, p := range paths {
@@ -88,4 +88,30 @@ func Search(name string, paths []string) (string, error) {
 
 	return "", fmt.Errorf("could not locate `%s` in any of the following paths: %s",
 		filepath.Base(name), strings.Join(searchedPaths, ", "))
+}
+
+// EnvPath returns the value of the environment variable with the specified
+// `name` if it is an absolute path, or the first absolute fallback path.
+// All paths are expanded using the `ExpandHome` function.
+func EnvPath(name string, fallbackPaths ...string) string {
+	dir := ExpandHome(os.Getenv(name))
+	if dir != "" && filepath.IsAbs(dir) {
+		return dir
+	}
+
+	return First(fallbackPaths)
+}
+
+// EnvPathList reads the value of the environment variable with the specified
+// `name` and attempts to extract a list of absolute paths from it. If there
+// are none, a list of absolute fallback paths is returned instead. Duplicate
+// paths are removed from the returned slice. All paths are expanded using the
+// `ExpandHome` function.
+func EnvPathList(name string, fallbackPaths ...string) []string {
+	dirs := Unique(filepath.SplitList(os.Getenv(name)))
+	if len(dirs) != 0 {
+		return dirs
+	}
+
+	return Unique(fallbackPaths)
 }
