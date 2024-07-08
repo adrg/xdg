@@ -1,14 +1,5 @@
 package userdirs
 
-import (
-	"bufio"
-	"io"
-	"os"
-	"strings"
-
-	"github.com/adrg/xdg/internal/pathutil"
-)
-
 // XDG user directories environment variables.
 const (
 	EnvDesktopDir     = "XDG_DESKTOP_DIR"
@@ -21,73 +12,29 @@ const (
 	EnvPublicShareDir = "XDG_PUBLICSHARE_DIR"
 )
 
-// ParseConfigFile parses the user directories config file at the specified
-// location. The returned map contains pairs consisting of the user directory
-// names and their paths. An empty map is returned if an error is encountered.
-func ParseConfigFile(name string) map[string]string {
-	f, err := os.Open(name)
-	if err != nil {
-		return map[string]string{}
-	}
-	defer f.Close()
+// Directories defines the locations of well known user directories.
+type Directories struct {
+	// Desktop defines the location of the user's desktop directory.
+	Desktop string
 
-	return ParseConfig(f)
-}
+	// Download defines a suitable location for user downloaded files.
+	Download string
 
-// ParseConfig parses the user directories config file contained in the provided
-// reader. The returned map contains pairs consisting of the user directory
-// names and their paths. An empty map is returned if an error is encountered.
-func ParseConfig(r io.Reader) map[string]string {
-	dirs := map[string]string{}
+	// Documents defines a suitable location for user document files.
+	Documents string
 
-	scanner := bufio.NewScanner(r)
-	for scanner.Scan() {
-		line := strings.TrimSpace(scanner.Text())
-		if len(line) == 0 || line[0] == '#' {
-			continue
-		}
-		if !strings.HasPrefix(line, "XDG_") {
-			continue
-		}
+	// Music defines a suitable location for user audio files.
+	Music string
 
-		parts := strings.Split(line, "=")
-		if len(parts) < 2 {
-			continue
-		}
+	// Pictures defines a suitable location for user image files.
+	Pictures string
 
-		// Parse key.
-		key := strings.TrimSpace(parts[0])
-		switch key {
-		case EnvDesktopDir,
-			EnvDownloadDir,
-			EnvDocumentsDir,
-			EnvMusicDir,
-			EnvPicturesDir,
-			EnvVideosDir,
-			EnvTemplatesDir,
-			EnvPublicShareDir:
-		default:
-			continue
-		}
+	// VideosDir defines a suitable location for user video files.
+	Videos string
 
-		// Parse value.
-		runes := []rune(strings.TrimSpace(parts[1]))
+	// Templates defines a suitable location for user template files.
+	Templates string
 
-		lenRunes := len(runes)
-		if lenRunes <= 2 || runes[0] != '"' {
-			continue
-		}
-
-		for i := 1; i < lenRunes; i++ {
-			if runes[i] == '"' {
-				dirs[key] = pathutil.ExpandHome(string(runes[1:i]))
-				break
-			}
-		}
-	}
-	if err := scanner.Err(); err != nil {
-		return dirs
-	}
-
-	return dirs
+	// PublicShare defines a suitable location for user shared files.
+	PublicShare string
 }

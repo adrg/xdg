@@ -2,7 +2,11 @@ package xdg
 
 import (
 	"github.com/adrg/xdg/internal/pathutil"
+	"github.com/adrg/xdg/internal/userdirs"
 )
+
+// UserDirectories defines the locations of well known user directories.
+type UserDirectories = userdirs.Directories
 
 var (
 	// Home contains the path of the user's home directory.
