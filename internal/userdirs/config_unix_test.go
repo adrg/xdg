@@ -31,24 +31,26 @@ func TestParseConfigFile(t *testing.T) {
 	err = f.Close()
 	require.NoError(t, err)
 
-	dirs := userdirs.ParseConfigFile(f.Name())
+	dirs, err := userdirs.ParseConfigFile(f.Name())
+	require.NoError(t, err)
 	require.NotNil(t, dirs)
-	require.Equal(t, "/home/test/Downloads", dirs["XDG_DOWNLOAD_DIR"])
+	require.Equal(t, "/home/test/Downloads", dirs.Download)
 
 	// Test non-existent file.
 	err = os.Remove(f.Name())
 	require.NoError(t, err)
 	tmpFileRemoved = true
 
-	dirs = userdirs.ParseConfigFile(f.Name())
-	require.NotNil(t, dirs)
+	dirs, err = userdirs.ParseConfigFile(f.Name())
+	require.Error(t, err)
+	require.Nil(t, dirs)
 }
 
 func TestParseConfig(t *testing.T) {
 	// Test parsed values.
 	home := pathutil.UserHomeDir()
 
-	dirs := userdirs.ParseConfig(strings.NewReader(`
+	dirs, err := userdirs.ParseConfig(strings.NewReader(`
 		# This file is written by xdg-user-dirs-update
 		# If you want to change or add directories, just edit the line you're
 		# interested in. All local changes will be retained on the next run.
@@ -70,15 +72,16 @@ func TestParseConfig(t *testing.T) {
 		XDG_DOWNLOAD_DIR
 	`))
 
+	require.NoError(t, err)
 	require.NotNil(t, dirs)
-	require.Equal(t, filepath.Join(home, "Desktop"), dirs["XDG_DESKTOP_DIR"])
-	require.Equal(t, filepath.Join(home, "Downloads"), dirs["XDG_DOWNLOAD_DIR"])
-	require.Equal(t, "/home/test/Templates", dirs["XDG_TEMPLATES_DIR"])
-	require.Equal(t, filepath.Join(home, "Public"), dirs["XDG_PUBLICSHARE_DIR"])
-	require.Equal(t, filepath.Join(home, "Documents"), dirs["XDG_DOCUMENTS_DIR"])
-	require.Equal(t, filepath.Join(home, "Music"), dirs["XDG_MUSIC_DIR"])
-	require.Equal(t, "", dirs["XDG_PICTURES_DIR"])
-	require.Equal(t, "", dirs["XDG_VIDEOS_DIR"])
+	require.Equal(t, filepath.Join(home, "Desktop"), dirs.Desktop)
+	require.Equal(t, filepath.Join(home, "Downloads"), dirs.Download)
+	require.Equal(t, "/home/test/Templates", dirs.Templates)
+	require.Equal(t, filepath.Join(home, "Public"), dirs.PublicShare)
+	require.Equal(t, filepath.Join(home, "Documents"), dirs.Documents)
+	require.Equal(t, filepath.Join(home, "Music"), dirs.Music)
+	require.Equal(t, "", dirs.Pictures)
+	require.Equal(t, "", dirs.Videos)
 
 	// Test reader error.
 	f, err := os.CreateTemp("", "test_parse_config")
@@ -88,6 +91,7 @@ func TestParseConfig(t *testing.T) {
 	err = f.Close()
 	require.NoError(t, err)
 
-	dirs = userdirs.ParseConfig(f)
-	require.NotNil(t, dirs)
+	dirs, err = userdirs.ParseConfig(f)
+	require.Error(t, err)
+	require.Nil(t, dirs)
 }

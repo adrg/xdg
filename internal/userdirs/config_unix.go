@@ -11,24 +11,32 @@ import (
 	"github.com/adrg/xdg/internal/pathutil"
 )
 
-// ParseConfigFile parses the user directories config file at the specified
-// location. The returned map contains pairs consisting of the user directory
-// names and their paths. An empty map is returned if an error is encountered.
-func ParseConfigFile(name string) map[string]string {
+// ParseConfigFile parses the user directories config file at the
+// specified location.
+func ParseConfigFile(name string) (*Directories, error) {
 	f, err := os.Open(name)
 	if err != nil {
-		return map[string]string{}
+		return nil, err
 	}
 	defer f.Close()
 
 	return ParseConfig(f)
 }
 
-// ParseConfig parses the user directories config file contained in the provided
-// reader. The returned map contains pairs consisting of the user directory
-// names and their paths. An empty map is returned if an error is encountered.
-func ParseConfig(r io.Reader) map[string]string {
-	dirs := map[string]string{}
+// ParseConfig parses the user directories config file contained in
+// the provided reader.
+func ParseConfig(r io.Reader) (*Directories, error) {
+	dirs := &Directories{}
+	fieldsMap := map[string]*string{
+		EnvDesktopDir:     &dirs.Desktop,
+		EnvDownloadDir:    &dirs.Download,
+		EnvDocumentsDir:   &dirs.Documents,
+		EnvMusicDir:       &dirs.Music,
+		EnvPicturesDir:    &dirs.Pictures,
+		EnvVideosDir:      &dirs.Videos,
+		EnvTemplatesDir:   &dirs.Templates,
+		EnvPublicShareDir: &dirs.PublicShare,
+	}
 
 	scanner := bufio.NewScanner(r)
 	for scanner.Scan() {
@@ -46,17 +54,8 @@ func ParseConfig(r io.Reader) map[string]string {
 		}
 
 		// Parse key.
-		key := strings.TrimSpace(parts[0])
-		switch key {
-		case EnvDesktopDir,
-			EnvDownloadDir,
-			EnvDocumentsDir,
-			EnvMusicDir,
-			EnvPicturesDir,
-			EnvVideosDir,
-			EnvTemplatesDir,
-			EnvPublicShareDir:
-		default:
+		field, ok := fieldsMap[strings.TrimSpace(parts[0])]
+		if !ok {
 			continue
 		}
 
@@ -70,14 +69,14 @@ func ParseConfig(r io.Reader) map[string]string {
 
 		for i := 1; i < lenRunes; i++ {
 			if runes[i] == '"' {
-				dirs[key] = pathutil.ExpandHome(string(runes[1:i]))
+				*field = pathutil.ExpandHome(string(runes[1:i]))
 				break
 			}
 		}
 	}
 	if err := scanner.Err(); err != nil {
-		return dirs
+		return nil, err
 	}
 
-	return dirs
+	return dirs, nil
 }
