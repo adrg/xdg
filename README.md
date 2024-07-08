@@ -100,6 +100,17 @@ Sensible fallback locations are used for the folders which are not set.
 
 ### XDG user directories
 
+XDG user directories environment variables are usually **not** set on most
+operating systems. However, if they are present in the environment, they take
+precedence. Appropriate fallback locations are used for the environment
+variables which are not set.
+
+- On Unix-like operating systems (except macOS and Plan 9), the package reads the [user-dirs.dirs](https://man.archlinux.org/man/user-dirs.dirs.5.en) config file, if present.
+- On Windows, the package uses the appropriate [Known Folders](https://docs.microsoft.com/en-us/windows/win32/shell/knownfolderid).
+
+Lastly, default locations are used for any user directories which are not set,
+as shown in the following tables.
+
 <details open>
     <summary><strong>Unix-like operating systems</strong></summary>
     <br/>
@@ -156,7 +167,7 @@ Sensible fallback locations are used for the folders which are not set.
 | :-----------------------------------------------------------: | :--------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------: |
 | <kbd><b>Home</b></kbd>                                        | <kbd>Profile</kbd>                                                                       | <kbd>%USERPROFILE%</kbd>                                                                                                                |
 | <kbd><b>Applications</b></kbd>                                | <kbd>Programs</kbd><br/><kbd>CommonPrograms</kbd>                                        | <kbd>%APPDATA%\Microsoft\Windows\Start&nbsp;Menu\Programs</kbd><br/><kbd>%ProgramData%\Microsoft\Windows\Start&nbsp;Menu\Programs</kbd> |
-| <kbd><b>Fonts</b></kbd>                                       | <kbd>Fonts</kbd><br/><kbd>-</kbd>                                                        | <kbd>%SystemRoot%\Fonts</kbd><br/><kbd>%LOCALAPPDATA%\Microsoft\Windows\Fonts</kbd>                                                     |
+| <kbd><b>Fonts</b></kbd>                                       | <kbd>Fonts</kbd>                                                                         | <kbd>%SystemRoot%\Fonts</kbd><br/><kbd>%LOCALAPPDATA%\Microsoft\Windows\Fonts</kbd>                                                     |
 
 </details>
 

@@ -10,6 +10,11 @@ import (
 	"golang.org/x/sys/windows"
 )
 
+// UserHomeDir returns the home directory of the current user.
+func UserHomeDir() string {
+	return KnownFolder(windows.FOLDERID_Profile, []string{"USERPROFILE"}, nil)
+}
+
 // Exists returns true if the specified path exists.
 func Exists(path string) bool {
 	fi, err := os.Lstat(path)
@@ -20,9 +25,9 @@ func Exists(path string) bool {
 	return err == nil || errors.Is(err, fs.ErrExist)
 }
 
-// ExpandHome substitutes `%USERPROFILE%` at the start of the specified
-// `path` using the provided `home` location.
-func ExpandHome(path, home string) string {
+// ExpandHome substitutes `%USERPROFILE%` at the start of the specified `path`.
+func ExpandHome(path string) string {
+	home := UserHomeDir()
 	if path == "" || home == "" {
 		return path
 	}
