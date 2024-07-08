@@ -101,14 +101,15 @@ Sensible fallback locations are used for the folders which are not set.
 ### XDG user directories
 
 XDG user directories environment variables are usually **not** set on most
-operating systems. However, all valid variables present in the environment
-are used. Appropriate fallback locations are used for the environment variables
-which are not set.
+operating systems. However, if they are present in the environment, they take
+precedence. Appropriate fallback locations are used for the environment
+variables which are not set.
 
 - On Linux distributions, the package reads the [user-dirs.dirs](https://man.archlinux.org/man/user-dirs.dirs.5.en) config file, if present.
 - On Windows, the package uses the appropriate [Known Folders](https://docs.microsoft.com/en-us/windows/win32/shell/knownfolderid).
 
-Default locations are used for any user directories which are not set, as shown in the following tables.
+Lastly, default locations are used for any user directories which are not set,
+as shown in the following tables.
 
 <details open>
     <summary><strong>Unix-like operating systems</strong></summary>
