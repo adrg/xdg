@@ -105,7 +105,7 @@ operating systems. However, if they are present in the environment, they take
 precedence. Appropriate fallback locations are used for the environment
 variables which are not set.
 
-- On Unix-like operating systems (except macOS and Plan 9), the package reads the [user-dirs.dirs](https://man.archlinux.org/man/user-dirs.dirs.5.en) config file, if present.
+- On Unix-like operating systems (except macOS and Plan 9), the package reads the [user-dirs.dirs](https://man.archlinux.org/man/user-dirs.dirs.5.en) config file.
 - On Windows, the package uses the appropriate [Known Folders](https://docs.microsoft.com/en-us/windows/win32/shell/knownfolderid).
 
 Lastly, default locations are used for any user directories which are not set,
