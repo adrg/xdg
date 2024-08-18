@@ -1,4 +1,4 @@
-name: Test
+name: tests
 
 on:
   push:
@@ -33,3 +33,5 @@ jobs:
 
     - name: Coverage
       uses: codecov/codecov-action@v4
+      env:
+        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}

@@ -1,4 +1,4 @@
-name: Analyze
+name: analyze
 
 on:
   push:

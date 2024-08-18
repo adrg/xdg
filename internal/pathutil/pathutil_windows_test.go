@@ -3,6 +3,7 @@
 package pathutil_test
 
 import (
+	"os"
 	"path/filepath"
 	"testing"
 
@@ -10,6 +11,15 @@ import (
 	"github.com/stretchr/testify/require"
 	"golang.org/x/sys/windows"
 )
+
+func TestUserHomeDir(t *testing.T) {
+	home := pathutil.KnownFolder(windows.FOLDERID_Profile, nil, nil)
+	if home == "" {
+		home = os.Getenv("USERPROFILE")
+	}
+
+	require.Equal(t, home, pathutil.UserHomeDir())
+}
 
 func TestKnownFolder(t *testing.T) {
 	expected := `C:\ProgramData`
@@ -20,35 +30,46 @@ func TestKnownFolder(t *testing.T) {
 }
 
 func TestExpandHome(t *testing.T) {
-	home := `C:\Users\test`
+	home := pathutil.UserHomeDir()
 
-	require.Equal(t, home, pathutil.ExpandHome(`%USERPROFILE%`, home))
-	require.Equal(t, filepath.Join(home, "appname"), pathutil.ExpandHome(`%USERPROFILE%\appname`, home))
-
-	require.Equal(t, "", pathutil.ExpandHome("", home))
-	require.Equal(t, home, pathutil.ExpandHome(home, ""))
-	require.Equal(t, "", pathutil.ExpandHome("", ""))
-
-	require.Equal(t, home, pathutil.ExpandHome(home, home))
+	require.Equal(t, "", pathutil.ExpandHome(""))
+	require.Equal(t, home, pathutil.ExpandHome(home))
+	require.Equal(t, home, pathutil.ExpandHome(`%USERPROFILE%`))
+	require.Equal(t, filepath.Join(home, "appname"), pathutil.ExpandHome(`%USERPROFILE%\appname`))
 }
 
 func TestUnique(t *testing.T) {
+	home := pathutil.UserHomeDir()
+
 	input := []string{
 		"",
-		`C:\Users`,
-		`C:\Users\test`,
+		home,
+		filepath.Join(home, "foo"),
 		"a",
-		`C:\Users\test\appname`,
-		`%USERPROFILE%/appname`,
+		`%USERPROFILE%/foo`,
+		`%USERPROFILE%\foo`,
 		"a",
-		`C:\Users`,
 	}
 
 	expected := []string{
-		`C:\Users`,
-		`C:\Users\test`,
-		`C:\Users\test\appname`,
+		home,
+		filepath.Join(home, "foo"),
 	}
 
-	require.EqualValues(t, expected, pathutil.Unique(input, `C:\Users\test`))
+	require.EqualValues(t, expected, pathutil.Unique(input))
+}
+
+func TestFirst(t *testing.T) {
+	home := pathutil.UserHomeDir()
+
+	require.Equal(t, "", pathutil.First([]string{}))
+	require.Equal(t, home, pathutil.First([]string{home}))
+	require.Equal(t, home, pathutil.First([]string{"%USERPROFILE%"}))
+	require.Equal(t, home, pathutil.First([]string{home, ""}))
+	require.Equal(t, home, pathutil.First([]string{"", home}))
+	require.Equal(t, home, pathutil.First([]string{"%USERPROFILE%", ""}))
+	require.Equal(t, home, pathutil.First([]string{"", "%USERPROFILE%"}))
+	require.Equal(t, `C:\Users\foo`, pathutil.First([]string{`C:\Users\foo`, `C:\Users\bar`}))
+	require.Equal(t, filepath.Join(home, "foo"), pathutil.First([]string{`%USERPROFILE%/foo`, `%USERPROFILE%/bar`}))
+	require.Equal(t, filepath.Join(home, "foo"), pathutil.First([]string{`%USERPROFILE%/foo`, `%USERPROFILE%/bar`}))
 }

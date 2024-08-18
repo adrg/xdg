@@ -3,6 +3,7 @@ package xdg_test
 import (
 	"os"
 	"path/filepath"
+	"strings"
 	"testing"
 
 	"github.com/stretchr/testify/require"
@@ -18,6 +19,21 @@ type envSample struct {
 }
 
 func testDirs(t *testing.T, samples ...*envSample) {
+	// Reset environment after test execution.
+	environ := os.Environ()
+	defer func() {
+		os.Clearenv()
+		for _, env := range environ {
+			parts := strings.SplitN(env, "=", 2)
+			if len(parts) != 2 {
+				continue
+			}
+			os.Setenv(parts[0], parts[1])
+		}
+
+		xdg.Reload()
+	}()
+
 	// Test home directory.
 	require.NotEmpty(t, xdg.Home)
 	t.Logf("Home: %s", xdg.Home)
