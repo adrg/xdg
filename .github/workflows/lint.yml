@@ -12,14 +12,14 @@ jobs:
   lint:
     strategy:
       matrix:
+        go: [stable, oldstable]
         os: [ubuntu-latest, macos-latest, windows-latest]
     runs-on: ${{ matrix.os }}
     steps:
     - name: Setup
       uses: actions/setup-go@v5
       with:
-        go-version-file: 'go.mod'
-        check-latest: true
+        go-version: ${{ matrix.go }}
         cache: true
 
     - name: Prepare checkout
