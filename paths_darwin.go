@@ -30,6 +30,8 @@ func initBaseDirs(home string) {
 	baseDirs.runtime = pathutil.EnvPath(envRuntimeDir, homeAppSupport)
 
 	// Initialize non-standard directories.
+	baseDirs.binHome = pathutil.EnvPath(envBinHome, filepath.Join(home, ".local", "bin"))
+
 	baseDirs.applications = []string{
 		"/Applications",
 	}

@@ -67,6 +67,12 @@ var (
 	// swapped out to disk.
 	RuntimeDir string
 
+	// BinHome defines the base directory relative to which user-specific
+	// binary files should be written. This directory is defined by
+	// the non-standard $XDG_BIN_HOME environment variable. If the variable is
+	// not set, a default equal to $HOME/.local/bin should be used.
+	BinHome string
+
 	// UserDirs defines the locations of well known user directories.
 	UserDirs UserDirectories
 
@@ -104,6 +110,7 @@ func Reload() {
 	RuntimeDir = baseDirs.runtime
 
 	// Set non-standard directories.
+	BinHome = baseDirs.binHome
 	FontDirs = baseDirs.fonts
 	ApplicationDirs = baseDirs.applications
 }
