@@ -57,6 +57,11 @@ func TestDefaultBaseDirs(t *testing.T) {
 			actual:   &xdg.RuntimeDir,
 		},
 		&envSample{
+			name:     "XDG_BIN_HOME",
+			expected: filepath.Join(home, ".local", "bin"),
+			actual:   &xdg.BinHome,
+		},
+		&envSample{
 			name: "XDG_APPLICATION_DIRS",
 			expected: []string{
 				"/Applications",
@@ -87,10 +92,13 @@ func TestCustomBaseDirs(t *testing.T) {
 			actual:   &xdg.DataHome,
 		},
 		&envSample{
-			name:     "XDG_DATA_DIRS",
-			value:    "~/Library/data:/Library/Application Support",
-			expected: []string{filepath.Join(home, "Library/data"), "/Library/Application Support"},
-			actual:   &xdg.DataDirs,
+			name:  "XDG_DATA_DIRS",
+			value: "~/Library/data:/Library/Application Support",
+			expected: []string{
+				filepath.Join(home, "Library/data"),
+				"/Library/Application Support",
+			},
+			actual: &xdg.DataDirs,
 		},
 		&envSample{
 			name:     "XDG_CONFIG_HOME",
@@ -99,10 +107,13 @@ func TestCustomBaseDirs(t *testing.T) {
 			actual:   &xdg.ConfigHome,
 		},
 		&envSample{
-			name:     "XDG_CONFIG_DIRS",
-			value:    "~/Library/config:/Library/Preferences",
-			expected: []string{filepath.Join(home, "Library/config"), "/Library/Preferences"},
-			actual:   &xdg.ConfigDirs,
+			name:  "XDG_CONFIG_DIRS",
+			value: "~/Library/config:/Library/Preferences",
+			expected: []string{
+				filepath.Join(home, "Library/config"),
+				"/Library/Preferences",
+			},
+			actual: &xdg.ConfigDirs,
 		},
 		&envSample{
 			name:     "XDG_STATE_HOME",
@@ -121,6 +132,12 @@ func TestCustomBaseDirs(t *testing.T) {
 			value:    "~/Library/runtime",
 			expected: filepath.Join(home, "Library/runtime"),
 			actual:   &xdg.RuntimeDir,
+		},
+		&envSample{
+			name:     "XDG_BIN_HOME",
+			value:    "~/Library/bin",
+			expected: filepath.Join(home, "Library/bin"),
+			actual:   &xdg.BinHome,
 		},
 	)
 }

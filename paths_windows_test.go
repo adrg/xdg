@@ -19,6 +19,7 @@ func TestDefaultBaseDirs(t *testing.T) {
 	localAppData := filepath.Join(home, "AppData", "Local")
 	systemRoot := filepath.Join(systemDrive, "Windows")
 	programData := filepath.Join(systemDrive, "ProgramData")
+	programFiles := filepath.Join(systemDrive, "Program Files")
 
 	envSamples := []*envSample{
 		{
@@ -57,10 +58,19 @@ func TestDefaultBaseDirs(t *testing.T) {
 			actual:   &xdg.RuntimeDir,
 		},
 		{
+			name:     "XDG_BIN_HOME",
+			expected: filepath.Join(localAppData, "Programs"),
+			actual:   &xdg.BinHome,
+		},
+		{
 			name: "XDG_APPLICATION_DIRS",
 			expected: []string{
 				filepath.Join(roamingAppData, "Microsoft", "Windows", "Start Menu", "Programs"),
 				filepath.Join(programData, "Microsoft", "Windows", "Start Menu", "Programs"),
+				programFiles,
+				filepath.Join(programFiles, "Common Files"),
+				filepath.Join(localAppData, "Programs"),
+				filepath.Join(localAppData, "Programs", "Common"),
 			},
 			actual: &xdg.ApplicationDirs,
 		},
@@ -105,10 +115,13 @@ func TestCustomBaseDirs(t *testing.T) {
 			actual:   &xdg.DataHome,
 		},
 		&envSample{
-			name:     "XDG_DATA_DIRS",
-			value:    fmt.Sprintf("%s;%s", filepath.Join(localAppData, "Data"), filepath.Join(roamingAppData, "Data")),
-			expected: []string{filepath.Join(localAppData, "Data"), filepath.Join(roamingAppData, "Data")},
-			actual:   &xdg.DataDirs,
+			name:  "XDG_DATA_DIRS",
+			value: fmt.Sprintf("%s;%s", filepath.Join(localAppData, "Data"), filepath.Join(roamingAppData, "Data")),
+			expected: []string{
+				filepath.Join(localAppData, "Data"),
+				filepath.Join(roamingAppData, "Data"),
+			},
+			actual: &xdg.DataDirs,
 		},
 		&envSample{
 			name:     "XDG_CONFIG_HOME",
@@ -117,10 +130,13 @@ func TestCustomBaseDirs(t *testing.T) {
 			actual:   &xdg.ConfigHome,
 		},
 		&envSample{
-			name:     "XDG_CONFIG_DIRS",
-			value:    fmt.Sprintf("%s;%s", filepath.Join(localAppData, "Config"), filepath.Join(roamingAppData, "Config")),
-			expected: []string{filepath.Join(localAppData, "Config"), filepath.Join(roamingAppData, "Config")},
-			actual:   &xdg.ConfigDirs,
+			name:  "XDG_CONFIG_DIRS",
+			value: fmt.Sprintf("%s;%s", filepath.Join(localAppData, "Config"), filepath.Join(roamingAppData, "Config")),
+			expected: []string{
+				filepath.Join(localAppData, "Config"),
+				filepath.Join(roamingAppData, "Config"),
+			},
+			actual: &xdg.ConfigDirs,
 		},
 		&envSample{
 			name:     "XDG_STATE_HOME",
@@ -139,6 +155,12 @@ func TestCustomBaseDirs(t *testing.T) {
 			value:    filepath.Join(programData, "Runtime"),
 			expected: filepath.Join(programData, "Runtime"),
 			actual:   &xdg.RuntimeDir,
+		},
+		&envSample{
+			name:     "XDG_BIN_HOME",
+			value:    filepath.Join(programData, "Programs"),
+			expected: filepath.Join(programData, "Programs"),
+			actual:   &xdg.BinHome,
 		},
 	)
 

@@ -51,6 +51,11 @@ func TestDefaultBaseDirs(t *testing.T) {
 			actual:   &xdg.RuntimeDir,
 		},
 		&envSample{
+			name:     "XDG_BIN_HOME",
+			expected: filepath.Join(home, "bin"),
+			actual:   &xdg.BinHome,
+		},
+		&envSample{
 			name: "XDG_APPLICATION_DIRS",
 			expected: []string{
 				filepath.Join(home, "bin"),
@@ -114,6 +119,12 @@ func TestCustomBaseDirs(t *testing.T) {
 			value:    filepath.Join(homeLib, "runtime"),
 			expected: filepath.Join(homeLib, "runtime"),
 			actual:   &xdg.RuntimeDir,
+		},
+		&envSample{
+			name:     "XDG_BIN_HOME",
+			value:    filepath.Join(homeLib, "bin"),
+			expected: filepath.Join(homeLib, "bin"),
+			actual:   &xdg.BinHome,
 		},
 	)
 }
