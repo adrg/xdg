@@ -53,6 +53,11 @@ func TestDefaultBaseDirs(t *testing.T) {
 			actual:   &xdg.RuntimeDir,
 		},
 		&envSample{
+			name:     "XDG_BIN_HOME",
+			expected: filepath.Join(home, ".local", "bin"),
+			actual:   &xdg.BinHome,
+		},
+		&envSample{
 			name: "XDG_APPLICATION_DIRS",
 			expected: []string{
 				filepath.Join(home, ".local/share/applications"),
@@ -85,10 +90,13 @@ func TestCustomBaseDirs(t *testing.T) {
 			actual:   &xdg.DataHome,
 		},
 		&envSample{
-			name:     "XDG_DATA_DIRS",
-			value:    "~/.local/data:/usr/share",
-			expected: []string{filepath.Join(home, ".local/data"), "/usr/share"},
-			actual:   &xdg.DataDirs,
+			name:  "XDG_DATA_DIRS",
+			value: "~/.local/data:/usr/share",
+			expected: []string{
+				filepath.Join(home, ".local/data"),
+				"/usr/share",
+			},
+			actual: &xdg.DataDirs,
 		},
 		&envSample{
 			name:     "XDG_CONFIG_HOME",
@@ -97,10 +105,13 @@ func TestCustomBaseDirs(t *testing.T) {
 			actual:   &xdg.ConfigHome,
 		},
 		&envSample{
-			name:     "XDG_CONFIG_DIRS",
-			value:    "~/.local/config:/etc/xdg",
-			expected: []string{filepath.Join(home, ".local/config"), "/etc/xdg"},
-			actual:   &xdg.ConfigDirs,
+			name:  "XDG_CONFIG_DIRS",
+			value: "~/.local/config:/etc/xdg",
+			expected: []string{
+				filepath.Join(home, ".local/config"),
+				"/etc/xdg",
+			},
+			actual: &xdg.ConfigDirs,
 		},
 		&envSample{
 			name:     "XDG_STATE_HOME",
@@ -119,6 +130,12 @@ func TestCustomBaseDirs(t *testing.T) {
 			value:    "~/.local/runtime",
 			expected: filepath.Join(home, ".local/runtime"),
 			actual:   &xdg.RuntimeDir,
+		},
+		&envSample{
+			name:     "XDG_BIN_HOME",
+			value:    "~/bin",
+			expected: filepath.Join(home, "bin"),
+			actual:   &xdg.BinHome,
 		},
 	)
 }

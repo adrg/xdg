@@ -16,9 +16,10 @@ The current implementation supports most flavors of Unix, Windows, Mac OS and Pl
 	For more information regarding the Windows Known Folders see:
 	https://docs.microsoft.com/en-us/windows/win32/shell/known-folders
 
-Usage
+# Usage
 
 XDG Base Directory
+
 	package main
 
 	import (
@@ -36,6 +37,7 @@ XDG Base Directory
 		log.Println("Home state directory:", xdg.StateHome)
 		log.Println("Cache directory:", xdg.CacheHome)
 		log.Println("Runtime directory:", xdg.RuntimeDir)
+		log.Println("Home binaries directory:", xdg.BinHome)
 
 		// Other common directories.
 		log.Println("Home directory:", xdg.Home)
@@ -76,6 +78,7 @@ XDG Base Directory
 	}
 
 XDG user directories
+
 	package main
 
 	import (

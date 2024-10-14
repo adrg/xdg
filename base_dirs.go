@@ -11,6 +11,9 @@ const (
 	envStateHome  = "XDG_STATE_HOME"
 	envCacheHome  = "XDG_CACHE_HOME"
 	envRuntimeDir = "XDG_RUNTIME_DIR"
+
+	// Non-standard.
+	envBinHome = "XDG_BIN_HOME"
 )
 
 type baseDirectories struct {
@@ -22,7 +25,8 @@ type baseDirectories struct {
 	cacheHome  string
 	runtime    string
 
-	// Non-standard directories.
+	// Non-standard.
+	binHome      string
 	fonts        []string
 	applications []string
 }

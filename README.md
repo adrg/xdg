@@ -41,8 +41,9 @@ Provides an implementation of the [XDG Base Directory Specification](https://spe
 The specification defines a set of standard paths for storing application files,
 including data and configuration files. For portability and flexibility reasons,
 applications should use the XDG defined locations instead of hardcoding paths.
-The package also includes the locations of well known [user directories](https://wiki.archlinux.org/index.php/XDG_user_directories), as well as
-other common directories such as fonts and applications.
+
+The package also includes the locations of well known [user directories](https://wiki.archlinux.org/index.php/XDG_user_directories),
+support for the non-standard `XDG_BIN_HOME` directory, as well as other common directories such as fonts and applications.
 
 The current implementation supports **most flavors of Unix**, **Windows**, **macOS** and **Plan 9**.  
 On Windows, where XDG environment variables are not usually set, the package uses [Known Folders](https://docs.microsoft.com/en-us/windows/win32/shell/known-folders)
@@ -79,6 +80,7 @@ Sensible fallback locations are used for the folders which are not set.
 | <kbd><b>XDG_STATE_HOME</b></kbd>                               | <kbd>~/.local/state</kbd>                                                 | <kbd>~/Library/Application&nbsp;Support</kbd>                                                                         | <kbd>$home/lib/state</kbd>                                                  |
 | <kbd><b>XDG_CACHE_HOME</b></kbd>                               | <kbd>~/.cache</kbd>                                                       | <kbd>~/Library/Caches</kbd>                                                                                           | <kbd>$home/lib/cache</kbd>                                                  |
 | <kbd><b>XDG_RUNTIME_DIR</b></kbd>                              | <kbd>/run/user/UID</kbd>                                                  | <kbd>~/Library/Application&nbsp;Support</kbd>                                                                         | <kbd>/tmp</kbd>                                                             |
+| <kbd><b>XDG_BIN_HOME</b></kbd>                                 | <kbd>~/.local/bin</kbd>                                                   | <kbd>~/.local/bin</kbd>                                                                                               | <kbd>$home/bin</kbd>                                                        |
 
 </details>
 
@@ -95,6 +97,7 @@ Sensible fallback locations are used for the folders which are not set.
 | <kbd><b>XDG_STATE_HOME</b></kbd>                               | <kbd>LocalAppData</kbd>                                                                   | <kbd>%LOCALAPPDATA%</kbd>                                                        |
 | <kbd><b>XDG_CACHE_HOME</b></kbd>                               | <kbd>LocalAppData\cache</kbd>                                                             | <kbd>%LOCALAPPDATA%\cache</kbd>                                                  |
 | <kbd><b>XDG_RUNTIME_DIR</b></kbd>                              | <kbd>LocalAppData</kbd>                                                                   | <kbd>%LOCALAPPDATA%</kbd>                                                        |
+| <kbd><b>XDG_BIN_HOME</b></kbd>                                 | <kbd>UserProgramFiles</kbd>                                                               | <kbd>%LOCALAPPDATA%/Programs</kbd>                                               |
 
 </details>
 
@@ -163,11 +166,11 @@ as shown in the following tables.
     <summary><strong>Microsoft Windows</strong></summary>
     <br/>
 
-| <a href="#other-directories"><img width="400" height="0"></a> | <a href="#other-directories"><img width="300" height="0"></a><p>Known&nbsp;Folder(s)</p> | <a href="#other-directories"><img width="1300" height="0"></a><p>Fallback(s)</p>                                                        |
-| :-----------------------------------------------------------: | :--------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------: |
-| <kbd><b>Home</b></kbd>                                        | <kbd>Profile</kbd>                                                                       | <kbd>%USERPROFILE%</kbd>                                                                                                                |
-| <kbd><b>Applications</b></kbd>                                | <kbd>Programs</kbd><br/><kbd>CommonPrograms</kbd>                                        | <kbd>%APPDATA%\Microsoft\Windows\Start&nbsp;Menu\Programs</kbd><br/><kbd>%ProgramData%\Microsoft\Windows\Start&nbsp;Menu\Programs</kbd> |
-| <kbd><b>Fonts</b></kbd>                                       | <kbd>Fonts</kbd>                                                                         | <kbd>%SystemRoot%\Fonts</kbd><br/><kbd>%LOCALAPPDATA%\Microsoft\Windows\Fonts</kbd>                                                     |
+| <a href="#other-directories"><img width="400" height="0"></a> | <a href="#other-directories"><img width="300" height="0"></a><p>Known&nbsp;Folder(s)</p>                                                                                               | <a href="#other-directories"><img width="1300" height="0"></a><p>Fallback(s)</p>                                                                                                                                                                                                                     |
+| :-----------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+| <kbd><b>Home</b></kbd>                                        | <kbd>Profile</kbd>                                                                                                                                                                     | <kbd>%USERPROFILE%</kbd>                                                                                                                                                                                                                                                                             |
+| <kbd><b>Applications</b></kbd>                                | <kbd>Programs</kbd><br/><kbd>CommonPrograms</kbd> <br/><kbd>ProgramFiles</kbd><br/><kbd>ProgramFilesCommon</kbd><br/><kbd>UserProgramFiles</kbd><br/><kbd>UserProgramFilesCommon</kbd> | <kbd>%APPDATA%\Microsoft\Windows\Start&nbsp;Menu\Programs</kbd><br/><kbd>%ProgramData%\Microsoft\Windows\Start&nbsp;Menu\Programs</kbd><br/><kbd>%ProgramFiles%</kbd><br/><kbd>%ProgramFiles%\Common Files</kbd><br/><kbd>%LOCALAPPDATA%\Programs</kbd><br/><kbd>%LOCALAPPDATA%\Programs\Common</kbd>|
+| <kbd><b>Fonts</b></kbd>                                       | <kbd>Fonts</kbd>                                                                                                                                                                       | <kbd>%SystemRoot%\Fonts</kbd><br/><kbd>%LOCALAPPDATA%\Microsoft\Windows\Fonts</kbd>                                                                                                                                                                                                                  |
 
 </details>
 
@@ -193,6 +196,7 @@ func main() {
 	log.Println("Home state directory:", xdg.StateHome)
 	log.Println("Cache directory:", xdg.CacheHome)
 	log.Println("Runtime directory:", xdg.RuntimeDir)
+	log.Println("Home binaries directory:", xdg.BinHome)
 
 	// Other common directories.
 	log.Println("Home directory:", xdg.Home)
