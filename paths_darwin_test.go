@@ -23,9 +23,12 @@ func TestDefaultBaseDirs(t *testing.T) {
 			actual:   &xdg.DataHome,
 		},
 		&envSample{
-			name:     "XDG_DATA_DIRS",
-			expected: []string{rootAppSupport},
-			actual:   &xdg.DataDirs,
+			name: "XDG_DATA_DIRS",
+			expected: []string{
+				rootAppSupport,
+				filepath.Join(home, ".local", "share"),
+			},
+			actual: &xdg.DataDirs,
 		},
 		&envSample{
 			name:     "XDG_CONFIG_HOME",
@@ -38,6 +41,7 @@ func TestDefaultBaseDirs(t *testing.T) {
 				filepath.Join(home, "Library", "Preferences"),
 				rootAppSupport,
 				"/Library/Preferences",
+				filepath.Join(home, ".config"),
 			},
 			actual: &xdg.ConfigDirs,
 		},
