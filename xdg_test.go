@@ -214,5 +214,5 @@ func TestNonExistentRuntimeDir(t *testing.T) {
 
 	p, err := xdg.RuntimeFile("app.pid")
 	require.NoError(t, err)
-	require.Equal(t, os.TempDir(), filepath.Dir(p))
+	require.Equal(t, filepath.Clean(os.TempDir()), filepath.Dir(p))
 }
