@@ -161,8 +161,9 @@ func CacheFile(relPath string) (string, error) {
 // The relPath parameter must contain the name of the runtime file, and
 // optionally, a set of parent directories (e.g. appname/app.pid).
 // If the specified directories do not exist, they will be created relative
-// to the base runtime directory. On failure, an error containing the
-// attempted paths is returned.
+// to the base runtime directory. If the base runtime directory does not exist,
+// the operating system's temporary directory is used as a fallback. On failure,
+// an error containing the attempted paths is returned.
 func RuntimeFile(relPath string) (string, error) {
 	return baseDirs.runtimeFile(relPath)
 }

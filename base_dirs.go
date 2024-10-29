@@ -1,6 +1,10 @@
 package xdg
 
-import "github.com/adrg/xdg/internal/pathutil"
+import (
+	"os"
+
+	"github.com/adrg/xdg/internal/pathutil"
+)
 
 // XDG Base Directory environment variables.
 const (
@@ -48,7 +52,13 @@ func (bd baseDirectories) cacheFile(relPath string) (string, error) {
 }
 
 func (bd baseDirectories) runtimeFile(relPath string) (string, error) {
-	return pathutil.Create(relPath, []string{bd.runtime})
+	var paths []string
+	for _, p := range pathutil.Unique([]string{bd.runtime, os.TempDir()}) {
+		if pathutil.Exists(p) {
+			paths = append(paths, p)
+		}
+	}
+	return pathutil.Create(relPath, paths)
 }
 
 func (bd baseDirectories) searchDataFile(relPath string) (string, error) {
