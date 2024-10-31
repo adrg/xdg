@@ -78,5 +78,5 @@ func (bd baseDirectories) searchCacheFile(relPath string) (string, error) {
 }
 
 func (bd baseDirectories) searchRuntimeFile(relPath string) (string, error) {
-	return pathutil.Search(relPath, []string{bd.runtime})
+	return pathutil.Search(relPath, pathutil.Unique([]string{bd.runtime, os.TempDir()}))
 }
