@@ -206,7 +206,7 @@ func SearchCacheFile(relPath string) (string, error) {
 // file is also searched in the operating system's temporary directory in order
 // to cover cases in which the runtime base directory does not exist or is not
 // accessible. If the file cannot be found, an error specifying the searched
-// path is returned.
+// paths is returned.
 func SearchRuntimeFile(relPath string) (string, error) {
 	return baseDirs.searchRuntimeFile(relPath)
 }
