@@ -202,6 +202,7 @@ func TestInvalidPaths(t *testing.T) {
 
 func TestNonExistentRuntimeDir(t *testing.T) {
 	var (
+		runtimeFiles          = []string{"app.pid", "appname/app.pid"}
 		envRuntimeDirVar      = "XDG_RUNTIME_DIR"
 		originalRuntimeDir    = xdg.RuntimeDir
 		nonExistentRuntimeDir = filepath.Join(xdg.Home, "runtime")
@@ -212,7 +213,18 @@ func TestNonExistentRuntimeDir(t *testing.T) {
 	xdg.Reload()
 	require.Equal(t, nonExistentRuntimeDir, xdg.RuntimeDir)
 
-	p, err := xdg.RuntimeFile("app.pid")
-	require.NoError(t, err)
-	require.Equal(t, filepath.Clean(os.TempDir()), filepath.Dir(p))
+	for _, runtimeFile := range runtimeFiles {
+		suggestedPath, err := xdg.RuntimeFile(runtimeFile)
+		require.NoError(t, err)
+		require.Equal(t, true, strings.HasPrefix(suggestedPath, os.TempDir()))
+
+		f, err := os.Create(suggestedPath)
+		require.NoError(t, err)
+		require.NoError(t, f.Close())
+		defer os.Remove(suggestedPath)
+
+		foundPath, err := xdg.SearchRuntimeFile(runtimeFile)
+		require.NoError(t, err)
+		require.Equal(t, suggestedPath, foundPath)
+	}
 }
