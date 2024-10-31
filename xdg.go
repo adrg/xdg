@@ -202,8 +202,11 @@ func SearchCacheFile(relPath string) (string, error) {
 
 // SearchRuntimeFile searches for the specified file in the runtime search path.
 // The relPath parameter must contain the name of the runtime file, and
-// optionally, a set of parent directories (e.g. appname/app.pid). If the
-// file cannot be found, an error specifying the searched path is returned.
+// optionally, a set of parent directories (e.g. appname/app.pid). The runtime
+// file is also searched in the operating system's temporary directory in order
+// to cover cases in which the runtime base directory does not exist or is not
+// accessible. If the file cannot be found, an error specifying the searched
+// path is returned.
 func SearchRuntimeFile(relPath string) (string, error) {
 	return baseDirs.searchRuntimeFile(relPath)
 }
