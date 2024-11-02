@@ -216,12 +216,12 @@ func TestNonExistentRuntimeDir(t *testing.T) {
 	for _, runtimeFile := range runtimeFiles {
 		suggestedPath, err := xdg.RuntimeFile(runtimeFile)
 		require.NoError(t, err)
-		require.Equal(t, true, strings.HasPrefix(suggestedPath, os.TempDir()))
+		require.True(t, strings.HasPrefix(suggestedPath, os.TempDir()))
 
 		f, err := os.Create(suggestedPath)
 		require.NoError(t, err)
-		require.NoError(t, f.Close())
 		defer os.Remove(suggestedPath)
+		require.NoError(t, f.Close())
 
 		foundPath, err := xdg.SearchRuntimeFile(runtimeFile)
 		require.NoError(t, err)
