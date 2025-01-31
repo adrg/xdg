@@ -48,7 +48,7 @@ func ParseConfig(r io.Reader) (*Directories, error) {
 			continue
 		}
 
-		parts := strings.Split(line, "=")
+		parts := strings.SplitN(line, "=", 2)
 		if len(parts) < 2 {
 			continue
 		}
