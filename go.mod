@@ -1,10 +1,11 @@
 module github.com/adrg/xdg
 
 go 1.19
+toolchain go1.24.1
 
 require (
 	github.com/stretchr/testify v1.10.0
-	golang.org/x/sys v0.30.0
+	golang.org/x/sys v0.31.0
 )
 
 require (
