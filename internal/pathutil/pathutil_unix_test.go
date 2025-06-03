@@ -14,12 +14,11 @@ import (
 
 func TestUserHomeDir(t *testing.T) {
 	home := os.Getenv("HOME")
-	defer os.Setenv("HOME", home)
 
 	require.Equal(t, home, pathutil.UserHomeDir())
-
-	os.Unsetenv("HOME")
+	require.NoError(t, os.Unsetenv("HOME"))
 	require.Equal(t, "/", pathutil.UserHomeDir())
+	require.NoError(t, os.Setenv("HOME", home))
 }
 
 func TestExpandHome(t *testing.T) {

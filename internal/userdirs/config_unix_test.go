@@ -18,18 +18,9 @@ func TestParseConfigFile(t *testing.T) {
 	f, err := os.CreateTemp("", "test_parse_config_file")
 	require.NoError(t, err)
 
-	var tmpFileRemoved bool
-	defer func() {
-		if !tmpFileRemoved {
-			os.Remove(f.Name())
-		}
-	}()
-
 	_, err = f.Write([]byte(`XDG_DOWNLOAD_DIR="/home/test/Downloads"`))
 	require.NoError(t, err)
-
-	err = f.Close()
-	require.NoError(t, err)
+	require.NoError(t, f.Close())
 
 	dirs, err := userdirs.ParseConfigFile(f.Name())
 	require.NoError(t, err)
@@ -39,7 +30,6 @@ func TestParseConfigFile(t *testing.T) {
 	// Test non-existent file.
 	err = os.Remove(f.Name())
 	require.NoError(t, err)
-	tmpFileRemoved = true
 
 	dirs, err = userdirs.ParseConfigFile(f.Name())
 	require.Error(t, err)
@@ -86,7 +76,6 @@ func TestParseConfig(t *testing.T) {
 	// Test reader error.
 	f, err := os.CreateTemp("", "test_parse_config")
 	require.NoError(t, err)
-	defer os.Remove(f.Name())
 
 	err = f.Close()
 	require.NoError(t, err)
@@ -94,4 +83,5 @@ func TestParseConfig(t *testing.T) {
 	dirs, err = userdirs.ParseConfig(f)
 	require.Error(t, err)
 	require.Nil(t, dirs)
+	require.NoError(t, os.Remove(f.Name()))
 }

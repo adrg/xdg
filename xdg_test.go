@@ -28,7 +28,7 @@ func testDirs(t *testing.T, samples ...*envSample) {
 			if len(parts) != 2 {
 				continue
 			}
-			os.Setenv(parts[0], parts[1])
+			require.NoError(t, os.Setenv(parts[0], parts[1]))
 		}
 
 		xdg.Reload()
@@ -207,7 +207,6 @@ func TestNonExistentRuntimeDir(t *testing.T) {
 		originalRuntimeDir    = xdg.RuntimeDir
 		nonExistentRuntimeDir = filepath.Join(xdg.Home, "runtime")
 	)
-	defer os.Setenv(envRuntimeDirVar, originalRuntimeDir)
 
 	require.NoError(t, os.Setenv(envRuntimeDirVar, nonExistentRuntimeDir))
 	xdg.Reload()
@@ -220,11 +219,14 @@ func TestNonExistentRuntimeDir(t *testing.T) {
 
 		f, err := os.Create(suggestedPath)
 		require.NoError(t, err)
-		defer os.Remove(suggestedPath)
 		require.NoError(t, f.Close())
 
 		foundPath, err := xdg.SearchRuntimeFile(runtimeFile)
 		require.NoError(t, err)
 		require.Equal(t, suggestedPath, foundPath)
+
+		require.NoError(t, os.Remove(suggestedPath))
 	}
+
+	require.NoError(t, os.Setenv(envRuntimeDirVar, originalRuntimeDir))
 }
