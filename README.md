@@ -266,7 +266,7 @@ func main() {
 
 ## Stargazers over time
 
-[![Stargazers over time](https://starchart.cc/adrg/xdg.svg)](https://starchart.cc/adrg/xdg)
+[![Stargazers over time](https://starchart.cc/adrg/xdg.svg?variant=adaptive)](https://starchart.cc/adrg/xdg)
 
 ## Contributing
 
