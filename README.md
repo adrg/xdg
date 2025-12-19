@@ -274,7 +274,7 @@ Contributions in the form of pull requests, issues or just general feedback,
 are always welcome.  
 See [CONTRIBUTING.MD](CONTRIBUTING.md).
 
-**Contributors**:
+**Contributors**:  
 [adrg](https://github.com/adrg),
 [wichert](https://github.com/wichert),
 [bouncepaw](https://github.com/bouncepaw),
