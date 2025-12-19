@@ -91,7 +91,7 @@ Sensible fallback locations are used for the folders which are not set.
 | <a href="#xdg-base-directory"><img width="400" height="0"></a> | <a href="#xdg-base-directory"><img width="700" height="0"></a><p>Known&nbsp;Folder(s)</p> | <a href="#xdg-base-directory"><img width="900" height="0"></a><p>Fallback(s)</p> |
 | :------------------------------------------------------------: | :---------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------: |
 | <kbd><b>XDG_DATA_HOME</b></kbd>                                | <kbd>LocalAppData</kbd>                                                                   | <kbd>%LOCALAPPDATA%</kbd>                                                        |
-| <kbd><b>XDG_DATA_DIRS</b></kbd>                                | <kbd>RoamingAppData</kbd><br/><kbd>ProgramData</kbd>                                      | <kbd>%APPDATA%</kbd><br/><kbd>%ProgramData%</kbd>                               |
+| <kbd><b>XDG_DATA_DIRS</b></kbd>                                | <kbd>RoamingAppData</kbd><br/><kbd>ProgramData</kbd>                                      | <kbd>%APPDATA%</kbd><br/><kbd>%ProgramData%</kbd>                                |
 | <kbd><b>XDG_CONFIG_HOME</b></kbd>                              | <kbd>LocalAppData</kbd>                                                                   | <kbd>%LOCALAPPDATA%</kbd>                                                        |
 | <kbd><b>XDG_CONFIG_DIRS</b></kbd>                              | <kbd>ProgramData</kbd><br/><kbd>RoamingAppData</kbd>                                      | <kbd>%ProgramData%</kbd><br/><kbd>%APPDATA%</kbd>                                |
 | <kbd><b>XDG_STATE_HOME</b></kbd>                               | <kbd>LocalAppData</kbd>                                                                   | <kbd>%LOCALAPPDATA%</kbd>                                                        |
@@ -286,7 +286,8 @@ See [CONTRIBUTING.MD](CONTRIBUTING.md).
 [GreyXor](https://github.com/GreyXor),
 [Rican7](https://github.com/Rican7),
 [nothub](https://github.com/nothub),
-[korikhin](https://github.com/korikhin).
+[korikhin](https://github.com/korikhin),
+[alexandear](https://github.com/alexandear).
 
 ## References
 
