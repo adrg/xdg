@@ -56,6 +56,7 @@ func TestParseConfig(t *testing.T) {
 		XDG_MUSIC_DIR="$HOME/Music" # Music user directory
 		# XDG_PICTURES_DIR="$HOME/Pictures"
 		XDG_VIDEOS_DIR=""
+		XDG_PROJECTS_DIR="$HOME/Projects"
 
 		NON_XDG_DIR="ignore"
 		XDG_INVALID_DIR="ignore"
@@ -72,6 +73,7 @@ func TestParseConfig(t *testing.T) {
 	require.Equal(t, filepath.Join(home, "Music"), dirs.Music)
 	require.Equal(t, "", dirs.Pictures)
 	require.Equal(t, "", dirs.Videos)
+	require.Equal(t, filepath.Join(home, "Projects"), dirs.Projects)
 
 	// Test reader error.
 	f, err := os.CreateTemp("", "test_parse_config")
