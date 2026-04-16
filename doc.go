@@ -100,6 +100,7 @@ XDG user directories
 		log.Println("Videos directory:", xdg.UserDirs.Videos)
 		log.Println("Templates directory:", xdg.UserDirs.Templates)
 		log.Println("Public directory:", xdg.UserDirs.PublicShare)
+		log.Println("Projects directory:", xdg.UserDirs.Projects)
 	}
 */
 package xdg
