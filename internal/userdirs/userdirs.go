@@ -10,6 +10,7 @@ const (
 	EnvVideosDir      = "XDG_VIDEOS_DIR"
 	EnvTemplatesDir   = "XDG_TEMPLATES_DIR"
 	EnvPublicShareDir = "XDG_PUBLICSHARE_DIR"
+	EnvProjectsDir    = "XDG_PROJECTS_DIR"
 )
 
 // Directories defines the locations of well known user directories.
@@ -37,4 +38,7 @@ type Directories struct {
 
 	// PublicShare defines a suitable location for user shared files.
 	PublicShare string
+
+	// Projects defines a suitable location for user projects.
+	Projects string
 }

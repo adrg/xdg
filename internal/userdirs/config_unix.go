@@ -38,6 +38,7 @@ func ParseConfig(r io.Reader) (*Directories, error) {
 		EnvVideosDir:      &dirs.Videos,
 		EnvTemplatesDir:   &dirs.Templates,
 		EnvPublicShareDir: &dirs.PublicShare,
+		EnvProjectsDir:    &dirs.Projects,
 	}
 
 	scanner := bufio.NewScanner(r)
