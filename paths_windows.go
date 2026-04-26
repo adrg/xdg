@@ -51,6 +51,7 @@ func initUserDirs(home string, kf *knownFolders) {
 	UserDirs.Videos = pathutil.EnvPath(userdirs.EnvVideosDir, kf.videos)
 	UserDirs.Templates = pathutil.EnvPath(userdirs.EnvTemplatesDir, kf.templates)
 	UserDirs.PublicShare = pathutil.EnvPath(userdirs.EnvPublicShareDir, kf.public)
+	UserDirs.Projects = pathutil.EnvPath(userdirs.EnvProjectsDir, kf.projects)
 }
 
 type knownFolders struct {
@@ -69,6 +70,7 @@ type knownFolders struct {
 	videos                 string
 	templates              string
 	public                 string
+	projects               string
 	fonts                  string
 	programs               string
 	commonPrograms         string
@@ -151,6 +153,11 @@ func initKnownFolders(home string) *knownFolders {
 		windows.FOLDERID_Public,
 		[]string{"PUBLIC"},
 		[]string{filepath.Join(kf.userProfiles, "Public")},
+	)
+	kf.projects = pathutil.KnownFolder(
+		nil,
+		nil,
+		[]string{filepath.Join(home, "Projects")},
 	)
 	kf.fonts = pathutil.KnownFolder(
 		windows.FOLDERID_Fonts,

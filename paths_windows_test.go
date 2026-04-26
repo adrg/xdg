@@ -214,6 +214,11 @@ func TestDefaultUserDirs(t *testing.T) {
 			expected: filepath.Join(`C:\`, "Users", "Public"),
 			actual:   &xdg.UserDirs.PublicShare,
 		},
+		&envSample{
+			name:     "XDG_PROJECTS_DIR",
+			expected: filepath.Join(home, "Projects"),
+			actual:   &xdg.UserDirs.Projects,
+		},
 	)
 }
 
@@ -268,6 +273,12 @@ func TestCustomUserDirs(t *testing.T) {
 			value:    filepath.Join(home, "Files/Public"),
 			expected: filepath.Join(home, "Files/Public"),
 			actual:   &xdg.UserDirs.PublicShare,
+		},
+		&envSample{
+			name:     "XDG_PROJECTS_DIR",
+			value:    filepath.Join(home, "Files/Projects"),
+			expected: filepath.Join(home, "Files/Projects"),
+			actual:   &xdg.UserDirs.Projects,
 		},
 	)
 }

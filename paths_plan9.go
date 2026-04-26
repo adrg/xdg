@@ -48,4 +48,5 @@ func initUserDirs(home string) {
 	UserDirs.Videos = pathutil.EnvPath(userdirs.EnvVideosDir, filepath.Join(home, "videos"))
 	UserDirs.Templates = pathutil.EnvPath(userdirs.EnvTemplatesDir, filepath.Join(home, "templates"))
 	UserDirs.PublicShare = pathutil.EnvPath(userdirs.EnvPublicShareDir, filepath.Join(home, "public"))
+	UserDirs.Projects = pathutil.EnvPath(userdirs.EnvProjectsDir, filepath.Join(home, "projects"))
 }
