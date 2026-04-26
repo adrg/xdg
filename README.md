@@ -146,7 +146,7 @@ as shown in the following tables.
 | <kbd><b>XDG_VIDEOS_DIR</b></kbd>                                 | <kbd>Videos</kbd>                                                                           | <kbd>%USERPROFILE%\Videos</kbd>                                                    |
 | <kbd><b>XDG_TEMPLATES_DIR</b></kbd>                              | <kbd>Templates</kbd>                                                                        | <kbd>%APPDATA%\Microsoft\Windows\Templates</kbd>                                   |
 | <kbd><b>XDG_PUBLICSHARE_DIR</b></kbd>                            | <kbd>Public</kbd>                                                                           | <kbd>%PUBLIC%</kbd>                                                                |
-| <kbd><b>XDG_PROJECTS_DIR</b></kbd>                               | -                                                                                           | <kbd>%USERPROFILE%\Projects</kbd>                                                  |
+| <kbd><b>XDG_PROJECTS_DIR</b></kbd>                               | <kbd>-</kbd>                                                                                | <kbd>%USERPROFILE%\Projects</kbd>                                                  |
 
 </details>
 
@@ -290,7 +290,8 @@ See [CONTRIBUTING.MD](CONTRIBUTING.md).
 [Rican7](https://github.com/Rican7),
 [nothub](https://github.com/nothub),
 [korikhin](https://github.com/korikhin),
-[alexandear](https://github.com/alexandear).
+[alexandear](https://github.com/alexandear),
+[shelepuginivan](https://github.com/shelepuginivan).
 
 ## References
 
