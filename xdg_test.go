@@ -14,8 +14,8 @@ import (
 type envSample struct {
 	name     string
 	value    string
-	expected interface{}
-	actual   interface{}
+	expected any
+	actual   any
 }
 
 func testDirs(t *testing.T, samples ...*envSample) {
@@ -46,7 +46,7 @@ func testDirs(t *testing.T, samples ...*envSample) {
 
 	// Test results.
 	for _, sample := range samples {
-		var actual interface{}
+		var actual any
 		switch v := sample.actual.(type) {
 		case *string:
 			actual = *v
