@@ -291,7 +291,8 @@ See [CONTRIBUTING.MD](CONTRIBUTING.md).
 [nothub](https://github.com/nothub),
 [korikhin](https://github.com/korikhin),
 [alexandear](https://github.com/alexandear),
-[shelepuginivan](https://github.com/shelepuginivan).
+[shelepuginivan](https://github.com/shelepuginivan),
+[MD-Mushfiqur123](https://github.com/MD-Mushfiqur123).
 
 ## References
 
