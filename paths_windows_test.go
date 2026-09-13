@@ -54,7 +54,7 @@ func TestDefaultBaseDirs(t *testing.T) {
 		},
 		{
 			name:     "XDG_RUNTIME_DIR",
-			expected: localAppData,
+			expected: os.TempDir(),
 			actual:   &xdg.RuntimeDir,
 		},
 		{

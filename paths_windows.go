@@ -1,6 +1,7 @@
 package xdg
 
 import (
+	"os"
 	"path/filepath"
 
 	"github.com/adrg/xdg/internal/pathutil"
@@ -22,7 +23,8 @@ func initBaseDirs(home string, kf *knownFolders) {
 	baseDirs.config = pathutil.EnvPathList(envConfigDirs, kf.programData, kf.roamingAppData)
 	baseDirs.stateHome = pathutil.EnvPath(envStateHome, kf.localAppData)
 	baseDirs.cacheHome = pathutil.EnvPath(envCacheHome, filepath.Join(kf.localAppData, "cache"))
-	baseDirs.runtime = pathutil.EnvPath(envRuntimeDir, kf.localAppData)
+	// %TEMP% is session-scoped; LocalAppData is persistent. See #120.
+	baseDirs.runtime = pathutil.EnvPath(envRuntimeDir, os.TempDir())
 
 	// Initialize non-standard directories.
 	baseDirs.binHome = pathutil.EnvPath(envBinHome, kf.userProgramFiles)
