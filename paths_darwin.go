@@ -1,6 +1,7 @@
 package xdg
 
 import (
+	"os"
 	"path/filepath"
 
 	"github.com/adrg/xdg/internal/pathutil"
@@ -31,7 +32,7 @@ func initBaseDirs(home string) {
 	)
 	baseDirs.stateHome = pathutil.EnvPath(envStateHome, homeAppSupport)
 	baseDirs.cacheHome = pathutil.EnvPath(envCacheHome, filepath.Join(home, "Library", "Caches"))
-	baseDirs.runtime = pathutil.EnvPath(envRuntimeDir, homeAppSupport)
+	baseDirs.runtime = pathutil.EnvPath(envRuntimeDir, os.TempDir())
 
 	// Initialize non-standard directories.
 	baseDirs.binHome = pathutil.EnvPath(envBinHome, filepath.Join(home, ".local", "bin"))
