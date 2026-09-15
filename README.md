@@ -96,7 +96,7 @@ Sensible fallback locations are used for the folders which are not set.
 | <kbd><b>XDG_CONFIG_DIRS</b></kbd>                              | <kbd>ProgramData</kbd><br/><kbd>RoamingAppData</kbd>                                      | <kbd>%ProgramData%</kbd><br/><kbd>%APPDATA%</kbd>                                |
 | <kbd><b>XDG_STATE_HOME</b></kbd>                               | <kbd>LocalAppData</kbd>                                                                   | <kbd>%LOCALAPPDATA%</kbd>                                                        |
 | <kbd><b>XDG_CACHE_HOME</b></kbd>                               | <kbd>LocalAppData\cache</kbd>                                                             | <kbd>%LOCALAPPDATA%\cache</kbd>                                                  |
-| <kbd><b>XDG_RUNTIME_DIR</b></kbd>                              | <kbd>Temporary</kbd>                                                                      | <kbd>%TEMP%</kbd>                                                                |
+| <kbd><b>XDG_RUNTIME_DIR</b></kbd>                              | <kbd>LocalAppData\Temp</kbd>                                                              | <kbd>%TEMP%</kbd>                                                                |
 | <kbd><b>XDG_BIN_HOME</b></kbd>                                 | <kbd>UserProgramFiles</kbd>                                                               | <kbd>%LOCALAPPDATA%\Programs</kbd>                                               |
 
 </details>

@@ -32,7 +32,6 @@ func initBaseDirs(home string) {
 	)
 	baseDirs.stateHome = pathutil.EnvPath(envStateHome, homeAppSupport)
 	baseDirs.cacheHome = pathutil.EnvPath(envCacheHome, filepath.Join(home, "Library", "Caches"))
-	// Session-scoped temp, not Application Support. See #120.
 	baseDirs.runtime = pathutil.EnvPath(envRuntimeDir, os.TempDir())
 
 	// Initialize non-standard directories.

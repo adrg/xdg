@@ -23,7 +23,6 @@ func initBaseDirs(home string, kf *knownFolders) {
 	baseDirs.config = pathutil.EnvPathList(envConfigDirs, kf.programData, kf.roamingAppData)
 	baseDirs.stateHome = pathutil.EnvPath(envStateHome, kf.localAppData)
 	baseDirs.cacheHome = pathutil.EnvPath(envCacheHome, filepath.Join(kf.localAppData, "cache"))
-	// %TEMP% is session-scoped; LocalAppData is persistent. See #120.
 	baseDirs.runtime = pathutil.EnvPath(envRuntimeDir, os.TempDir())
 
 	// Initialize non-standard directories.
