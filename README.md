@@ -128,7 +128,7 @@ as shown in the following tables.
 | <kbd><b>XDG_VIDEOS_DIR</b></kbd>                                 | <kbd>~/Videos</kbd>                                                         | <kbd>~/Movies</kbd>                                                           | <kbd>$home/videos</kbd>                                                       |
 | <kbd><b>XDG_TEMPLATES_DIR</b></kbd>                              | <kbd>~/Templates</kbd>                                                      | <kbd>~/Templates</kbd>                                                        | <kbd>$home/templates</kbd>                                                    |
 | <kbd><b>XDG_PUBLICSHARE_DIR</b></kbd>                            | <kbd>~/Public</kbd>                                                         | <kbd>~/Public</kbd>                                                           | <kbd>$home/public</kbd>                                                       |
-| <kbd><b>XDG_PROJECTS_DIR</b></kbd>                               | <kbd>~/Projects</kbd>                                                       | <kbd>~/Projects</kbd>                                                         | <kbd>$home/projects</kbd>                                                     |
+| <kbd><b>XDG_PROJECTS_DIR</b></kbd>                               | <kbd>~/Projects</kbd>                                                       | <kbd>~/Documents</kbd>                                                        | <kbd>$home/projects</kbd>                                                     |
 
 </details>
 
