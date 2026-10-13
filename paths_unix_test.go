@@ -265,3 +265,20 @@ func TestHomeNotSet(t *testing.T) {
 	xdg.Reload()
 	require.Equal(t, envHomeVal, xdg.Home)
 }
+
+func TestReloadEscapedUserDirectory(t *testing.T) {
+	// Restore package globals after t.Setenv restores the environment.
+	t.Cleanup(xdg.Reload)
+	configHome := t.TempDir()
+	t.Setenv("XDG_CONFIG_HOME", configHome)
+	t.Setenv("XDG_PICTURES_DIR", "")
+	config := `XDG_PICTURES_DIR="$HOME/Pictures/\$album\\archive"`
+	require.NoError(t, os.WriteFile(filepath.Join(configHome, "user-dirs.dirs"), []byte(config), 0600))
+	xdg.Reload()
+	require.Equal(t, filepath.Join(xdg.Home, `Pictures/$album\archive`), xdg.UserDirs.Pictures)
+
+	// An explicit environment override retains precedence and is not unescaped.
+	t.Setenv("XDG_PICTURES_DIR", `/tmp/Pictures\override`)
+	xdg.Reload()
+	require.Equal(t, `/tmp/Pictures\override`, xdg.UserDirs.Pictures)
+}
