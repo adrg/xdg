@@ -87,3 +87,24 @@ func TestParseConfig(t *testing.T) {
 	require.Nil(t, dirs)
 	require.NoError(t, os.Remove(f.Name()))
 }
+
+func TestParseConfigEscapes(t *testing.T) {
+	for _, tc := range []struct {
+		name, value, want string
+	}{
+		{"quote", `"/tmp/Pictures \"family\""`, `/tmp/Pictures "family"`},
+		{"backslash", `"/tmp/Pictures\\archive"`, `/tmp/Pictures\archive`},
+		{"dollar", `"$HOME/Pictures/\$album"`, filepath.Join(pathutil.UserHomeDir(), "Pictures/$album")},
+		{"backtick", "\"/tmp/Pictures/\\`album\\`\"", "/tmp/Pictures/`album`"},
+		{"unicode", `"/tmp/写真\\集"`, `/tmp/写真\集`},
+		{"trailing backslash", `"/tmp/Pictures\\"`, `/tmp/Pictures\`},
+		{"unterminated quote", `"/tmp/Pictures\"`, ""},
+		{"unterminated escape", `"/tmp/Pictures\`, ""},
+	} {
+		t.Run(tc.name, func(t *testing.T) {
+			dirs, err := userdirs.ParseConfig(strings.NewReader("XDG_PICTURES_DIR=" + tc.value))
+			require.NoError(t, err)
+			require.Equal(t, tc.want, dirs.Pictures)
+		})
+	}
+}
