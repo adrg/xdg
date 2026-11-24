@@ -55,9 +55,6 @@ func Create(name string, paths []string) (string, error) {
 		p = filepath.Join(p, name)
 
 		dir := filepath.Dir(p)
-		if Exists(dir) {
-			return p, nil
-		}
 		if err := os.MkdirAll(dir, os.ModeDir|0o700); err == nil {
 			return p, nil
 		}

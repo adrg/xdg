@@ -141,3 +141,42 @@ func TestEnvPathList(t *testing.T) {
 
 	require.NoError(t, os.Unsetenv("PATHUTIL_TEST_VAR"))
 }
+
+func TestCreateSkipsNonDirectoryParents(t *testing.T) {
+	for _, name := range []string{"config.dat", filepath.Join("app", "config.dat")} {
+		t.Run(name, func(t *testing.T) {
+			first := filepath.Join(t.TempDir(), "first")
+			second := t.TempDir()
+			blocked := filepath.Dir(filepath.Join(first, name))
+			require.NoError(t, os.MkdirAll(filepath.Dir(blocked), 0o700))
+			require.NoError(t, os.WriteFile(blocked, []byte("keep me"), 0o600))
+
+			p, err := pathutil.Create(name, []string{first, second})
+			require.NoError(t, err)
+			require.Equal(t, filepath.Join(second, name), p)
+			require.NoError(t, os.WriteFile(p, []byte("config"), 0o600))
+			contents, err := os.ReadFile(blocked)
+			require.NoError(t, err)
+			require.Equal(t, "keep me", string(contents))
+
+			p, err = pathutil.Create(name, []string{first})
+			require.Error(t, err)
+			require.Empty(t, p)
+			require.Contains(t, err.Error(), blocked)
+		})
+	}
+}
+
+func TestCreateWithSymlinkDirectory(t *testing.T) {
+	dir := t.TempDir()
+	link := filepath.Join(t.TempDir(), "link")
+	require.NoError(t, os.Symlink(dir, link))
+
+	p, err := pathutil.Create("config.dat", []string{link})
+	require.NoError(t, err)
+	require.Equal(t, filepath.Join(link, "config.dat"), p)
+	require.NoError(t, os.WriteFile(p, []byte("config"), 0o600))
+	contents, err := os.ReadFile(filepath.Join(dir, "config.dat"))
+	require.NoError(t, err)
+	require.Equal(t, "config", string(contents))
+}

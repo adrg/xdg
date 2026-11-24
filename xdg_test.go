@@ -230,3 +230,17 @@ func TestNonExistentRuntimeDir(t *testing.T) {
 
 	require.NoError(t, os.Setenv(envRuntimeDirVar, originalRuntimeDir))
 }
+
+func TestDataFileSkipsNonDirectoryParent(t *testing.T) {
+	first, second := t.TempDir(), t.TempDir()
+	t.Cleanup(xdg.Reload)
+	t.Setenv("XDG_DATA_HOME", first)
+	t.Setenv("XDG_DATA_DIRS", second)
+	xdg.Reload()
+	require.NoError(t, os.WriteFile(filepath.Join(first, "app"), []byte("collision"), 0o600))
+
+	p, err := xdg.DataFile(filepath.Join("app", "config.dat"))
+	require.NoError(t, err)
+	require.Equal(t, filepath.Join(second, "app", "config.dat"), p)
+	require.NoError(t, os.WriteFile(p, []byte("config"), 0o600))
+}
