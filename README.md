@@ -20,9 +20,6 @@
         <img alt="MIT license" src="https://img.shields.io/github/license/adrg/xdg">
     </a>
     <br />
-    <a href="https://goreportcard.com/report/github.com/adrg/xdg">
-        <img alt="Go report card" src="https://goreportcard.com/badge/github.com/adrg/xdg">
-    </a>
     <a href="https://github.com/avelino/awesome-go#configuration">
         <img alt="Awesome Go" src="https://awesome.re/mentioned-badge.svg">
     </a>
@@ -292,7 +289,8 @@ See [CONTRIBUTING.MD](CONTRIBUTING.md).
 [korikhin](https://github.com/korikhin),
 [alexandear](https://github.com/alexandear),
 [shelepuginivan](https://github.com/shelepuginivan),
-[MD-Mushfiqur123](https://github.com/MD-Mushfiqur123).
+[MD-Mushfiqur123](https://github.com/MD-Mushfiqur123),
+[dailyun](https://github.com/dailyun).
 
 ## References
 
