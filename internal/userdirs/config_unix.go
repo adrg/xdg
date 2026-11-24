@@ -70,11 +70,17 @@ func ParseConfig(r io.Reader) (*Directories, error) {
 			continue
 		}
 
+		var value strings.Builder
 		for i := 1; i < lenRunes; i++ {
 			if runes[i] == '"' {
-				*field = pathutil.ExpandHome(string(runes[1:i]))
+				*field = pathutil.ExpandHome(value.String())
 				break
 			}
+			// user-dirs.dirs paths are shell-escaped, including quotes.
+			if runes[i] == '\\' && i+1 < lenRunes {
+				i++
+			}
+			value.WriteRune(runes[i])
 		}
 	}
 	if err := scanner.Err(); err != nil {
